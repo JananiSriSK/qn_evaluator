@@ -1,0 +1,344 @@
+[
+  {
+    "course_name": "INTRODUCTION TO OPERATING SYSTEM ",
+    "unit_number": 1,
+    "unit_title": "UNIT I INTRODUCTION ",
+    "subtopic": "Introduction"
+  },
+  {
+    "course_name": "INTRODUCTION TO OPERATING SYSTEM ",
+    "unit_number": 1,
+    "unit_title": "UNIT I INTRODUCTION ",
+    "subtopic": "Operating System Operations"
+  },
+  {
+    "course_name": "INTRODUCTION TO OPERATING SYSTEM ",
+    "unit_number": 1,
+    "unit_title": "UNIT I INTRODUCTION ",
+    "subtopic": "Virtualization"
+  },
+  {
+    "course_name": "INTRODUCTION TO OPERATING SYSTEM ",
+    "unit_number": 1,
+    "unit_title": "UNIT I INTRODUCTION ",
+    "subtopic": "Operating System Services"
+  },
+  {
+    "course_name": "INTRODUCTION TO OPERATING SYSTEM ",
+    "unit_number": 1,
+    "unit_title": "UNIT I INTRODUCTION ",
+    "subtopic": "User and Operating System Interface"
+  },
+  {
+    "course_name": "INTRODUCTION TO OPERATING SYSTEM ",
+    "unit_number": 1,
+    "unit_title": "UNIT I INTRODUCTION ",
+    "subtopic": "System Calls"
+  },
+  {
+    "course_name": "INTRODUCTION TO OPERATING SYSTEM ",
+    "unit_number": 1,
+    "unit_title": "UNIT I INTRODUCTION ",
+    "subtopic": "Operating System Structures."
+  },
+  {
+    "course_name": "INTRODUCTION TO OPERATING SYSTEM ",
+    "unit_number": 2,
+    "unit_title": "UNIT II PROCESS MANAGEMENT",
+    "subtopic": "UNIT II PROCESS MANAGEMENT"
+  },
+  {
+    "course_name": "INTRODUCTION TO OPERATING SYSTEM ",
+    "unit_number": 3,
+    "unit_title": "Process concept - Process Scheduling - Operation on Processes \u2013 Inter process Communication - CPU Scheduling - Scheduling Criteria - Scheduling Algorithms - Multiple-Processor Scheduling.",
+    "subtopic": "Process concept"
+  },
+  {
+    "course_name": "INTRODUCTION TO OPERATING SYSTEM ",
+    "unit_number": 3,
+    "unit_title": "Process concept - Process Scheduling - Operation on Processes \u2013 Inter process Communication - CPU Scheduling - Scheduling Criteria - Scheduling Algorithms - Multiple-Processor Scheduling.",
+    "subtopic": "Process Scheduling"
+  },
+  {
+    "course_name": "INTRODUCTION TO OPERATING SYSTEM ",
+    "unit_number": 3,
+    "unit_title": "Process concept - Process Scheduling - Operation on Processes \u2013 Inter process Communication - CPU Scheduling - Scheduling Criteria - Scheduling Algorithms - Multiple-Processor Scheduling.",
+    "subtopic": "Operation on Processes"
+  },
+  {
+    "course_name": "INTRODUCTION TO OPERATING SYSTEM ",
+    "unit_number": 3,
+    "unit_title": "Process concept - Process Scheduling - Operation on Processes \u2013 Inter process Communication - CPU Scheduling - Scheduling Criteria - Scheduling Algorithms - Multiple-Processor Scheduling.",
+    "subtopic": "Inter process Communication"
+  },
+  {
+    "course_name": "INTRODUCTION TO OPERATING SYSTEM ",
+    "unit_number": 3,
+    "unit_title": "Process concept - Process Scheduling - Operation on Processes \u2013 Inter process Communication - CPU Scheduling - Scheduling Criteria - Scheduling Algorithms - Multiple-Processor Scheduling.",
+    "subtopic": "CPU Scheduling"
+  },
+  {
+    "course_name": "INTRODUCTION TO OPERATING SYSTEM ",
+    "unit_number": 3,
+    "unit_title": "Process concept - Process Scheduling - Operation on Processes \u2013 Inter process Communication - CPU Scheduling - Scheduling Criteria - Scheduling Algorithms - Multiple-Processor Scheduling.",
+    "subtopic": "Scheduling Criteria"
+  },
+  {
+    "course_name": "INTRODUCTION TO OPERATING SYSTEM ",
+    "unit_number": 3,
+    "unit_title": "Process concept - Process Scheduling - Operation on Processes \u2013 Inter process Communication - CPU Scheduling - Scheduling Criteria - Scheduling Algorithms - Multiple-Processor Scheduling.",
+    "subtopic": "Scheduling Algorithms"
+  },
+  {
+    "course_name": "INTRODUCTION TO OPERATING SYSTEM ",
+    "unit_number": 3,
+    "unit_title": "Process concept - Process Scheduling - Operation on Processes \u2013 Inter process Communication - CPU Scheduling - Scheduling Criteria - Scheduling Algorithms - Multiple-Processor Scheduling.",
+    "subtopic": "Multiple"
+  },
+  {
+    "course_name": "INTRODUCTION TO OPERATING SYSTEM ",
+    "unit_number": 3,
+    "unit_title": "Process concept - Process Scheduling - Operation on Processes \u2013 Inter process Communication - CPU Scheduling - Scheduling Criteria - Scheduling Algorithms - Multiple-Processor Scheduling.",
+    "subtopic": "Processor Scheduling."
+  },
+  {
+    "course_name": "INTRODUCTION TO OPERATING SYSTEM ",
+    "unit_number": 4,
+    "unit_title": "UNIT III PROCESS SYNCHRONIZATION ",
+    "subtopic": "Process Synchronization"
+  },
+  {
+    "course_name": "INTRODUCTION TO OPERATING SYSTEM ",
+    "unit_number": 4,
+    "unit_title": "UNIT III PROCESS SYNCHRONIZATION ",
+    "subtopic": "The Critical"
+  },
+  {
+    "course_name": "INTRODUCTION TO OPERATING SYSTEM ",
+    "unit_number": 4,
+    "unit_title": "UNIT III PROCESS SYNCHRONIZATION ",
+    "subtopic": "Section Problem"
+  },
+  {
+    "course_name": "INTRODUCTION TO OPERATING SYSTEM ",
+    "unit_number": 4,
+    "unit_title": "UNIT III PROCESS SYNCHRONIZATION ",
+    "subtopic": "Semaphores"
+  },
+  {
+    "course_name": "INTRODUCTION TO OPERATING SYSTEM ",
+    "unit_number": 4,
+    "unit_title": "UNIT III PROCESS SYNCHRONIZATION ",
+    "subtopic": "Monitors"
+  },
+  {
+    "course_name": "INTRODUCTION TO OPERATING SYSTEM ",
+    "unit_number": 4,
+    "unit_title": "UNIT III PROCESS SYNCHRONIZATION ",
+    "subtopic": "Deadlock Characterization"
+  },
+  {
+    "course_name": "INTRODUCTION TO OPERATING SYSTEM ",
+    "unit_number": 4,
+    "unit_title": "UNIT III PROCESS SYNCHRONIZATION ",
+    "subtopic": "Methods for handling Deadlocks"
+  },
+  {
+    "course_name": "INTRODUCTION TO OPERATING SYSTEM ",
+    "unit_number": 4,
+    "unit_title": "UNIT III PROCESS SYNCHRONIZATION ",
+    "subtopic": "Deadlock Prevention"
+  },
+  {
+    "course_name": "INTRODUCTION TO OPERATING SYSTEM ",
+    "unit_number": 4,
+    "unit_title": "UNIT III PROCESS SYNCHRONIZATION ",
+    "subtopic": "Deadlock avoidance"
+  },
+  {
+    "course_name": "INTRODUCTION TO OPERATING SYSTEM ",
+    "unit_number": 4,
+    "unit_title": "UNIT III PROCESS SYNCHRONIZATION ",
+    "subtopic": "Deadlock Detection"
+  },
+  {
+    "course_name": "INTRODUCTION TO OPERATING SYSTEM ",
+    "unit_number": 4,
+    "unit_title": "UNIT III PROCESS SYNCHRONIZATION ",
+    "subtopic": "Deadlock Recovery."
+  },
+  {
+    "course_name": "INTRODUCTION TO OPERATING SYSTEM ",
+    "unit_number": 5,
+    "unit_title": "UNIT IV MEMORY MANAGEMENT ",
+    "subtopic": "Main Memory"
+  },
+  {
+    "course_name": "INTRODUCTION TO OPERATING SYSTEM ",
+    "unit_number": 5,
+    "unit_title": "UNIT IV MEMORY MANAGEMENT ",
+    "subtopic": "Contiguous Memory allocation"
+  },
+  {
+    "course_name": "INTRODUCTION TO OPERATING SYSTEM ",
+    "unit_number": 5,
+    "unit_title": "UNIT IV MEMORY MANAGEMENT ",
+    "subtopic": "Paging"
+  },
+  {
+    "course_name": "INTRODUCTION TO OPERATING SYSTEM ",
+    "unit_number": 5,
+    "unit_title": "UNIT IV MEMORY MANAGEMENT ",
+    "subtopic": "Swapping"
+  },
+  {
+    "course_name": "INTRODUCTION TO OPERATING SYSTEM ",
+    "unit_number": 5,
+    "unit_title": "UNIT IV MEMORY MANAGEMENT ",
+    "subtopic": "Virtual Memory"
+  },
+  {
+    "course_name": "INTRODUCTION TO OPERATING SYSTEM ",
+    "unit_number": 5,
+    "unit_title": "UNIT IV MEMORY MANAGEMENT ",
+    "subtopic": "Demand Paging"
+  },
+  {
+    "course_name": "INTRODUCTION TO OPERATING SYSTEM ",
+    "unit_number": 5,
+    "unit_title": "UNIT IV MEMORY MANAGEMENT ",
+    "subtopic": "Page Replacement"
+  },
+  {
+    "course_name": "INTRODUCTION TO OPERATING SYSTEM ",
+    "unit_number": 5,
+    "unit_title": "UNIT IV MEMORY MANAGEMENT ",
+    "subtopic": "Thrashing."
+  },
+  {
+    "course_name": "INTRODUCTION TO OPERATING SYSTEM ",
+    "unit_number": 6,
+    "unit_title": "UNIT V FILE SYSTEM ",
+    "subtopic": "Disk Structures"
+  },
+  {
+    "course_name": "INTRODUCTION TO OPERATING SYSTEM ",
+    "unit_number": 6,
+    "unit_title": "UNIT V FILE SYSTEM ",
+    "subtopic": "Disk Scheduling"
+  },
+  {
+    "course_name": "INTRODUCTION TO OPERATING SYSTEM ",
+    "unit_number": 6,
+    "unit_title": "UNIT V FILE SYSTEM ",
+    "subtopic": "File"
+  },
+  {
+    "course_name": "INTRODUCTION TO OPERATING SYSTEM ",
+    "unit_number": 6,
+    "unit_title": "UNIT V FILE SYSTEM ",
+    "subtopic": "System Interface"
+  },
+  {
+    "course_name": "INTRODUCTION TO OPERATING SYSTEM ",
+    "unit_number": 6,
+    "unit_title": "UNIT V FILE SYSTEM ",
+    "subtopic": "File concepts"
+  },
+  {
+    "course_name": "INTRODUCTION TO OPERATING SYSTEM ",
+    "unit_number": 6,
+    "unit_title": "UNIT V FILE SYSTEM ",
+    "subtopic": "Access Methods"
+  },
+  {
+    "course_name": "INTRODUCTION TO OPERATING SYSTEM ",
+    "unit_number": 6,
+    "unit_title": "UNIT V FILE SYSTEM ",
+    "subtopic": "Directory Structure"
+  },
+  {
+    "course_name": "INTRODUCTION TO OPERATING SYSTEM ",
+    "unit_number": 6,
+    "unit_title": "UNIT V FILE SYSTEM ",
+    "subtopic": "File"
+  },
+  {
+    "course_name": "INTRODUCTION TO OPERATING SYSTEM ",
+    "unit_number": 6,
+    "unit_title": "UNIT V FILE SYSTEM ",
+    "subtopic": "System Implementation"
+  },
+  {
+    "course_name": "INTRODUCTION TO OPERATING SYSTEM ",
+    "unit_number": 6,
+    "unit_title": "UNIT V FILE SYSTEM ",
+    "subtopic": "File"
+  },
+  {
+    "course_name": "INTRODUCTION TO OPERATING SYSTEM ",
+    "unit_number": 6,
+    "unit_title": "UNIT V FILE SYSTEM ",
+    "subtopic": "System Structure and Operations"
+  },
+  {
+    "course_name": "INTRODUCTION TO OPERATING SYSTEM ",
+    "unit_number": 6,
+    "unit_title": "UNIT V FILE SYSTEM ",
+    "subtopic": "Directory Implementation"
+  },
+  {
+    "course_name": "INTRODUCTION TO OPERATING SYSTEM ",
+    "unit_number": 6,
+    "unit_title": "UNIT V FILE SYSTEM ",
+    "subtopic": "Allocation Methods"
+  },
+  {
+    "course_name": "INTRODUCTION TO OPERATING SYSTEM ",
+    "unit_number": 6,
+    "unit_title": "UNIT V FILE SYSTEM ",
+    "subtopic": "Free Space management"
+  },
+  {
+    "course_name": "INTRODUCTION TO OPERATING SYSTEM ",
+    "unit_number": 6,
+    "unit_title": "UNIT V FILE SYSTEM ",
+    "subtopic": "File"
+  },
+  {
+    "course_name": "INTRODUCTION TO OPERATING SYSTEM ",
+    "unit_number": 6,
+    "unit_title": "UNIT V FILE SYSTEM ",
+    "subtopic": "System Internals"
+  },
+  {
+    "course_name": "INTRODUCTION TO OPERATING SYSTEM ",
+    "unit_number": 6,
+    "unit_title": "UNIT V FILE SYSTEM ",
+    "subtopic": "File"
+  },
+  {
+    "course_name": "INTRODUCTION TO OPERATING SYSTEM ",
+    "unit_number": 6,
+    "unit_title": "UNIT V FILE SYSTEM ",
+    "subtopic": "System Mounting"
+  },
+  {
+    "course_name": "INTRODUCTION TO OPERATING SYSTEM ",
+    "unit_number": 6,
+    "unit_title": "UNIT V FILE SYSTEM ",
+    "subtopic": "File Sharing"
+  },
+  {
+    "course_name": "INTRODUCTION TO OPERATING SYSTEM ",
+    "unit_number": 6,
+    "unit_title": "UNIT V FILE SYSTEM ",
+    "subtopic": "Virtual File Systems"
+  },
+  {
+    "course_name": "INTRODUCTION TO OPERATING SYSTEM ",
+    "unit_number": 6,
+    "unit_title": "UNIT V FILE SYSTEM ",
+    "subtopic": "Remote File Systems."
+  }
+]

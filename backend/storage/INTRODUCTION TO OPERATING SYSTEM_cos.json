@@ -1,0 +1,26 @@
+[
+  {
+    "id": "CO1",
+    "description": "Articulate the main concepts, key ideas, strengths and limitations of operating systems."
+  },
+  {
+    "id": "CO2",
+    "description": "Design various process scheduling algorithms."
+  },
+  {
+    "id": "CO3",
+    "description": "Understanding process synchronization and deadlock handling."
+  },
+  {
+    "id": "CO4",
+    "description": "Design and implement memory management schemes."
+  },
+  {
+    "id": "CO5",
+    "description": "Understand various file management systems."
+  },
+  {
+    "id": "CO6",
+    "description": "Understand operating system components and services with the recent OS"
+  }
+]
