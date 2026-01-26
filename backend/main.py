@@ -16,6 +16,8 @@ logging.basicConfig(
 )
 logger = logging.getLogger(__name__)
 
+from test_routes import test_router
+
 # Initialize FastAPI app
 app = FastAPI(
     title="Question Intelligence System",
@@ -35,6 +37,9 @@ app.add_middleware(
 # Initialize orchestrator
 STORAGE_PATH = os.path.join(os.path.dirname(__file__), "storage")
 orchestrator = AgentOrchestrator(STORAGE_PATH)
+
+# Include test routes
+app.include_router(test_router)
 
 @app.on_event("startup")
 async def startup_event():
@@ -70,10 +75,17 @@ async def ingest_course(request: IngestCourseRequest):
         if not request.course_outcomes:
             raise HTTPException(status_code=400, detail="Course outcomes cannot be empty")
         
-        # Process course through orchestrator with direct processing
-        result = orchestrator.process_course_direct(
+        # Convert syllabus units to text for canonical processing
+        syllabus_text_parts = []
+        for unit in request.syllabus:
+            unit_text = f"UNIT {unit.unit_number} {unit.title}\n{unit.content}"
+            syllabus_text_parts.append(unit_text)
+        syllabus_text = "\n\n".join(syllabus_text_parts)
+        
+        # Process course through orchestrator with canonical processing
+        result = orchestrator.process_course_canonical(
             course_name=request.course_name,
-            syllabus=request.syllabus,
+            syllabus_text=syllabus_text,
             course_outcomes=request.course_outcomes
         )
         
@@ -117,7 +129,9 @@ async def evaluate_question(request: EvaluateQuestionRequest):
             logger.info(f"Hard boundary enforced: Out-of-syllabus for course: {request.course_name}")
             return EvaluateQuestionResponse(
                 out_of_syllabus=True,
-                reason=result["reason"]
+                reason=result["reason"],
+                similarity_score=result.get("similarity_score"),
+                domain_similarity=result.get("domain_similarity")
             )
         
         # Normal CO prediction response
@@ -221,15 +235,21 @@ async def process_book(course_name: str = Form(...), book_name: str = Form(...),
         if not pdf_bytes:
             raise HTTPException(status_code=400, detail="Empty PDF file")
         
-        # Note: Book processing requires syllabus to be available
-        # For now, return success but indicate syllabus integration needed
+        # Process book through orchestrator
+        result = orchestrator.process_reference_book(
+            course_name=course_name,
+            book_name=book_name,
+            pdf_bytes=pdf_bytes,
+            syllabus=[]  # Will be loaded from storage if needed
+        )
+        
         logger.info(f"Book processing completed for: {book_name}")
         
         return ProcessBookResponse(
-            message="Book uploaded successfully (syllabus integration pending)",
-            book_name=book_name,
-            chunks_processed=0,
-            units_mapped=0
+            message="Book processed successfully",
+            book_name=result["book_name"],
+            chunks_processed=result["chunks_processed"],
+            units_mapped=result.get("chunks_available_for_densification", 0)
         )
         
     except Exception as e:

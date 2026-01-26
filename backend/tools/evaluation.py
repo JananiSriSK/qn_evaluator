@@ -57,8 +57,45 @@ class EvaluationTool:
     
 
     
+    def _validate_with_books(self, question_embedding: np.ndarray, course_name: str, 
+                           unit_title: str, book_storage) -> bool:
+        """Validate question scope using reference books for the matched unit"""
+        if not book_storage:
+            logger.info("Book validation skipped: No book storage available")
+            return True  # No books available, skip validation
+        
+        # Extract unit number from unit title (e.g., "UNIT I" -> 1)
+        unit_number = None
+        if "UNIT" in unit_title.upper():
+            try:
+                roman_to_int = {"I": 1, "II": 2, "III": 3, "IV": 4, "V": 5, "VI": 6}
+                for roman, num in roman_to_int.items():
+                    if roman in unit_title.upper():
+                        unit_number = num
+                        break
+            except:
+                pass
+        
+        if unit_number is None:
+            logger.info(f"Book validation skipped: Cannot extract unit number from '{unit_title}'")
+            return True  # Cannot determine unit number, skip validation
+        
+        # Search book chunks for this specific unit
+        book_results = book_storage.search_book_chunks(course_name, question_embedding, unit_number, k=5)
+        
+        if not book_results:
+            logger.info(f"Book validation skipped: No book content found for course '{course_name}' unit {unit_number}")
+            return True  # No book content for this unit, skip validation
+        
+        # Check if question has semantic alignment with book content
+        BOOK_SIMILARITY_THRESHOLD = 0.4
+        max_book_similarity = max([result["score"] for result in book_results])
+        
+        logger.info(f"Book validation: max similarity = {max_book_similarity:.3f}, threshold = {BOOK_SIMILARITY_THRESHOLD}")
+        
+        return max_book_similarity >= BOOK_SIMILARITY_THRESHOLD
+    
     def _generate_enhanced_explanation(self, prompt: str) -> str:
-        """Generate enhanced explanation using book context"""
         try:
             if self.tokenizer is None or self.model is None:
                 return "Enhanced explanation unavailable due to model loading issues."
@@ -80,9 +117,9 @@ class EvaluationTool:
                           search_results: List[Dict[str, Any]], course_name: str, 
                           book_storage=None, faiss_storage=None) -> Dict[str, Any]:
         """
-        Clean FAISS-only evaluation - NO LLM gates
+        CORRECTED: Unit-conditioned CO selection with domain validation
         """
-        SIMILARITY_THRESHOLD = 0.3  # Lowered from 0.7 - was too restrictive
+        SIMILARITY_THRESHOLD = 0.3
         
         # If no FAISS results → OUT OF SYLLABUS
         if not search_results:
@@ -92,19 +129,74 @@ class EvaluationTool:
                 "similarity_score": 0.0
             }
         
-        # Get best-matched unit from FAISS
+        # Get best-matched unit from FAISS (handle both canonical and densified metadata)
         top_match = search_results[0]
         matched_unit_title = top_match["metadata"]["unit_title"]
-        matched_content = top_match["metadata"].get("subtopic", "Unknown content")
-        similarity_score = top_match["score"]
+        faiss_similarity = top_match["score"]
         
-        # Threshold-based scope decision (NO LLM)
-        if similarity_score < SIMILARITY_THRESHOLD:
+        # Extract subtopic text (handle different metadata structures)
+        if "subtopic" in top_match["metadata"]:
+            # Canonical processing: single subtopic string
+            subtopic_text = top_match["metadata"]["subtopic"]
+        elif "syllabus_subtopics" in top_match["metadata"]:
+            # Densified processing: list of subtopics
+            subtopics_list = top_match["metadata"]["syllabus_subtopics"]
+            if isinstance(subtopics_list, list) and subtopics_list:
+                subtopic_text = subtopics_list[0]  # Use first subtopic for validation
+            else:
+                subtopic_text = str(subtopics_list)
+        else:
+            subtopic_text = "Unknown subtopic"
+        
+        # MANDATORY DEBUG OUTPUT
+        logger.info(f"=== SUBTOPIC VALIDATION DEBUG ===")
+        logger.info(f"Question: {question}")
+        logger.info(f"Matched subtopic: {subtopic_text}")
+        logger.info(f"FAISS similarity: {faiss_similarity:.3f}")
+        
+        # STRICT SUBTOPIC-LEVEL VALIDATION: Generate NEW embedding for subtopic
+        subtopic_embedding = self.embedding_tool.generate_embeddings([subtopic_text])[0]
+        
+        # Compute semantic similarity between question and matched subtopic
+        subtopic_similarity = np.dot(question_embedding, subtopic_embedding)
+        
+        logger.info(f"Subtopic similarity: {subtopic_similarity:.3f}")
+        
+        # ENFORCE STRICT RULE: subtopic similarity threshold
+        SUBTOPIC_SIMILARITY_THRESHOLD = 0.85  # STRICTER: Raised from 0.75 to prevent false positives
+        if subtopic_similarity < SUBTOPIC_SIMILARITY_THRESHOLD:
+            logger.info(f"SCOPE DECISION: OUT_OF_SYLLABUS (subtopic similarity {subtopic_similarity:.3f} < {SUBTOPIC_SIMILARITY_THRESHOLD})")
+            return {
+                "out_of_syllabus": True,
+                "reason": "Question not semantically aligned with matched subtopic",
+                "similarity_score": round(faiss_similarity, 3),
+                "subtopic_similarity": round(subtopic_similarity, 3)
+            }
+        
+        logger.info(f"SCOPE DECISION: IN_SYLLABUS (subtopic similarity {subtopic_similarity:.3f} >= {SUBTOPIC_SIMILARITY_THRESHOLD})")
+        # STRICTER threshold-based scope decision
+        SYLLABUS_SIMILARITY_THRESHOLD = 0.5  # Raised from 0.3 for stricter validation
+        if faiss_similarity < SYLLABUS_SIMILARITY_THRESHOLD:
             return {
                 "out_of_syllabus": True,
                 "reason": "Question similarity below syllabus threshold",
-                "similarity_score": round(similarity_score, 3)
+                "similarity_score": round(faiss_similarity, 3)
             }
+        
+        # BOOK-GROUNDED SCOPE VALIDATION (if books available)
+        if book_storage:
+            logger.info(f"Attempting book validation for course '{course_name}', unit '{matched_unit_title}'")
+            if not self._validate_with_books(question_embedding, course_name, matched_unit_title, book_storage):
+                logger.info("Book validation FAILED - marking as OUT_OF_SYLLABUS")
+                return {
+                    "out_of_syllabus": True,
+                    "reason": "Question not validated by reference book content",
+                    "similarity_score": round(faiss_similarity, 3)
+                }
+            else:
+                logger.info("Book validation PASSED - proceeding to CO selection")
+        else:
+            logger.info("No book storage available - skipping book validation")
         
         # Get course outcomes for CO selection
         if faiss_storage:
@@ -116,22 +208,47 @@ class EvaluationTool:
             return {
                 "out_of_syllabus": True,
                 "reason": "Course outcomes not found",
-                "similarity_score": round(similarity_score, 3)
+                "similarity_score": round(faiss_similarity, 3)
             }
         
-        # Select CO by semantic similarity between question and CO descriptions
-        co_descriptions = [co.description for co in course_outcomes]
+        # UNIT-CONDITIONED CO SELECTION: Filter COs by unit content alignment
+        unit_relevant_cos = []
+        
+        # Use matched subtopic for CO-unit alignment
+        unit_embedding = self.embedding_tool.generate_embeddings([subtopic_text])[0]
+        
+        for co in course_outcomes:
+            co_embedding = self.embedding_tool.generate_embeddings([co.description])[0]
+            
+            # Check if CO semantically aligns with matched unit
+            co_unit_similarity = np.dot(co_embedding, unit_embedding)
+            if co_unit_similarity > 0.4:  # CO must be relevant to unit
+                unit_relevant_cos.append(co)
+        
+        # If no COs align with unit, return indeterminate result
+        if not unit_relevant_cos:
+            return {
+                "out_of_syllabus": False,
+                "predicted_co": "CO could not be confidently determined",
+                "matched_unit": matched_unit_title,
+                "matched_subtopic": subtopic_text,
+                "similarity_score": round(faiss_similarity, 3)
+            }
+        
+        # Select best CO from unit-relevant COs only
+        co_descriptions = [co.description for co in unit_relevant_cos]
         co_embeddings = self.embedding_tool.generate_embeddings(co_descriptions)
         
-        # Find best CO using semantic similarity
+        # Find best CO using semantic similarity with question
         similarities = np.dot(co_embeddings, question_embedding)
         best_co_idx = np.argmax(similarities)
-        best_co = course_outcomes[best_co_idx]
+        best_co = unit_relevant_cos[best_co_idx]
         
         return {
             "out_of_syllabus": False,
             "predicted_co": f"{best_co.id}: {best_co.description}",
             "matched_unit": matched_unit_title,
-            "matched_subtopic": matched_content,
-            "similarity_score": round(similarity_score, 3)
+            "matched_subtopic": subtopic_text,
+            "similarity_score": round(faiss_similarity, 3),
+            "subtopic_similarity": round(subtopic_similarity, 3)
         }

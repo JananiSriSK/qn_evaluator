@@ -38,6 +38,8 @@ class EvaluateQuestionResponse(BaseModel):
     matched_unit: Optional[str] = None
     matched_subtopic: Optional[str] = None
     similarity_score: Optional[float] = None
+    domain_similarity: Optional[float] = None
+    subtopic_similarity: Optional[float] = None
 
 class SubtopicSuggestionRequest(BaseModel):
     """Request model for subtopic suggestion"""

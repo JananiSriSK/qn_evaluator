@@ -24,7 +24,7 @@ class EmbeddingTool:
         # Add query prefix for e5 model (recommended by model authors)
         prefixed_texts = [f"query: {text}" for text in texts]
         
-        embeddings = self.model.encode(prefixed_texts, convert_to_numpy=True)
+        embeddings = self.model.encode(prefixed_texts, convert_to_numpy=True, normalize_embeddings=True)
         logger.debug(f"Generated embeddings for {len(texts)} texts")
         
         return embeddings

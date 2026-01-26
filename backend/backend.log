@@ -1,0 +1,89 @@
+c:\Users\Jananisri\Desktop\study\mcanotes\SEM_4_Project\qn_evaluator\backend\main.py:39: DeprecationWarning: 
+        on_event is deprecated, use lifespan event handlers instead.
+
+        Read more about it in the
+        [FastAPI docs for Lifespan Events](https://fastapi.tiangolo.com/advanced/events/).
+        
+  @app.on_event("startup")
+INFO:     Started server process [31200]
+INFO:     Waiting for application startup.
+2026-01-25 23:59:17,154 - __main__ - INFO - Starting up Question Intelligence System...
+2026-01-25 23:59:17,154 - agent.orchestrator - INFO - Loading all models...
+2026-01-25 23:59:17,154 - tools.enrichment - INFO - Loading flan-t5-small model...
+You are using the default legacy behaviour of the <class 'transformers.models.t5.tokenization_t5.T5Tokenizer'>. This is expected, and simply means that the `legacy` (previous) behavior will be used so nothing changes for you. If you want to use the new behaviour, set `legacy=False`. This should only be set if you understand what it means, and thoroughly read the reason why this was added as explained in https://github.com/huggingface/transformers/pull/24565
+2026-01-25 23:59:21,306 - tools.enrichment - INFO - Flan-T5 model loaded successfully
+2026-01-25 23:59:21,306 - tools.embedder - INFO - Loading e5-small-v2 embedding model...
+2026-01-25 23:59:21,310 - sentence_transformers.SentenceTransformer - INFO - Use pytorch device_name: cpu
+2026-01-25 23:59:21,311 - sentence_transformers.SentenceTransformer - INFO - Load pretrained SentenceTransformer: intfloat/e5-small-v2
+2026-01-25 23:59:26,450 - tools.embedder - INFO - Embedding model loaded successfully
+2026-01-25 23:59:26,450 - tools.subtopic_suggestion - INFO - Loading flan-t5-small model for subtopic suggestion...
+2026-01-25 23:59:29,601 - tools.subtopic_suggestion - INFO - Subtopic suggestion model loaded successfully
+2026-01-25 23:59:29,601 - tools.co_normalization - INFO - Loading flan-t5-small model for CO normalization...
+2026-01-25 23:59:32,466 - tools.co_normalization - INFO - CO normalization model loaded successfully
+2026-01-25 23:59:32,467 - tools.evaluation - INFO - Loading flan-t5-small for explanation generation...
+2026-01-25 23:59:34,924 - tools.evaluation - INFO - Explanation model loaded successfully
+2026-01-25 23:59:36,035 - agent.orchestrator - INFO - All models loaded successfully
+2026-01-25 23:59:36,035 - __main__ - INFO - System startup completed successfully
+INFO:     Application startup complete.
+INFO:     Uvicorn running on http://0.0.0.0:8001 (Press CTRL+C to quit)
+INFO:     127.0.0.1:54685 - "OPTIONS /evaluate-question HTTP/1.1" 200 OK
+2026-01-26 00:01:16,252 - __main__ - INFO - Received question evaluation request for course: INTRODUCTION TO OPERATING SYSTEM 
+2026-01-26 00:01:16,252 - agent.orchestrator - INFO - Starting question evaluation for course: INTRODUCTION TO OPERATING SYSTEM 
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|##########| 1/1 [00:00<00:00, 14.11it/s]
+2026-01-26 00:01:16,333 - tools.faiss_storage - INFO - Loaded 6 course outcomes for course: INTRODUCTION TO OPERATING SYSTEM 
+2026-01-26 00:01:16,333 - tools.faiss_storage - INFO - Loaded existing index for course: INTRODUCTION TO OPERATING SYSTEM 
+2026-01-26 00:01:16,334 - agent.orchestrator - INFO - Course outcomes in memory: 6
+2026-01-26 00:01:16,336 - tools.faiss_storage - INFO - Loaded 6 course outcomes for course: INTRODUCTION TO OPERATING SYSTEM 
+2026-01-26 00:01:16,336 - tools.faiss_storage - INFO - Loaded existing index for course: INTRODUCTION TO OPERATING SYSTEM 
+2026-01-26 00:01:16,336 - agent.orchestrator - INFO - Course outcomes after load: 6
+2026-01-26 00:01:16,336 - tools.evaluation - INFO - === SUBTOPIC VALIDATION DEBUG ===
+2026-01-26 00:01:16,336 - tools.evaluation - INFO - Question: explain os
+2026-01-26 00:01:16,336 - tools.evaluation - INFO - Matched subtopic: Operating System Operations
+2026-01-26 00:01:16,336 - tools.evaluation - INFO - FAISS similarity: 0.884
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|##########| 1/1 [00:00<00:00, 30.79it/s]
+2026-01-26 00:01:16,377 - tools.evaluation - INFO - Subtopic similarity: 0.884
+2026-01-26 00:01:16,377 - tools.evaluation - INFO - SCOPE DECISION: IN_SYLLABUS (subtopic similarity 0.884 >= 0.55)
+2026-01-26 00:01:16,377 - tools.evaluation - INFO - Attempting book validation for course 'INTRODUCTION TO OPERATING SYSTEM ', unit 'INTRODUCTION'
+2026-01-26 00:01:16,377 - tools.evaluation - INFO - Book validation skipped: Cannot extract unit number from 'INTRODUCTION'
+2026-01-26 00:01:16,377 - tools.evaluation - INFO - Book validation PASSED - proceeding to CO selection
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|##########| 1/1 [00:00<00:00, 34.70it/s]
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|##########| 1/1 [00:00<00:00, 25.97it/s]
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|##########| 1/1 [00:00<00:00, 29.27it/s]
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|##########| 1/1 [00:00<00:00, 30.18it/s]
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|##########| 1/1 [00:00<00:00, 32.72it/s]
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|##########| 1/1 [00:00<00:00, 35.68it/s]
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|##########| 1/1 [00:00<00:00, 33.37it/s]
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|##########| 1/1 [00:00<00:00, 13.64it/s]
+2026-01-26 00:01:16,730 - agent.orchestrator - INFO - Question evaluation completed for course: INTRODUCTION TO OPERATING SYSTEM 
+2026-01-26 00:01:16,731 - __main__ - INFO - Question evaluation completed for course: INTRODUCTION TO OPERATING SYSTEM 
+INFO:     127.0.0.1:54685 - "POST /evaluate-question HTTP/1.1" 200 OK
+2026-01-26 00:01:32,208 - __main__ - INFO - Received question evaluation request for course: INTRODUCTION TO OPERATING SYSTEM 
+2026-01-26 00:01:32,208 - agent.orchestrator - INFO - Starting question evaluation for course: INTRODUCTION TO OPERATING SYSTEM 
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|##########| 1/1 [00:00<00:00, 42.50it/s]
+2026-01-26 00:01:32,244 - tools.faiss_storage - INFO - Loaded 6 course outcomes for course: INTRODUCTION TO OPERATING SYSTEM 
+2026-01-26 00:01:32,244 - tools.faiss_storage - INFO - Loaded existing index for course: INTRODUCTION TO OPERATING SYSTEM 
+2026-01-26 00:01:32,244 - agent.orchestrator - INFO - Course outcomes in memory: 6
+2026-01-26 00:01:32,247 - tools.faiss_storage - INFO - Loaded 6 course outcomes for course: INTRODUCTION TO OPERATING SYSTEM 
+2026-01-26 00:01:32,247 - tools.faiss_storage - INFO - Loaded existing index for course: INTRODUCTION TO OPERATING SYSTEM 
+2026-01-26 00:01:32,247 - agent.orchestrator - INFO - Course outcomes after load: 6
+2026-01-26 00:01:32,247 - tools.evaluation - INFO - === SUBTOPIC VALIDATION DEBUG ===
+2026-01-26 00:01:32,247 - tools.evaluation - INFO - Question: explain os
+2026-01-26 00:01:32,247 - tools.evaluation - INFO - Matched subtopic: Operating System Operations
+2026-01-26 00:01:32,247 - tools.evaluation - INFO - FAISS similarity: 0.884
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|##########| 1/1 [00:00<00:00, 39.16it/s]
+2026-01-26 00:01:32,281 - tools.evaluation - INFO - Subtopic similarity: 0.884
+2026-01-26 00:01:32,281 - tools.evaluation - INFO - SCOPE DECISION: IN_SYLLABUS (subtopic similarity 0.884 >= 0.55)
+2026-01-26 00:01:32,281 - tools.evaluation - INFO - Attempting book validation for course 'INTRODUCTION TO OPERATING SYSTEM ', unit 'INTRODUCTION'
+2026-01-26 00:01:32,281 - tools.evaluation - INFO - Book validation skipped: Cannot extract unit number from 'INTRODUCTION'
+2026-01-26 00:01:32,281 - tools.evaluation - INFO - Book validation PASSED - proceeding to CO selection
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|##########| 1/1 [00:00<00:00, 42.06it/s]
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|##########| 1/1 [00:00<00:00, 35.86it/s]
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|##########| 1/1 [00:00<00:00, 43.14it/s]
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|##########| 1/1 [00:00<00:00, 37.20it/s]
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|##########| 1/1 [00:00<00:00, 41.17it/s]
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|##########| 1/1 [00:00<00:00, 48.59it/s]
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|##########| 1/1 [00:00<00:00, 38.77it/s]
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|##########| 1/1 [00:00<00:00, 15.27it/s]
+2026-01-26 00:01:32,571 - agent.orchestrator - INFO - Question evaluation completed for course: INTRODUCTION TO OPERATING SYSTEM 
+2026-01-26 00:01:32,571 - __main__ - INFO - Question evaluation completed for course: INTRODUCTION TO OPERATING SYSTEM 
+INFO:     127.0.0.1:50136 - "POST /evaluate-question HTTP/1.1" 200 OK

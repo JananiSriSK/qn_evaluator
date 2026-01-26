@@ -22,38 +22,26 @@ class BookStorage:
             self.indices[course_name] = faiss.IndexFlatIP(dimension)
             self.metadata[course_name] = []
         
+        # Ensure proper format and manual normalization
+        embeddings = np.array(embeddings, dtype=np.float32)
+        
+        # Manual normalization to avoid FAISS issues
+        for i in range(len(embeddings)):
+            norm = np.linalg.norm(embeddings[i])
+            if norm > 1e-8:
+                embeddings[i] = embeddings[i] / norm
+        
         # Add embeddings to index
-        self.indices[course_name].add(embeddings.astype('float32'))
+        self.indices[course_name].add(embeddings)
         self.metadata[course_name].extend(metadata_list)
         
         logger.info(f"Added {len(embeddings)} book chunks for course: {course_name}")
     
-    def search_book_chunks(self, course_name: str, query_embedding: np.ndarray, 
-                          unit_number: int, k: int = 3) -> List[Dict[str, Any]]:
-        """Search book chunks filtered by unit number"""
-        if course_name not in self.indices:
+    def get_all_chunks(self, course_name: str) -> List[str]:
+        """Get all book chunks for a course"""
+        if course_name not in self.metadata:
             return []
-        
-        # Search all chunks first
-        scores, indices = self.indices[course_name].search(
-            query_embedding.reshape(1, -1).astype('float32'), 
-            min(k * 3, self.indices[course_name].ntotal)  # Get more to filter
-        )
-        
-        # Filter by unit number and return top-k
-        results = []
-        for i, (score, idx) in enumerate(zip(scores[0], indices[0])):
-            if idx < len(self.metadata[course_name]):
-                metadata = self.metadata[course_name][idx]
-                if metadata["unit_number"] == unit_number:
-                    results.append({
-                        "score": float(score),
-                        "metadata": metadata
-                    })
-                    if len(results) >= k:
-                        break
-        
-        return results
+        return [meta["chunk_text"] for meta in self.metadata[course_name]]
     
     def save_book_index(self, course_name: str):
         """Save book index and metadata to disk"""

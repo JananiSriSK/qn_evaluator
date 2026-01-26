@@ -103,6 +103,9 @@ const QuestionForm = () => {
               <div style={{ marginBottom: '10px' }}>
                 <strong>Scope Check:</strong> Out of syllabus
               </div>
+              <div style={{ marginBottom: '10px' }}>
+                <strong>Domain Similarity:</strong> {result.domain_similarity !== undefined ? result.domain_similarity : 'N/A'}
+              </div>
               <div style={{ marginBottom: '10px', color: '#856404' }}>
                 {result.reason}
               </div>
@@ -113,9 +116,16 @@ const QuestionForm = () => {
                 <div style={{ marginBottom: '5px' }}>
                   <strong>Scope Check:</strong> In syllabus
                 </div>
-                <div>
-                  <strong>Similarity Score:</strong> {result.similarity_score !== undefined ? result.similarity_score : 'N/A'}
+                <div style={{ marginBottom: '5px' }}>
+                  <strong>Domain Similarity:</strong> {result.domain_similarity !== undefined ? result.domain_similarity : 'N/A'}
                 </div>
+                <div>
+                  <strong>Subtopic Similarity:</strong> {result.subtopic_similarity !== undefined ? result.subtopic_similarity : 'N/A'}
+                </div>
+              </div>
+
+              <div style={{ marginBottom: '15px' }}>
+                <strong>FAISS Similarity Score:</strong> {result.similarity_score !== undefined ? result.similarity_score : 'N/A'}
               </div>
 
               <div style={{ marginBottom: '15px' }}>
