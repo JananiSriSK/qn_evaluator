@@ -1,7 +1,6 @@
 import { useState } from 'react';
 import IngestCourse from './pages/IngestCourse';
 import EvaluateQuestion from './pages/EvaluateQuestion';
-import BookUploadForm from './components/BookUploadForm';
 
 /**
  * Main Application Component
@@ -48,19 +47,13 @@ function App() {
             onClick={() => setActiveTab('ingest')}
             style={tabStyle(activeTab === 'ingest')}
           >
-            Course Ingestion
+            Course Setup
           </button>
           <button
             onClick={() => setActiveTab('evaluate')}
             style={tabStyle(activeTab === 'evaluate')}
           >
             Question Evaluation
-          </button>
-          <button
-            onClick={() => setActiveTab('books')}
-            style={tabStyle(activeTab === 'books')}
-          >
-            Reference Books
           </button>
         </div>
       </nav>
@@ -69,7 +62,6 @@ function App() {
       <main style={{ backgroundColor: 'white', minHeight: 'calc(100vh - 140px)' }}>
         {activeTab === 'ingest' && <IngestCourse />}
         {activeTab === 'evaluate' && <EvaluateQuestion />}
-        {activeTab === 'books' && <BookUploadForm />}
       </main>
 
       {/* Footer */}

@@ -11,6 +11,7 @@ from tools.book_processor import BookProcessor
 from tools.book_storage import BookStorage
 from tools.unit_densifier import UnitDensifier
 from tools.validation_tester import ValidationTester
+from tools.syllabus_preprocessor import SyllabusPreprocessor
 from services.preprocessing import TextPreprocessor
 import numpy as np
 
@@ -78,21 +79,58 @@ class AgentOrchestrator:
             f"Subject domain: computer science operating systems."
         )
         
-        # Generate and store domain embedding
+        # Generate positive domain embedding
         domain_embedding = self.embedding_tool.generate_embeddings([course_domain_text])[0]
+        
+        # CREATE CONTRASTIVE BOUNDARY EMBEDDING
+        boundary_embedding = self._create_boundary_embedding(course_name, all_concepts)
+        
+        # Store both embeddings
         self.faiss_storage.store_course_domain_embedding(course_name, domain_embedding)
+        if boundary_embedding is not None:
+            self.faiss_storage.store_course_boundary_embedding(course_name, boundary_embedding)
         
         logger.info(f"Generated domain embedding norm: {np.linalg.norm(domain_embedding):.3f}")
+        logger.info(f"Generated boundary embedding norm: {np.linalg.norm(boundary_embedding):.3f}" if boundary_embedding is not None else "No boundary embedding created")
         logger.info(f"Created concept-focused domain embedding with {len(all_concepts)} concepts")
         
-        # VALIDATION TEST: Test domain gate with negative samples
-        validation_result = self.validation_tester.test_cross_domain_rejection(course_name, domain_embedding)
-        logger.info(f"Domain validation test - Rejection rate: {validation_result['rejection_rate']} (passed: {validation_result['validation_passed']})")
-        
-        if not validation_result['validation_passed']:
-            logger.warning(f"Domain gate validation FAILED - rejection rate too low: {validation_result['rejection_rate']}")
+        # VALIDATION TEST: Test contrastive domain gate if boundary exists
+        if boundary_embedding is not None:
+            validation_result = self.validation_tester.test_contrastive_domain_gate(course_name, domain_embedding, boundary_embedding)
+            logger.info(f"Contrastive validation test - Rejection rate: {validation_result['rejection_rate']} (passed: {validation_result['validation_passed']})")
+        else:
+            logger.info("Skipping contrastive validation - no boundary embedding available")
         
         return domain_embedding
+    
+    def _create_boundary_embedding(self, current_course: str, current_concepts: List[str]) -> np.ndarray:
+        """Create boundary embedding from cross-course atomic subtopics"""
+        
+        # Get atomic subtopics from all OTHER courses (exclude current)
+        cross_course_subtopics = self.faiss_storage.get_cross_course_subtopics(exclude_course=current_course)
+        
+        if not cross_course_subtopics:
+            logger.info("No cross-course subtopics available - skipping boundary embedding")
+            return None
+        
+        # Limit to prevent noise and ensure quality
+        boundary_subtopics = cross_course_subtopics[:50]
+        
+        # Generate embeddings for cross-course subtopics
+        boundary_embeddings = self.embedding_tool.generate_embeddings(boundary_subtopics)
+        
+        # Average and normalize to create boundary embedding
+        boundary_embedding = np.mean(boundary_embeddings, axis=0)
+        norm = np.linalg.norm(boundary_embedding)
+        if norm > 0:
+            boundary_embedding = boundary_embedding / norm
+        
+        logger.info(f"Created boundary embedding from {len(boundary_subtopics)} cross-course subtopics")
+        return boundary_embedding
+    
+    def _generate_generic_boundary_concepts(self, domain_concepts: List[str]) -> List[str]:
+        """REMOVED: No longer needed with cross-course subtopic approach"""
+        return []
     
     def _process_with_densification(self, normalized_units, course_outcomes, course_name, book_chunks):
         """Process units with book-based densification"""
@@ -267,24 +305,48 @@ class AgentOrchestrator:
                 logger.info(f"Domain embedding norm: {np.linalg.norm(domain_embedding):.3f}")
             
             if domain_embedding is not None:
-                # Compute cosine similarity (embeddings already normalized)
-                domain_similarity = np.dot(question_embedding, domain_embedding)
+                # Load boundary embedding for contrastive evaluation
+                boundary_embedding = self.faiss_storage.get_course_boundary_embedding(course_name)
                 
-                logger.info(f"Computed DOMAIN similarity: {domain_similarity:.3f}")
-                logger.info(f"DOMAIN GATE: similarity = {domain_similarity:.3f}")
-                
-                DOMAIN_THRESHOLD = 0.75  # STRICTER: Raised from 0.55 to prevent false positives
-                if domain_similarity < DOMAIN_THRESHOLD:
-                    logger.info("DOMAIN GATE FAILED — STOPPING EVALUATION")
-                    logger.info(f"DOMAIN GATE FAILED: {domain_similarity:.3f} < {DOMAIN_THRESHOLD}")
-                    logger.info("---------------------------")
-                    return {
-                        "out_of_syllabus": True,
-                        "reason": "Question outside course domain",
-                        "similarity_score": round(domain_similarity, 3),
-                        "domain_similarity": round(domain_similarity, 3)
-                    }
-                logger.info(f"DOMAIN GATE PASSED: {domain_similarity:.3f} >= {DOMAIN_THRESHOLD}")
+                if boundary_embedding is not None:
+                    # CONTRASTIVE DOMAIN GATE
+                    domain_similarity = np.dot(question_embedding, domain_embedding)
+                    boundary_similarity = np.dot(question_embedding, boundary_embedding)
+                    contrastive_score = domain_similarity - boundary_similarity
+                    
+                    logger.info(f"Domain similarity: {domain_similarity:.3f}")
+                    logger.info(f"Boundary similarity: {boundary_similarity:.3f}")
+                    logger.info(f"CONTRASTIVE score: {contrastive_score:.3f}")
+                    
+                    CONTRASTIVE_THRESHOLD = 0.15  # Require clear domain preference
+                    if contrastive_score < CONTRASTIVE_THRESHOLD:
+                        logger.info("CONTRASTIVE DOMAIN GATE FAILED — STOPPING EVALUATION")
+                        logger.info(f"CONTRASTIVE GATE FAILED: {contrastive_score:.3f} < {CONTRASTIVE_THRESHOLD}")
+                        logger.info("---------------------------")
+                        return {
+                            "out_of_syllabus": True,
+                            "reason": "Question lacks domain-specific focus",
+                            "similarity_score": round(contrastive_score, 3),
+                            "domain_similarity": round(domain_similarity, 3)
+                        }
+                    logger.info(f"CONTRASTIVE GATE PASSED: {contrastive_score:.3f} >= {CONTRASTIVE_THRESHOLD}")
+                else:
+                    # Fallback to simple domain gate if no boundary embedding
+                    domain_similarity = np.dot(question_embedding, domain_embedding)
+                    logger.info(f"Computed DOMAIN similarity: {domain_similarity:.3f}")
+                    
+                    DOMAIN_THRESHOLD = 0.75
+                    if domain_similarity < DOMAIN_THRESHOLD:
+                        logger.info("DOMAIN GATE FAILED — STOPPING EVALUATION")
+                        logger.info(f"DOMAIN GATE FAILED: {domain_similarity:.3f} < {DOMAIN_THRESHOLD}")
+                        logger.info("---------------------------")
+                        return {
+                            "out_of_syllabus": True,
+                            "reason": "Question outside course domain",
+                            "similarity_score": round(domain_similarity, 3),
+                            "domain_similarity": round(domain_similarity, 3)
+                        }
+                    logger.info(f"DOMAIN GATE PASSED: {domain_similarity:.3f} >= {DOMAIN_THRESHOLD}")
             else:
                 logger.info("WARNING: No domain embedding found - skipping domain gate")
                 logger.info("Course needs to be re-ingested to generate domain embedding")

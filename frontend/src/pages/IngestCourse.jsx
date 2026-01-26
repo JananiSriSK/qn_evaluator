@@ -1,4 +1,4 @@
-import CourseForm from '../components/CourseForm';
+import CourseSetupForm from '../components/CourseSetupForm';
 
 /**
  * Course Ingestion Page
@@ -7,7 +7,7 @@ import CourseForm from '../components/CourseForm';
 const IngestCourse = () => {
   return (
     <div>
-      <CourseForm />
+      <CourseSetupForm />
     </div>
   );
 };

@@ -58,9 +58,31 @@ class FAISSStorage:
         """Store course domain embedding for semantic gate validation"""
         self.course_domain_embeddings[course_name] = domain_embedding
     
-    def get_course_domain_embedding(self, course_name: str) -> np.ndarray:
-        """Get course domain embedding for semantic gate validation"""
-        return self.course_domain_embeddings.get(course_name, None)
+    def store_course_boundary_embedding(self, course_name: str, boundary_embedding: np.ndarray):
+        """Store course boundary embedding for contrastive domain gate"""
+        if not hasattr(self, 'course_boundary_embeddings'):
+            self.course_boundary_embeddings = {}
+        self.course_boundary_embeddings[course_name] = boundary_embedding
+    
+    def get_course_boundary_embedding(self, course_name: str) -> np.ndarray:
+        """Get course boundary embedding for contrastive domain gate"""
+        if not hasattr(self, 'course_boundary_embeddings'):
+            self.course_boundary_embeddings = {}
+        return self.course_boundary_embeddings.get(course_name, None)
+    
+    def get_cross_course_subtopics(self, exclude_course: str) -> List[str]:
+        """Get atomic subtopics from all courses except the specified one"""
+        cross_subtopics = []
+        
+        # Iterate through all stored metadata to extract subtopics
+        for metadata_item in self.metadata:
+            course_name = metadata_item.get("course_name", "").strip()
+            if course_name != exclude_course.strip():
+                subtopic = metadata_item.get("subtopic", "")
+                if subtopic and subtopic not in cross_subtopics:
+                    cross_subtopics.append(subtopic)
+        
+        return cross_subtopics
     
     def store_course_outcomes(self, course_name: str, course_outcomes: List[Any]):
         """Store course outcomes separately for CO selection"""
@@ -100,6 +122,12 @@ class FAISSStorage:
             np.save(domain_embedding_path, self.course_domain_embeddings[course_name])
             logger.info(f"Saved course domain embedding for: {course_name}")
         
+        # Save course boundary embedding
+        boundary_embedding_path = os.path.join(self.storage_path, f"{clean_course_name}_boundary.npy")
+        if hasattr(self, 'course_boundary_embeddings') and course_name in self.course_boundary_embeddings:
+            np.save(boundary_embedding_path, self.course_boundary_embeddings[course_name])
+            logger.info(f"Saved course boundary embedding for: {course_name}")
+        
         logger.info(f"FAISS index and metadata saved for course: {course_name}")
         logger.info(f"Saved {len(cos_data)} course outcomes to {co_path}")
     
@@ -132,6 +160,14 @@ class FAISSStorage:
             if os.path.exists(domain_embedding_path):
                 self.course_domain_embeddings[course_name] = np.load(domain_embedding_path)
                 logger.info(f"Loaded course domain embedding for: {course_name}")
+            
+            # Load course boundary embedding
+            boundary_embedding_path = os.path.join(self.storage_path, f"{clean_course_name}_boundary.npy")
+            if os.path.exists(boundary_embedding_path):
+                if not hasattr(self, 'course_boundary_embeddings'):
+                    self.course_boundary_embeddings = {}
+                self.course_boundary_embeddings[course_name] = np.load(boundary_embedding_path)
+                logger.info(f"Loaded course boundary embedding for: {course_name}")
             
             logger.info(f"Loaded existing index for course: {course_name}")
             return True
