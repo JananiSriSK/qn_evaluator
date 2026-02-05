@@ -1,5 +1,6 @@
 from fastapi import FastAPI, HTTPException, UploadFile, File, Form
 from fastapi.middleware.cors import CORSMiddleware
+from contextlib import asynccontextmanager
 import logging
 import os
 from models.schemas import (IngestCourseRequest, IngestCourseResponse, 
@@ -18,11 +19,27 @@ logger = logging.getLogger(__name__)
 
 from test_routes import test_router
 
+from contextlib import asynccontextmanager
+
+@asynccontextmanager
+async def lifespan(app: FastAPI):
+    """Load all models at startup"""
+    logger.info("Starting up Question Intelligence System...")
+    try:
+        orchestrator.load_models()
+        logger.info("System startup completed successfully")
+    except Exception as e:
+        logger.error(f"Failed to load models during startup: {e}")
+        raise
+    yield
+    logger.info("Shutting down Question Intelligence System...")
+
 # Initialize FastAPI app
 app = FastAPI(
     title="Question Intelligence System",
     description="Agent-based system for syllabus-aware CO mapping",
-    version="1.0.0"
+    version="1.0.0",
+    lifespan=lifespan
 )
 
 # Add CORS middleware
@@ -41,16 +58,7 @@ orchestrator = AgentOrchestrator(STORAGE_PATH)
 # Include test routes
 app.include_router(test_router)
 
-@app.on_event("startup")
-async def startup_event():
-    """Load all models at startup"""
-    logger.info("Starting up Question Intelligence System...")
-    try:
-        orchestrator.load_models()
-        logger.info("System startup completed successfully")
-    except Exception as e:
-        logger.error(f"Failed to load models during startup: {e}")
-        raise
+
 
 @app.get("/")
 async def root():
@@ -256,6 +264,29 @@ async def process_book(course_name: str = Form(...), book_name: str = Form(...),
         logger.error(f"Error during book processing: {e}")
         raise HTTPException(status_code=500, detail=f"Internal server error: {str(e)}")
 
+@app.post("/evaluate-system", response_model=dict)
+async def evaluate_system_performance(course_name: str):
+    """
+    Run comprehensive system evaluation with predefined test cases
+    Returns detailed metrics including accuracy, precision, recall, F1-score
+    """
+    try:
+        logger.info(f"Starting system evaluation for course: {course_name}")
+        
+        from tools.system_evaluator import SystemEvaluator
+        evaluator = SystemEvaluator(orchestrator)
+        
+        # Run comprehensive evaluation
+        evaluation_results = evaluator.run_comprehensive_evaluation(course_name)
+        
+        logger.info(f"System evaluation completed for course: {course_name}")
+        return evaluation_results
+        
+    except Exception as e:
+        logger.error(f"Error during system evaluation: {e}")
+        raise HTTPException(status_code=500, detail=f"Evaluation error: {str(e)}")
+
 if __name__ == "__main__":
     import uvicorn
+    logger.info("Starting Question Intelligence System server...")
     uvicorn.run(app, host="0.0.0.0", port=8001)

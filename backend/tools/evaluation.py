@@ -148,38 +148,17 @@ class EvaluationTool:
         else:
             subtopic_text = "Unknown subtopic"
         
-        # MANDATORY DEBUG OUTPUT
-        logger.info(f"=== SUBTOPIC VALIDATION DEBUG ===")
+        # Debug output
         logger.info(f"Question: {question}")
         logger.info(f"Matched subtopic: {subtopic_text}")
         logger.info(f"FAISS similarity: {faiss_similarity:.3f}")
         
-        # STRICT SUBTOPIC-LEVEL VALIDATION: Generate NEW embedding for subtopic
-        subtopic_embedding = self.embedding_tool.generate_embeddings([subtopic_text])[0]
-        
-        # Compute semantic similarity between question and matched subtopic
-        subtopic_similarity = np.dot(question_embedding, subtopic_embedding)
-        
-        logger.info(f"Subtopic similarity: {subtopic_similarity:.3f}")
-        
-        # ENFORCE STRICT RULE: subtopic similarity threshold
-        SUBTOPIC_SIMILARITY_THRESHOLD = 0.85  # STRICTER: Raised from 0.75 to prevent false positives
-        if subtopic_similarity < SUBTOPIC_SIMILARITY_THRESHOLD:
-            logger.info(f"SCOPE DECISION: OUT_OF_SYLLABUS (subtopic similarity {subtopic_similarity:.3f} < {SUBTOPIC_SIMILARITY_THRESHOLD})")
+        # Primary scope decision based on FAISS similarity
+        SIMILARITY_THRESHOLD = 0.3
+        if faiss_similarity < SIMILARITY_THRESHOLD:
             return {
                 "out_of_syllabus": True,
-                "reason": "Question not semantically aligned with matched subtopic",
-                "similarity_score": round(faiss_similarity, 3),
-                "subtopic_similarity": round(subtopic_similarity, 3)
-            }
-        
-        logger.info(f"SCOPE DECISION: IN_SYLLABUS (subtopic similarity {subtopic_similarity:.3f} >= {SUBTOPIC_SIMILARITY_THRESHOLD})")
-        # STRICTER threshold-based scope decision
-        SYLLABUS_SIMILARITY_THRESHOLD = 0.5  # Raised from 0.3 for stricter validation
-        if faiss_similarity < SYLLABUS_SIMILARITY_THRESHOLD:
-            return {
-                "out_of_syllabus": True,
-                "reason": "Question similarity below syllabus threshold",
+                "reason": "Question content not found in course syllabus",
                 "similarity_score": round(faiss_similarity, 3)
             }
         
@@ -249,6 +228,5 @@ class EvaluationTool:
             "predicted_co": f"{best_co.id}: {best_co.description}",
             "matched_unit": matched_unit_title,
             "matched_subtopic": subtopic_text,
-            "similarity_score": round(faiss_similarity, 3),
-            "subtopic_similarity": round(subtopic_similarity, 3)
+            "similarity_score": round(faiss_similarity, 3)
         }
