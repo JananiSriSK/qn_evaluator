@@ -1,0 +1,3520 @@
+{
+  "course_name": "JAVA PROGRAMMING",
+  "units": [
+    {
+      "unit_number": "I",
+      "unit_title": "JAVA BASICS",
+      "topics": [
+        {
+          "topic_name": "Overview of Java",
+          "mapped_course_outcomes": [
+            "CO1"
+          ],
+          "enriched_subtopics_from_books": [
+            "Java Basics",
+            "Java Classes",
+            "Object Creation",
+            "Java Packages",
+            "Memory Management",
+            "Java API",
+            "Multithreading Concepts"
+          ],
+          "source_references": [
+            {
+              "chunk_id": 1906,
+              "book_name": "Java - How to Program 10th Ed - Early Objects Version - Deitel-40-500.pdf",
+              "page": 217
+            },
+            {
+              "chunk_id": 339,
+              "book_name": "core-and-advanced-java-black-book-recommended-by-cdac-revised-and-upgraded-9789351198840-9789386052216_compress-30-400.pdf",
+              "page": 98
+            },
+            {
+              "chunk_id": 9,
+              "book_name": "core-and-advanced-java-black-book-recommended-by-cdac-revised-and-upgraded-9789351198840-9789386052216_compress-30-400.pdf",
+              "page": 4
+            },
+            {
+              "chunk_id": 10,
+              "book_name": "core-and-advanced-java-black-book-recommended-by-cdac-revised-and-upgraded-9789351198840-9789386052216_compress-30-400.pdf",
+              "page": 5
+            },
+            {
+              "chunk_id": 15,
+              "book_name": "core-and-advanced-java-black-book-recommended-by-cdac-revised-and-upgraded-9789351198840-9789386052216_compress-30-400.pdf",
+              "page": 6
+            },
+            {
+              "chunk_id": 1247,
+              "book_name": "Java - How to Program 10th Ed - Early Objects Version - Deitel-40-500.pdf",
+              "page": 21
+            },
+            {
+              "chunk_id": 17,
+              "book_name": "core-and-advanced-java-black-book-recommended-by-cdac-revised-and-upgraded-9789351198840-9789386052216_compress-30-400.pdf",
+              "page": 6
+            },
+            {
+              "chunk_id": 35,
+              "book_name": "core-and-advanced-java-black-book-recommended-by-cdac-revised-and-upgraded-9789351198840-9789386052216_compress-30-400.pdf",
+              "page": 10
+            },
+            {
+              "chunk_id": 8,
+              "book_name": "core-and-advanced-java-black-book-recommended-by-cdac-revised-and-upgraded-9789351198840-9789386052216_compress-30-400.pdf",
+              "page": 4
+            },
+            {
+              "chunk_id": 36,
+              "book_name": "core-and-advanced-java-black-book-recommended-by-cdac-revised-and-upgraded-9789351198840-9789386052216_compress-30-400.pdf",
+              "page": 11
+            }
+          ]
+        },
+        {
+          "topic_name": "Java Fundamentals: Classes, Objects, Methods and Strings",
+          "mapped_course_outcomes": [
+            "CO1"
+          ],
+          "enriched_subtopics_from_books": [
+            "Java Classes",
+            "Object Creation",
+            "Method Overloading",
+            "String Tokenization",
+            "String Manipulation",
+            "Class Variables",
+            "Object Initialization"
+          ],
+          "source_references": [
+            {
+              "chunk_id": 1416,
+              "book_name": "Java - How to Program 10th Ed - Early Objects Version - Deitel-40-500.pdf",
+              "page": 74
+            },
+            {
+              "chunk_id": 2791,
+              "book_name": "java_new.pdf",
+              "page": 34
+            },
+            {
+              "chunk_id": 173,
+              "book_name": "core-and-advanced-java-black-book-recommended-by-cdac-revised-and-upgraded-9789351198840-9789386052216_compress-30-400.pdf",
+              "page": 47
+            },
+            {
+              "chunk_id": 2391,
+              "book_name": "Java - How to Program 10th Ed - Early Objects Version - Deitel-40-500.pdf",
+              "page": 356
+            },
+            {
+              "chunk_id": 1863,
+              "book_name": "Java - How to Program 10th Ed - Early Objects Version - Deitel-40-500.pdf",
+              "page": 205
+            },
+            {
+              "chunk_id": 105,
+              "book_name": "core-and-advanced-java-black-book-recommended-by-cdac-revised-and-upgraded-9789351198840-9789386052216_compress-30-400.pdf",
+              "page": 28
+            },
+            {
+              "chunk_id": 1971,
+              "book_name": "Java - How to Program 10th Ed - Early Objects Version - Deitel-40-500.pdf",
+              "page": 236
+            },
+            {
+              "chunk_id": 36,
+              "book_name": "core-and-advanced-java-black-book-recommended-by-cdac-revised-and-upgraded-9789351198840-9789386052216_compress-30-400.pdf",
+              "page": 11
+            },
+            {
+              "chunk_id": 2388,
+              "book_name": "Java - How to Program 10th Ed - Early Objects Version - Deitel-40-500.pdf",
+              "page": 356
+            },
+            {
+              "chunk_id": 1502,
+              "book_name": "Java - How to Program 10th Ed - Early Objects Version - Deitel-40-500.pdf",
+              "page": 97
+            }
+          ]
+        },
+        {
+          "topic_name": "Methods: A Deeper Look",
+          "mapped_course_outcomes": [
+            "CO1"
+          ],
+          "enriched_subtopics_from_books": [
+            "Method Declarations",
+            "Static Methods",
+            "Instance Methods",
+            "Method Overloading",
+            "Divide and Conquer",
+            "Method Scope",
+            "GUI Methods"
+          ],
+          "source_references": [
+            {
+              "chunk_id": 2297,
+              "book_name": "Java - How to Program 10th Ed - Early Objects Version - Deitel-40-500.pdf",
+              "page": 328
+            },
+            {
+              "chunk_id": 1895,
+              "book_name": "Java - How to Program 10th Ed - Early Objects Version - Deitel-40-500.pdf",
+              "page": 214
+            },
+            {
+              "chunk_id": 1860,
+              "book_name": "Java - How to Program 10th Ed - Early Objects Version - Deitel-40-500.pdf",
+              "page": 204
+            },
+            {
+              "chunk_id": 1865,
+              "book_name": "Java - How to Program 10th Ed - Early Objects Version - Deitel-40-500.pdf",
+              "page": 206
+            },
+            {
+              "chunk_id": 1951,
+              "book_name": "Java - How to Program 10th Ed - Early Objects Version - Deitel-40-500.pdf",
+              "page": 230
+            },
+            {
+              "chunk_id": 1964,
+              "book_name": "Java - How to Program 10th Ed - Early Objects Version - Deitel-40-500.pdf",
+              "page": 234
+            },
+            {
+              "chunk_id": 2670,
+              "book_name": "Java - How to Program 10th Ed - Early Objects Version - Deitel-40-500.pdf",
+              "page": 442
+            },
+            {
+              "chunk_id": 1861,
+              "book_name": "Java - How to Program 10th Ed - Early Objects Version - Deitel-40-500.pdf",
+              "page": 205
+            },
+            {
+              "chunk_id": 1490,
+              "book_name": "Java - How to Program 10th Ed - Early Objects Version - Deitel-40-500.pdf",
+              "page": 94
+            },
+            {
+              "chunk_id": 1982,
+              "book_name": "Java - How to Program 10th Ed - Early Objects Version - Deitel-40-500.pdf",
+              "page": 238
+            }
+          ]
+        },
+        {
+          "topic_name": "Arrays and Array Lists",
+          "mapped_course_outcomes": [
+            "CO1"
+          ],
+          "enriched_subtopics_from_books": [
+            "Array Basics",
+            "Multidimensional Arrays",
+            "ArrayList Methods",
+            "Array Initialization",
+            "Array Indexing",
+            "Array Operations",
+            "ArrayList Size"
+          ],
+          "source_references": [
+            {
+              "chunk_id": 2015,
+              "book_name": "Java - How to Program 10th Ed - Early Objects Version - Deitel-40-500.pdf",
+              "page": 247
+            },
+            {
+              "chunk_id": 2183,
+              "book_name": "Java - How to Program 10th Ed - Early Objects Version - Deitel-40-500.pdf",
+              "page": 298
+            },
+            {
+              "chunk_id": 2186,
+              "book_name": "Java - How to Program 10th Ed - Early Objects Version - Deitel-40-500.pdf",
+              "page": 298
+            },
+            {
+              "chunk_id": 2016,
+              "book_name": "Java - How to Program 10th Ed - Early Objects Version - Deitel-40-500.pdf",
+              "page": 248
+            },
+            {
+              "chunk_id": 2113,
+              "book_name": "Java - How to Program 10th Ed - Early Objects Version - Deitel-40-500.pdf",
+              "page": 276
+            },
+            {
+              "chunk_id": 2020,
+              "book_name": "Java - How to Program 10th Ed - Early Objects Version - Deitel-40-500.pdf",
+              "page": 249
+            },
+            {
+              "chunk_id": 2023,
+              "book_name": "Java - How to Program 10th Ed - Early Objects Version - Deitel-40-500.pdf",
+              "page": 250
+            },
+            {
+              "chunk_id": 2199,
+              "book_name": "Java - How to Program 10th Ed - Early Objects Version - Deitel-40-500.pdf",
+              "page": 302
+            },
+            {
+              "chunk_id": 2036,
+              "book_name": "Java - How to Program 10th Ed - Early Objects Version - Deitel-40-500.pdf",
+              "page": 253
+            },
+            {
+              "chunk_id": 2196,
+              "book_name": "Java - How to Program 10th Ed - Early Objects Version - Deitel-40-500.pdf",
+              "page": 301
+            }
+          ]
+        },
+        {
+          "topic_name": "Classes and Objects: A Deeper Look",
+          "mapped_course_outcomes": [
+            "CO1"
+          ],
+          "enriched_subtopics_from_books": [
+            "Class Constructors",
+            "Access Modifiers",
+            "Object Relationships",
+            "Inheritance Concepts",
+            "Encapsulation Techniques",
+            "Polymorphism Basics",
+            "Composition Methods"
+          ],
+          "source_references": [
+            {
+              "chunk_id": 2269,
+              "book_name": "Java - How to Program 10th Ed - Early Objects Version - Deitel-40-500.pdf",
+              "page": 320
+            },
+            {
+              "chunk_id": 2388,
+              "book_name": "Java - How to Program 10th Ed - Early Objects Version - Deitel-40-500.pdf",
+              "page": 356
+            },
+            {
+              "chunk_id": 410,
+              "book_name": "core-and-advanced-java-black-book-recommended-by-cdac-revised-and-upgraded-9789351198840-9789386052216_compress-30-400.pdf",
+              "page": 120
+            },
+            {
+              "chunk_id": 2752,
+              "book_name": "java_new.pdf",
+              "page": 11
+            },
+            {
+              "chunk_id": 2552,
+              "book_name": "Java - How to Program 10th Ed - Early Objects Version - Deitel-40-500.pdf",
+              "page": 406
+            },
+            {
+              "chunk_id": 1228,
+              "book_name": "Java - How to Program 10th Ed - Early Objects Version - Deitel-40-500.pdf",
+              "page": 16
+            },
+            {
+              "chunk_id": 2428,
+              "book_name": "Java - How to Program 10th Ed - Early Objects Version - Deitel-40-500.pdf",
+              "page": 366
+            },
+            {
+              "chunk_id": 2539,
+              "book_name": "Java - How to Program 10th Ed - Early Objects Version - Deitel-40-500.pdf",
+              "page": 402
+            },
+            {
+              "chunk_id": 2433,
+              "book_name": "Java - How to Program 10th Ed - Early Objects Version - Deitel-40-500.pdf",
+              "page": 368
+            },
+            {
+              "chunk_id": 2427,
+              "book_name": "Java - How to Program 10th Ed - Early Objects Version - Deitel-40-500.pdf",
+              "page": 366
+            }
+          ]
+        },
+        {
+          "topic_name": "Inheritance",
+          "mapped_course_outcomes": [
+            "CO1"
+          ],
+          "enriched_subtopics_from_books": [
+            "Inheritance Basics",
+            "Superclass Subclass",
+            "Types of Inheritance",
+            "Single Inheritance",
+            "Multilevel Inheritance",
+            "Is-a Relationship",
+            "Code Reusability"
+          ],
+          "source_references": [
+            {
+              "chunk_id": 420,
+              "book_name": "core-and-advanced-java-black-book-recommended-by-cdac-revised-and-upgraded-9789351198840-9789386052216_compress-30-400.pdf",
+              "page": 122
+            },
+            {
+              "chunk_id": 421,
+              "book_name": "core-and-advanced-java-black-book-recommended-by-cdac-revised-and-upgraded-9789351198840-9789386052216_compress-30-400.pdf",
+              "page": 122
+            },
+            {
+              "chunk_id": 2513,
+              "book_name": "Java - How to Program 10th Ed - Early Objects Version - Deitel-40-500.pdf",
+              "page": 395
+            },
+            {
+              "chunk_id": 2514,
+              "book_name": "Java - How to Program 10th Ed - Early Objects Version - Deitel-40-500.pdf",
+              "page": 395
+            },
+            {
+              "chunk_id": 2423,
+              "book_name": "Java - How to Program 10th Ed - Early Objects Version - Deitel-40-500.pdf",
+              "page": 365
+            },
+            {
+              "chunk_id": 2421,
+              "book_name": "Java - How to Program 10th Ed - Early Objects Version - Deitel-40-500.pdf",
+              "page": 364
+            },
+            {
+              "chunk_id": 2762,
+              "book_name": "java_new.pdf",
+              "page": 17
+            },
+            {
+              "chunk_id": 2433,
+              "book_name": "Java - How to Program 10th Ed - Early Objects Version - Deitel-40-500.pdf",
+              "page": 368
+            },
+            {
+              "chunk_id": 2427,
+              "book_name": "Java - How to Program 10th Ed - Early Objects Version - Deitel-40-500.pdf",
+              "page": 366
+            },
+            {
+              "chunk_id": 2486,
+              "book_name": "Java - How to Program 10th Ed - Early Objects Version - Deitel-40-500.pdf",
+              "page": 386
+            }
+          ]
+        },
+        {
+          "topic_name": "Polymorphism",
+          "mapped_course_outcomes": [
+            "CO1"
+          ],
+          "enriched_subtopics_from_books": [
+            "Polymorphism Types",
+            "Static Polymorphism",
+            "Dynamic Polymorphism",
+            "Polymorphism Examples",
+            "Inheritance Hierarchy",
+            "Abstract Classes",
+            "Interface Polymorphism"
+          ],
+          "source_references": [
+            {
+              "chunk_id": 2767,
+              "book_name": "java_new.pdf",
+              "page": 21
+            },
+            {
+              "chunk_id": 456,
+              "book_name": "core-and-advanced-java-black-book-recommended-by-cdac-revised-and-upgraded-9789351198840-9789386052216_compress-30-400.pdf",
+              "page": 133
+            },
+            {
+              "chunk_id": 2541,
+              "book_name": "Java - How to Program 10th Ed - Early Objects Version - Deitel-40-500.pdf",
+              "page": 402
+            },
+            {
+              "chunk_id": 2530,
+              "book_name": "Java - How to Program 10th Ed - Early Objects Version - Deitel-40-500.pdf",
+              "page": 400
+            },
+            {
+              "chunk_id": 2658,
+              "book_name": "Java - How to Program 10th Ed - Early Objects Version - Deitel-40-500.pdf",
+              "page": 440
+            },
+            {
+              "chunk_id": 2535,
+              "book_name": "Java - How to Program 10th Ed - Early Objects Version - Deitel-40-500.pdf",
+              "page": 401
+            },
+            {
+              "chunk_id": 2538,
+              "book_name": "Java - How to Program 10th Ed - Early Objects Version - Deitel-40-500.pdf",
+              "page": 402
+            },
+            {
+              "chunk_id": 2659,
+              "book_name": "Java - How to Program 10th Ed - Early Objects Version - Deitel-40-500.pdf",
+              "page": 440
+            },
+            {
+              "chunk_id": 2560,
+              "book_name": "Java - How to Program 10th Ed - Early Objects Version - Deitel-40-500.pdf",
+              "page": 408
+            },
+            {
+              "chunk_id": 455,
+              "book_name": "core-and-advanced-java-black-book-recommended-by-cdac-revised-and-upgraded-9789351198840-9789386052216_compress-30-400.pdf",
+              "page": 132
+            }
+          ]
+        },
+        {
+          "topic_name": "Interfaces",
+          "mapped_course_outcomes": [
+            "CO1"
+          ],
+          "enriched_subtopics_from_books": [
+            "Interface Basics",
+            "Java Interface",
+            "Abstract Methods",
+            "Interface Inheritance",
+            "Implementing Interfaces",
+            "Interface Advantages",
+            "Extending Interfaces"
+          ],
+          "source_references": [
+            {
+              "chunk_id": 2613,
+              "book_name": "Java - How to Program 10th Ed - Early Objects Version - Deitel-40-500.pdf",
+              "page": 425
+            },
+            {
+              "chunk_id": 1024,
+              "book_name": "core-and-advanced-java-black-book-recommended-by-cdac-revised-and-upgraded-9789351198840-9789386052216_compress-30-400.pdf",
+              "page": 322
+            },
+            {
+              "chunk_id": 2666,
+              "book_name": "Java - How to Program 10th Ed - Early Objects Version - Deitel-40-500.pdf",
+              "page": 442
+            },
+            {
+              "chunk_id": 1229,
+              "book_name": "Java - How to Program 10th Ed - Early Objects Version - Deitel-40-500.pdf",
+              "page": 16
+            },
+            {
+              "chunk_id": 2614,
+              "book_name": "Java - How to Program 10th Ed - Early Objects Version - Deitel-40-500.pdf",
+              "page": 425
+            },
+            {
+              "chunk_id": 2537,
+              "book_name": "Java - How to Program 10th Ed - Early Objects Version - Deitel-40-500.pdf",
+              "page": 401
+            },
+            {
+              "chunk_id": 2664,
+              "book_name": "Java - How to Program 10th Ed - Early Objects Version - Deitel-40-500.pdf",
+              "page": 441
+            },
+            {
+              "chunk_id": 2665,
+              "book_name": "Java - How to Program 10th Ed - Early Objects Version - Deitel-40-500.pdf",
+              "page": 441
+            },
+            {
+              "chunk_id": 2771,
+              "book_name": "java_new.pdf",
+              "page": 24
+            },
+            {
+              "chunk_id": 1029,
+              "book_name": "core-and-advanced-java-black-book-recommended-by-cdac-revised-and-upgraded-9789351198840-9789386052216_compress-30-400.pdf",
+              "page": 324
+            }
+          ]
+        },
+        {
+          "topic_name": "Packages",
+          "mapped_course_outcomes": [
+            "CO1"
+          ],
+          "enriched_subtopics_from_books": [
+            "Package Creation",
+            "Built-in Packages",
+            "User Defined Packages",
+            "Package Importing",
+            "Java Packages",
+            "Package Statements",
+            "Class Packages"
+          ],
+          "source_references": [
+            {
+              "chunk_id": 1021,
+              "book_name": "core-and-advanced-java-black-book-recommended-by-cdac-revised-and-upgraded-9789351198840-9789386052216_compress-30-400.pdf",
+              "page": 321
+            },
+            {
+              "chunk_id": 373,
+              "book_name": "core-and-advanced-java-black-book-recommended-by-cdac-revised-and-upgraded-9789351198840-9789386052216_compress-30-400.pdf",
+              "page": 108
+            },
+            {
+              "chunk_id": 376,
+              "book_name": "core-and-advanced-java-black-book-recommended-by-cdac-revised-and-upgraded-9789351198840-9789386052216_compress-30-400.pdf",
+              "page": 109
+            },
+            {
+              "chunk_id": 372,
+              "book_name": "core-and-advanced-java-black-book-recommended-by-cdac-revised-and-upgraded-9789351198840-9789386052216_compress-30-400.pdf",
+              "page": 108
+            },
+            {
+              "chunk_id": 370,
+              "book_name": "core-and-advanced-java-black-book-recommended-by-cdac-revised-and-upgraded-9789351198840-9789386052216_compress-30-400.pdf",
+              "page": 107
+            },
+            {
+              "chunk_id": 377,
+              "book_name": "core-and-advanced-java-black-book-recommended-by-cdac-revised-and-upgraded-9789351198840-9789386052216_compress-30-400.pdf",
+              "page": 109
+            },
+            {
+              "chunk_id": 91,
+              "book_name": "core-and-advanced-java-black-book-recommended-by-cdac-revised-and-upgraded-9789351198840-9789386052216_compress-30-400.pdf",
+              "page": 23
+            },
+            {
+              "chunk_id": 1055,
+              "book_name": "core-and-advanced-java-black-book-recommended-by-cdac-revised-and-upgraded-9789351198840-9789386052216_compress-30-400.pdf",
+              "page": 333
+            },
+            {
+              "chunk_id": 1020,
+              "book_name": "core-and-advanced-java-black-book-recommended-by-cdac-revised-and-upgraded-9789351198840-9789386052216_compress-30-400.pdf",
+              "page": 321
+            },
+            {
+              "chunk_id": 993,
+              "book_name": "core-and-advanced-java-black-book-recommended-by-cdac-revised-and-upgraded-9789351198840-9789386052216_compress-30-400.pdf",
+              "page": 313
+            }
+          ]
+        },
+        {
+          "topic_name": "Exception Handling",
+          "mapped_course_outcomes": [
+            "CO1"
+          ],
+          "enriched_subtopics_from_books": [
+            "Exception Handling Basics",
+            "Types of Exceptions",
+            "Exception Handling Techniques",
+            "Checked Exceptions",
+            "Unchecked Exceptions",
+            "Rethrowing Exceptions",
+            "User Defined Exceptions"
+          ],
+          "source_references": [
+            {
+              "chunk_id": 2681,
+              "book_name": "Java - How to Program 10th Ed - Early Objects Version - Deitel-40-500.pdf",
+              "page": 446
+            },
+            {
+              "chunk_id": 643,
+              "book_name": "core-and-advanced-java-black-book-recommended-by-cdac-revised-and-upgraded-9789351198840-9789386052216_compress-30-400.pdf",
+              "page": 194
+            },
+            {
+              "chunk_id": 2792,
+              "book_name": "java_new.pdf",
+              "page": 35
+            },
+            {
+              "chunk_id": 644,
+              "book_name": "core-and-advanced-java-black-book-recommended-by-cdac-revised-and-upgraded-9789351198840-9789386052216_compress-30-400.pdf",
+              "page": 194
+            },
+            {
+              "chunk_id": 645,
+              "book_name": "core-and-advanced-java-black-book-recommended-by-cdac-revised-and-upgraded-9789351198840-9789386052216_compress-30-400.pdf",
+              "page": 194
+            },
+            {
+              "chunk_id": 2679,
+              "book_name": "Java - How to Program 10th Ed - Early Objects Version - Deitel-40-500.pdf",
+              "page": 445
+            },
+            {
+              "chunk_id": 2713,
+              "book_name": "Java - How to Program 10th Ed - Early Objects Version - Deitel-40-500.pdf",
+              "page": 455
+            },
+            {
+              "chunk_id": 641,
+              "book_name": "core-and-advanced-java-black-book-recommended-by-cdac-revised-and-upgraded-9789351198840-9789386052216_compress-30-400.pdf",
+              "page": 193
+            },
+            {
+              "chunk_id": 674,
+              "book_name": "core-and-advanced-java-black-book-recommended-by-cdac-revised-and-upgraded-9789351198840-9789386052216_compress-30-400.pdf",
+              "page": 205
+            },
+            {
+              "chunk_id": 681,
+              "book_name": "core-and-advanced-java-black-book-recommended-by-cdac-revised-and-upgraded-9789351198840-9789386052216_compress-30-400.pdf",
+              "page": 207
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "unit_number": "II",
+      "unit_title": "GUI, I/O AND NETWORK PROGRAMMING",
+      "topics": [
+        {
+          "topic_name": "AWT & Swings",
+          "mapped_course_outcomes": [
+            "CO2"
+          ],
+          "enriched_subtopics_from_books": [
+            "AWT Event Handling",
+            "Swing Components",
+            "GUI Design",
+            "Java Event Package",
+            "Swing Event Handling",
+            "AWT Graphics"
+          ],
+          "source_references": [
+            {
+              "chunk_id": 1905,
+              "book_name": "Java - How to Program 10th Ed - Early Objects Version - Deitel-40-500.pdf",
+              "page": 216
+            },
+            {
+              "chunk_id": 1903,
+              "book_name": "Java - How to Program 10th Ed - Early Objects Version - Deitel-40-500.pdf",
+              "page": 216
+            },
+            {
+              "chunk_id": 374,
+              "book_name": "core-and-advanced-java-black-book-recommended-by-cdac-revised-and-upgraded-9789351198840-9789386052216_compress-30-400.pdf",
+              "page": 108
+            },
+            {
+              "chunk_id": 2507,
+              "book_name": "Java - How to Program 10th Ed - Early Objects Version - Deitel-40-500.pdf",
+              "page": 393
+            },
+            {
+              "chunk_id": 1031,
+              "book_name": "core-and-advanced-java-black-book-recommended-by-cdac-revised-and-upgraded-9789351198840-9789386052216_compress-30-400.pdf",
+              "page": 325
+            },
+            {
+              "chunk_id": 775,
+              "book_name": "core-and-advanced-java-black-book-recommended-by-cdac-revised-and-upgraded-9789351198840-9789386052216_compress-30-400.pdf",
+              "page": 243
+            },
+            {
+              "chunk_id": 1653,
+              "book_name": "Java - How to Program 10th Ed - Early Objects Version - Deitel-40-500.pdf",
+              "page": 140
+            },
+            {
+              "chunk_id": 1904,
+              "book_name": "Java - How to Program 10th Ed - Early Objects Version - Deitel-40-500.pdf",
+              "page": 216
+            },
+            {
+              "chunk_id": 2382,
+              "book_name": "Java - How to Program 10th Ed - Early Objects Version - Deitel-40-500.pdf",
+              "page": 353
+            },
+            {
+              "chunk_id": 1654,
+              "book_name": "Java - How to Program 10th Ed - Early Objects Version - Deitel-40-500.pdf",
+              "page": 140
+            }
+          ]
+        },
+        {
+          "topic_name": "Strings, Characters and Regular Expressions",
+          "mapped_course_outcomes": [
+            "CO2"
+          ],
+          "enriched_subtopics_from_books": [
+            "String Constructors",
+            "Character Encoding",
+            "Regular Expressions",
+            "String Replacement",
+            "Substring Searching",
+            "Unicode Code Points",
+            "String Manipulation"
+          ],
+          "source_references": [
+            {
+              "chunk_id": 183,
+              "book_name": "core-and-advanced-java-black-book-recommended-by-cdac-revised-and-upgraded-9789351198840-9789386052216_compress-30-400.pdf",
+              "page": 49
+            },
+            {
+              "chunk_id": 2264,
+              "book_name": "Java - How to Program 10th Ed - Early Objects Version - Deitel-40-500.pdf",
+              "page": 317
+            },
+            {
+              "chunk_id": 182,
+              "book_name": "core-and-advanced-java-black-book-recommended-by-cdac-revised-and-upgraded-9789351198840-9789386052216_compress-30-400.pdf",
+              "page": 49
+            },
+            {
+              "chunk_id": 193,
+              "book_name": "core-and-advanced-java-black-book-recommended-by-cdac-revised-and-upgraded-9789351198840-9789386052216_compress-30-400.pdf",
+              "page": 52
+            },
+            {
+              "chunk_id": 130,
+              "book_name": "core-and-advanced-java-black-book-recommended-by-cdac-revised-and-upgraded-9789351198840-9789386052216_compress-30-400.pdf",
+              "page": 35
+            },
+            {
+              "chunk_id": 177,
+              "book_name": "core-and-advanced-java-black-book-recommended-by-cdac-revised-and-upgraded-9789351198840-9789386052216_compress-30-400.pdf",
+              "page": 48
+            },
+            {
+              "chunk_id": 2263,
+              "book_name": "Java - How to Program 10th Ed - Early Objects Version - Deitel-40-500.pdf",
+              "page": 317
+            },
+            {
+              "chunk_id": 196,
+              "book_name": "core-and-advanced-java-black-book-recommended-by-cdac-revised-and-upgraded-9789351198840-9789386052216_compress-30-400.pdf",
+              "page": 53
+            },
+            {
+              "chunk_id": 173,
+              "book_name": "core-and-advanced-java-black-book-recommended-by-cdac-revised-and-upgraded-9789351198840-9789386052216_compress-30-400.pdf",
+              "page": 47
+            },
+            {
+              "chunk_id": 189,
+              "book_name": "core-and-advanced-java-black-book-recommended-by-cdac-revised-and-upgraded-9789351198840-9789386052216_compress-30-400.pdf",
+              "page": 51
+            }
+          ]
+        },
+        {
+          "topic_name": "Files, Streams and Object Serialization",
+          "mapped_course_outcomes": [
+            "CO2"
+          ],
+          "enriched_subtopics_from_books": [
+            "Stream Tokenizer",
+            "Object Serialization",
+            "File Streams",
+            "Input Output Handling",
+            "Stream Classes",
+            "Serialization Process",
+            "Object Streams"
+          ],
+          "source_references": [
+            {
+              "chunk_id": 613,
+              "book_name": "core-and-advanced-java-black-book-recommended-by-cdac-revised-and-upgraded-9789351198840-9789386052216_compress-30-400.pdf",
+              "page": 182
+            },
+            {
+              "chunk_id": 623,
+              "book_name": "core-and-advanced-java-black-book-recommended-by-cdac-revised-and-upgraded-9789351198840-9789386052216_compress-30-400.pdf",
+              "page": 186
+            },
+            {
+              "chunk_id": 615,
+              "book_name": "core-and-advanced-java-black-book-recommended-by-cdac-revised-and-upgraded-9789351198840-9789386052216_compress-30-400.pdf",
+              "page": 183
+            },
+            {
+              "chunk_id": 624,
+              "book_name": "core-and-advanced-java-black-book-recommended-by-cdac-revised-and-upgraded-9789351198840-9789386052216_compress-30-400.pdf",
+              "page": 186
+            },
+            {
+              "chunk_id": 388,
+              "book_name": "core-and-advanced-java-black-book-recommended-by-cdac-revised-and-upgraded-9789351198840-9789386052216_compress-30-400.pdf",
+              "page": 112
+            },
+            {
+              "chunk_id": 833,
+              "book_name": "core-and-advanced-java-black-book-recommended-by-cdac-revised-and-upgraded-9789351198840-9789386052216_compress-30-400.pdf",
+              "page": 264
+            },
+            {
+              "chunk_id": 620,
+              "book_name": "core-and-advanced-java-black-book-recommended-by-cdac-revised-and-upgraded-9789351198840-9789386052216_compress-30-400.pdf",
+              "page": 185
+            },
+            {
+              "chunk_id": 616,
+              "book_name": "core-and-advanced-java-black-book-recommended-by-cdac-revised-and-upgraded-9789351198840-9789386052216_compress-30-400.pdf",
+              "page": 183
+            },
+            {
+              "chunk_id": 390,
+              "book_name": "core-and-advanced-java-black-book-recommended-by-cdac-revised-and-upgraded-9789351198840-9789386052216_compress-30-400.pdf",
+              "page": 113
+            },
+            {
+              "chunk_id": 467,
+              "book_name": "core-and-advanced-java-black-book-recommended-by-cdac-revised-and-upgraded-9789351198840-9789386052216_compress-30-400.pdf",
+              "page": 137
+            }
+          ]
+        },
+        {
+          "topic_name": "Generic collections",
+          "mapped_course_outcomes": [
+            "CO2"
+          ],
+          "enriched_subtopics_from_books": [
+            "Generic Collections",
+            "ArrayList Basics",
+            "Collection Framework",
+            "Java Generics",
+            "List Interfaces",
+            "Deque Operations",
+            "Collection Methods"
+          ],
+          "source_references": [
+            {
+              "chunk_id": 2184,
+              "book_name": "Java - How to Program 10th Ed - Early Objects Version - Deitel-40-500.pdf",
+              "page": 298
+            },
+            {
+              "chunk_id": 2831,
+              "book_name": "java_new.pdf",
+              "page": 57
+            },
+            {
+              "chunk_id": 2169,
+              "book_name": "Java - How to Program 10th Ed - Early Objects Version - Deitel-40-500.pdf",
+              "page": 293
+            },
+            {
+              "chunk_id": 874,
+              "book_name": "core-and-advanced-java-black-book-recommended-by-cdac-revised-and-upgraded-9789351198840-9789386052216_compress-30-400.pdf",
+              "page": 275
+            },
+            {
+              "chunk_id": 2832,
+              "book_name": "java_new.pdf",
+              "page": 57
+            },
+            {
+              "chunk_id": 889,
+              "book_name": "core-and-advanced-java-black-book-recommended-by-cdac-revised-and-upgraded-9789351198840-9789386052216_compress-30-400.pdf",
+              "page": 279
+            },
+            {
+              "chunk_id": 2185,
+              "book_name": "Java - How to Program 10th Ed - Early Objects Version - Deitel-40-500.pdf",
+              "page": 298
+            },
+            {
+              "chunk_id": 844,
+              "book_name": "core-and-advanced-java-black-book-recommended-by-cdac-revised-and-upgraded-9789351198840-9789386052216_compress-30-400.pdf",
+              "page": 267
+            },
+            {
+              "chunk_id": 2829,
+              "book_name": "java_new.pdf",
+              "page": 56
+            },
+            {
+              "chunk_id": 820,
+              "book_name": "core-and-advanced-java-black-book-recommended-by-cdac-revised-and-upgraded-9789351198840-9789386052216_compress-30-400.pdf",
+              "page": 260
+            }
+          ]
+        },
+        {
+          "topic_name": "Generic Classes and Methods",
+          "mapped_course_outcomes": [
+            "CO2"
+          ],
+          "enriched_subtopics_from_books": [
+            "Generic Classes",
+            "Type Parameters",
+            "Raw Types",
+            "Abstract Methods",
+            "Polymorphic Behavior",
+            "Functional Interfaces",
+            "Lambda Expressions"
+          ],
+          "source_references": [
+            {
+              "chunk_id": 2185,
+              "book_name": "Java - How to Program 10th Ed - Early Objects Version - Deitel-40-500.pdf",
+              "page": 298
+            },
+            {
+              "chunk_id": 874,
+              "book_name": "core-and-advanced-java-black-book-recommended-by-cdac-revised-and-upgraded-9789351198840-9789386052216_compress-30-400.pdf",
+              "page": 275
+            },
+            {
+              "chunk_id": 243,
+              "book_name": "core-and-advanced-java-black-book-recommended-by-cdac-revised-and-upgraded-9789351198840-9789386052216_compress-30-400.pdf",
+              "page": 67
+            },
+            {
+              "chunk_id": 2663,
+              "book_name": "Java - How to Program 10th Ed - Early Objects Version - Deitel-40-500.pdf",
+              "page": 441
+            },
+            {
+              "chunk_id": 450,
+              "book_name": "core-and-advanced-java-black-book-recommended-by-cdac-revised-and-upgraded-9789351198840-9789386052216_compress-30-400.pdf",
+              "page": 131
+            },
+            {
+              "chunk_id": 2660,
+              "book_name": "Java - How to Program 10th Ed - Early Objects Version - Deitel-40-500.pdf",
+              "page": 440
+            },
+            {
+              "chunk_id": 2661,
+              "book_name": "Java - How to Program 10th Ed - Early Objects Version - Deitel-40-500.pdf",
+              "page": 440
+            },
+            {
+              "chunk_id": 454,
+              "book_name": "core-and-advanced-java-black-book-recommended-by-cdac-revised-and-upgraded-9789351198840-9789386052216_compress-30-400.pdf",
+              "page": 132
+            },
+            {
+              "chunk_id": 2668,
+              "book_name": "Java - How to Program 10th Ed - Early Objects Version - Deitel-40-500.pdf",
+              "page": 442
+            },
+            {
+              "chunk_id": 1415,
+              "book_name": "Java - How to Program 10th Ed - Early Objects Version - Deitel-40-500.pdf",
+              "page": 73
+            }
+          ]
+        },
+        {
+          "topic_name": "Networking: Manipulating URLs",
+          "mapped_course_outcomes": [
+            "CO2"
+          ],
+          "enriched_subtopics_from_books": [
+            "URL Syntax",
+            "URI Components",
+            "TCP Networking",
+            "UDP Communication",
+            "Socket Addressing",
+            "URL Manipulation",
+            "Network Protocols"
+          ],
+          "source_references": [
+            {
+              "chunk_id": 1149,
+              "book_name": "core-and-advanced-java-black-book-recommended-by-cdac-revised-and-upgraded-9789351198840-9789386052216_compress-30-400.pdf",
+              "page": 364
+            },
+            {
+              "chunk_id": 1173,
+              "book_name": "core-and-advanced-java-black-book-recommended-by-cdac-revised-and-upgraded-9789351198840-9789386052216_compress-30-400.pdf",
+              "page": 369
+            },
+            {
+              "chunk_id": 1153,
+              "book_name": "core-and-advanced-java-black-book-recommended-by-cdac-revised-and-upgraded-9789351198840-9789386052216_compress-30-400.pdf",
+              "page": 364
+            },
+            {
+              "chunk_id": 1154,
+              "book_name": "core-and-advanced-java-black-book-recommended-by-cdac-revised-and-upgraded-9789351198840-9789386052216_compress-30-400.pdf",
+              "page": 365
+            },
+            {
+              "chunk_id": 1148,
+              "book_name": "core-and-advanced-java-black-book-recommended-by-cdac-revised-and-upgraded-9789351198840-9789386052216_compress-30-400.pdf",
+              "page": 363
+            },
+            {
+              "chunk_id": 1174,
+              "book_name": "core-and-advanced-java-black-book-recommended-by-cdac-revised-and-upgraded-9789351198840-9789386052216_compress-30-400.pdf",
+              "page": 369
+            },
+            {
+              "chunk_id": 1151,
+              "book_name": "core-and-advanced-java-black-book-recommended-by-cdac-revised-and-upgraded-9789351198840-9789386052216_compress-30-400.pdf",
+              "page": 364
+            },
+            {
+              "chunk_id": 1175,
+              "book_name": "core-and-advanced-java-black-book-recommended-by-cdac-revised-and-upgraded-9789351198840-9789386052216_compress-30-400.pdf",
+              "page": 369
+            },
+            {
+              "chunk_id": 1150,
+              "book_name": "core-and-advanced-java-black-book-recommended-by-cdac-revised-and-upgraded-9789351198840-9789386052216_compress-30-400.pdf",
+              "page": 364
+            },
+            {
+              "chunk_id": 1177,
+              "book_name": "core-and-advanced-java-black-book-recommended-by-cdac-revised-and-upgraded-9789351198840-9789386052216_compress-30-400.pdf",
+              "page": 370
+            }
+          ]
+        },
+        {
+          "topic_name": "Reading web pages",
+          "mapped_course_outcomes": [
+            "CO2"
+          ],
+          "enriched_subtopics_from_books": [
+            "Web Page Structure",
+            "Java Applets",
+            "BufferedReader Class",
+            "URL Handling",
+            "Networking Basics",
+            "Input Output Streams",
+            "Web Technologies"
+          ],
+          "source_references": [
+            {
+              "chunk_id": 1270,
+              "book_name": "Java - How to Program 10th Ed - Early Objects Version - Deitel-40-500.pdf",
+              "page": 30
+            },
+            {
+              "chunk_id": 38,
+              "book_name": "core-and-advanced-java-black-book-recommended-by-cdac-revised-and-upgraded-9789351198840-9789386052216_compress-30-400.pdf",
+              "page": 11
+            },
+            {
+              "chunk_id": 595,
+              "book_name": "core-and-advanced-java-black-book-recommended-by-cdac-revised-and-upgraded-9789351198840-9789386052216_compress-30-400.pdf",
+              "page": 176
+            },
+            {
+              "chunk_id": 1149,
+              "book_name": "core-and-advanced-java-black-book-recommended-by-cdac-revised-and-upgraded-9789351198840-9789386052216_compress-30-400.pdf",
+              "page": 364
+            },
+            {
+              "chunk_id": 554,
+              "book_name": "core-and-advanced-java-black-book-recommended-by-cdac-revised-and-upgraded-9789351198840-9789386052216_compress-30-400.pdf",
+              "page": 162
+            },
+            {
+              "chunk_id": 551,
+              "book_name": "core-and-advanced-java-black-book-recommended-by-cdac-revised-and-upgraded-9789351198840-9789386052216_compress-30-400.pdf",
+              "page": 161
+            },
+            {
+              "chunk_id": 600,
+              "book_name": "core-and-advanced-java-black-book-recommended-by-cdac-revised-and-upgraded-9789351198840-9789386052216_compress-30-400.pdf",
+              "page": 177
+            },
+            {
+              "chunk_id": 599,
+              "book_name": "core-and-advanced-java-black-book-recommended-by-cdac-revised-and-upgraded-9789351198840-9789386052216_compress-30-400.pdf",
+              "page": 177
+            },
+            {
+              "chunk_id": 1282,
+              "book_name": "Java - How to Program 10th Ed - Early Objects Version - Deitel-40-500.pdf",
+              "page": 34
+            },
+            {
+              "chunk_id": 1271,
+              "book_name": "Java - How to Program 10th Ed - Early Objects Version - Deitel-40-500.pdf",
+              "page": 30
+            }
+          ]
+        },
+        {
+          "topic_name": "Using stream sockets",
+          "mapped_course_outcomes": [
+            "CO2"
+          ],
+          "enriched_subtopics_from_books": [
+            "Stream Sockets Overview",
+            "Socket Creation Methods",
+            "Stream Classes",
+            "Byte Oriented Streams",
+            "Character Streams",
+            "Stream Object Methods"
+          ],
+          "source_references": [
+            {
+              "chunk_id": 469,
+              "book_name": "core-and-advanced-java-black-book-recommended-by-cdac-revised-and-upgraded-9789351198840-9789386052216_compress-30-400.pdf",
+              "page": 138
+            },
+            {
+              "chunk_id": 519,
+              "book_name": "core-and-advanced-java-black-book-recommended-by-cdac-revised-and-upgraded-9789351198840-9789386052216_compress-30-400.pdf",
+              "page": 151
+            },
+            {
+              "chunk_id": 480,
+              "book_name": "core-and-advanced-java-black-book-recommended-by-cdac-revised-and-upgraded-9789351198840-9789386052216_compress-30-400.pdf",
+              "page": 140
+            },
+            {
+              "chunk_id": 471,
+              "book_name": "core-and-advanced-java-black-book-recommended-by-cdac-revised-and-upgraded-9789351198840-9789386052216_compress-30-400.pdf",
+              "page": 138
+            },
+            {
+              "chunk_id": 833,
+              "book_name": "core-and-advanced-java-black-book-recommended-by-cdac-revised-and-upgraded-9789351198840-9789386052216_compress-30-400.pdf",
+              "page": 264
+            },
+            {
+              "chunk_id": 387,
+              "book_name": "core-and-advanced-java-black-book-recommended-by-cdac-revised-and-upgraded-9789351198840-9789386052216_compress-30-400.pdf",
+              "page": 112
+            },
+            {
+              "chunk_id": 620,
+              "book_name": "core-and-advanced-java-black-book-recommended-by-cdac-revised-and-upgraded-9789351198840-9789386052216_compress-30-400.pdf",
+              "page": 185
+            },
+            {
+              "chunk_id": 592,
+              "book_name": "core-and-advanced-java-black-book-recommended-by-cdac-revised-and-upgraded-9789351198840-9789386052216_compress-30-400.pdf",
+              "page": 175
+            },
+            {
+              "chunk_id": 759,
+              "book_name": "core-and-advanced-java-black-book-recommended-by-cdac-revised-and-upgraded-9789351198840-9789386052216_compress-30-400.pdf",
+              "page": 237
+            },
+            {
+              "chunk_id": 470,
+              "book_name": "core-and-advanced-java-black-book-recommended-by-cdac-revised-and-upgraded-9789351198840-9789386052216_compress-30-400.pdf",
+              "page": 138
+            }
+          ]
+        },
+        {
+          "topic_name": "Datagrams",
+          "mapped_course_outcomes": [
+            "CO2"
+          ],
+          "enriched_subtopics_from_books": [
+            "Datagram Basics",
+            "TCP IP Protocol",
+            "Data Hierarchy",
+            "Packet Data",
+            "Network Datagrams",
+            "Datagram Transmission",
+            "Data Serialization"
+          ],
+          "source_references": [
+            {
+              "chunk_id": 1179,
+              "book_name": "core-and-advanced-java-black-book-recommended-by-cdac-revised-and-upgraded-9789351198840-9789386052216_compress-30-400.pdf",
+              "page": 370
+            },
+            {
+              "chunk_id": 1339,
+              "book_name": "Java - How to Program 10th Ed - Early Objects Version - Deitel-40-500.pdf",
+              "page": 51
+            },
+            {
+              "chunk_id": 1385,
+              "book_name": "Java - How to Program 10th Ed - Early Objects Version - Deitel-40-500.pdf",
+              "page": 64
+            },
+            {
+              "chunk_id": 1206,
+              "book_name": "Java - How to Program 10th Ed - Early Objects Version - Deitel-40-500.pdf",
+              "page": 10
+            },
+            {
+              "chunk_id": 2041,
+              "book_name": "Java - How to Program 10th Ed - Early Objects Version - Deitel-40-500.pdf",
+              "page": 255
+            },
+            {
+              "chunk_id": 1213,
+              "book_name": "Java - How to Program 10th Ed - Early Objects Version - Deitel-40-500.pdf",
+              "page": 12
+            },
+            {
+              "chunk_id": 104,
+              "book_name": "core-and-advanced-java-black-book-recommended-by-cdac-revised-and-upgraded-9789351198840-9789386052216_compress-30-400.pdf",
+              "page": 27
+            },
+            {
+              "chunk_id": 250,
+              "book_name": "core-and-advanced-java-black-book-recommended-by-cdac-revised-and-upgraded-9789351198840-9789386052216_compress-30-400.pdf",
+              "page": 71
+            },
+            {
+              "chunk_id": 2015,
+              "book_name": "Java - How to Program 10th Ed - Early Objects Version - Deitel-40-500.pdf",
+              "page": 247
+            },
+            {
+              "chunk_id": 2129,
+              "book_name": "Java - How to Program 10th Ed - Early Objects Version - Deitel-40-500.pdf",
+              "page": 280
+            }
+          ]
+        },
+        {
+          "topic_name": "Multicasting",
+          "mapped_course_outcomes": [
+            "CO2"
+          ],
+          "enriched_subtopics_from_books": [
+            "Multicast Basics",
+            "UDP Multicasting",
+            "Network Protocols",
+            "MulticastSocket Class",
+            "Client Server Models",
+            "Multicast Applications",
+            "Java Networking"
+          ],
+          "source_references": [
+            {
+              "chunk_id": 1153,
+              "book_name": "core-and-advanced-java-black-book-recommended-by-cdac-revised-and-upgraded-9789351198840-9789386052216_compress-30-400.pdf",
+              "page": 364
+            },
+            {
+              "chunk_id": 2545,
+              "book_name": "Java - How to Program 10th Ed - Early Objects Version - Deitel-40-500.pdf",
+              "page": 403
+            },
+            {
+              "chunk_id": 683,
+              "book_name": "core-and-advanced-java-black-book-recommended-by-cdac-revised-and-upgraded-9789351198840-9789386052216_compress-30-400.pdf",
+              "page": 209
+            },
+            {
+              "chunk_id": 2602,
+              "book_name": "Java - How to Program 10th Ed - Early Objects Version - Deitel-40-500.pdf",
+              "page": 422
+            },
+            {
+              "chunk_id": 759,
+              "book_name": "core-and-advanced-java-black-book-recommended-by-cdac-revised-and-upgraded-9789351198840-9789386052216_compress-30-400.pdf",
+              "page": 237
+            },
+            {
+              "chunk_id": 816,
+              "book_name": "core-and-advanced-java-black-book-recommended-by-cdac-revised-and-upgraded-9789351198840-9789386052216_compress-30-400.pdf",
+              "page": 257
+            },
+            {
+              "chunk_id": 765,
+              "book_name": "core-and-advanced-java-black-book-recommended-by-cdac-revised-and-upgraded-9789351198840-9789386052216_compress-30-400.pdf",
+              "page": 239
+            },
+            {
+              "chunk_id": 760,
+              "book_name": "core-and-advanced-java-black-book-recommended-by-cdac-revised-and-upgraded-9789351198840-9789386052216_compress-30-400.pdf",
+              "page": 237
+            },
+            {
+              "chunk_id": 1150,
+              "book_name": "core-and-advanced-java-black-book-recommended-by-cdac-revised-and-upgraded-9789351198840-9789386052216_compress-30-400.pdf",
+              "page": 364
+            },
+            {
+              "chunk_id": 1269,
+              "book_name": "Java - How to Program 10th Ed - Early Objects Version - Deitel-40-500.pdf",
+              "page": 30
+            }
+          ]
+        },
+        {
+          "topic_name": "Multicasting sockets",
+          "mapped_course_outcomes": [
+            "CO2"
+          ],
+          "enriched_subtopics_from_books": [
+            "Multicast Socket Basics",
+            "UDP Multicasting",
+            "Socket Addressing",
+            "Multicast Groups",
+            "Socket Permissions",
+            "Network Protocols",
+            "Multicast Messaging"
+          ],
+          "source_references": [
+            {
+              "chunk_id": 1153,
+              "book_name": "core-and-advanced-java-black-book-recommended-by-cdac-revised-and-upgraded-9789351198840-9789386052216_compress-30-400.pdf",
+              "page": 364
+            },
+            {
+              "chunk_id": 1154,
+              "book_name": "core-and-advanced-java-black-book-recommended-by-cdac-revised-and-upgraded-9789351198840-9789386052216_compress-30-400.pdf",
+              "page": 365
+            },
+            {
+              "chunk_id": 1164,
+              "book_name": "core-and-advanced-java-black-book-recommended-by-cdac-revised-and-upgraded-9789351198840-9789386052216_compress-30-400.pdf",
+              "page": 367
+            },
+            {
+              "chunk_id": 1173,
+              "book_name": "core-and-advanced-java-black-book-recommended-by-cdac-revised-and-upgraded-9789351198840-9789386052216_compress-30-400.pdf",
+              "page": 369
+            },
+            {
+              "chunk_id": 1163,
+              "book_name": "core-and-advanced-java-black-book-recommended-by-cdac-revised-and-upgraded-9789351198840-9789386052216_compress-30-400.pdf",
+              "page": 366
+            },
+            {
+              "chunk_id": 1152,
+              "book_name": "core-and-advanced-java-black-book-recommended-by-cdac-revised-and-upgraded-9789351198840-9789386052216_compress-30-400.pdf",
+              "page": 364
+            },
+            {
+              "chunk_id": 1149,
+              "book_name": "core-and-advanced-java-black-book-recommended-by-cdac-revised-and-upgraded-9789351198840-9789386052216_compress-30-400.pdf",
+              "page": 364
+            },
+            {
+              "chunk_id": 793,
+              "book_name": "core-and-advanced-java-black-book-recommended-by-cdac-revised-and-upgraded-9789351198840-9789386052216_compress-30-400.pdf",
+              "page": 251
+            },
+            {
+              "chunk_id": 1148,
+              "book_name": "core-and-advanced-java-black-book-recommended-by-cdac-revised-and-upgraded-9789351198840-9789386052216_compress-30-400.pdf",
+              "page": 363
+            },
+            {
+              "chunk_id": 759,
+              "book_name": "core-and-advanced-java-black-book-recommended-by-cdac-revised-and-upgraded-9789351198840-9789386052216_compress-30-400.pdf",
+              "page": 237
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "unit_number": "III",
+      "unit_title": "DISTRIBUTED OBJECTS",
+      "topics": [
+        {
+          "topic_name": "JSON",
+          "mapped_course_outcomes": [
+            "CO3"
+          ],
+          "enriched_subtopics_from_books": [
+            "JSON Basics",
+            "JSON Syntax",
+            "JSON Data Types",
+            "JSON Parsing",
+            "JSON Serialization",
+            "JSON Objects",
+            "JSON Arrays"
+          ],
+          "source_references": [
+            {
+              "chunk_id": 1288,
+              "book_name": "Java - How to Program 10th Ed - Early Objects Version - Deitel-40-500.pdf",
+              "page": 36
+            },
+            {
+              "chunk_id": 1191,
+              "book_name": "Java - How to Program 10th Ed - Early Objects Version - Deitel-40-500.pdf",
+              "page": 5
+            },
+            {
+              "chunk_id": 1273,
+              "book_name": "Java - How to Program 10th Ed - Early Objects Version - Deitel-40-500.pdf",
+              "page": 31
+            },
+            {
+              "chunk_id": 106,
+              "book_name": "core-and-advanced-java-black-book-recommended-by-cdac-revised-and-upgraded-9789351198840-9789386052216_compress-30-400.pdf",
+              "page": 29
+            },
+            {
+              "chunk_id": 1149,
+              "book_name": "core-and-advanced-java-black-book-recommended-by-cdac-revised-and-upgraded-9789351198840-9789386052216_compress-30-400.pdf",
+              "page": 364
+            },
+            {
+              "chunk_id": 322,
+              "book_name": "core-and-advanced-java-black-book-recommended-by-cdac-revised-and-upgraded-9789351198840-9789386052216_compress-30-400.pdf",
+              "page": 92
+            },
+            {
+              "chunk_id": 10,
+              "book_name": "core-and-advanced-java-black-book-recommended-by-cdac-revised-and-upgraded-9789351198840-9789386052216_compress-30-400.pdf",
+              "page": 5
+            },
+            {
+              "chunk_id": 250,
+              "book_name": "core-and-advanced-java-black-book-recommended-by-cdac-revised-and-upgraded-9789351198840-9789386052216_compress-30-400.pdf",
+              "page": 71
+            },
+            {
+              "chunk_id": 1211,
+              "book_name": "Java - How to Program 10th Ed - Early Objects Version - Deitel-40-500.pdf",
+              "page": 11
+            },
+            {
+              "chunk_id": 2336,
+              "book_name": "Java - How to Program 10th Ed - Early Objects Version - Deitel-40-500.pdf",
+              "page": 339
+            }
+          ]
+        },
+        {
+          "topic_name": "AJAX Enabled Rich Internet Applications with JSON",
+          "mapped_course_outcomes": [
+            "CO3"
+          ],
+          "enriched_subtopics_from_books": [
+            "AJAX Basics",
+            "JSON Data Format",
+            "Rich Internet Apps",
+            "Java Runtime Environment",
+            "Web Services Integration",
+            "HTTP Protocol Basics",
+            "Java Security Features"
+          ],
+          "source_references": [
+            {
+              "chunk_id": 1273,
+              "book_name": "Java - How to Program 10th Ed - Early Objects Version - Deitel-40-500.pdf",
+              "page": 31
+            },
+            {
+              "chunk_id": 1194,
+              "book_name": "Java - How to Program 10th Ed - Early Objects Version - Deitel-40-500.pdf",
+              "page": 6
+            },
+            {
+              "chunk_id": 11,
+              "book_name": "core-and-advanced-java-black-book-recommended-by-cdac-revised-and-upgraded-9789351198840-9789386052216_compress-30-400.pdf",
+              "page": 5
+            },
+            {
+              "chunk_id": 1244,
+              "book_name": "Java - How to Program 10th Ed - Early Objects Version - Deitel-40-500.pdf",
+              "page": 20
+            },
+            {
+              "chunk_id": 1271,
+              "book_name": "Java - How to Program 10th Ed - Early Objects Version - Deitel-40-500.pdf",
+              "page": 30
+            },
+            {
+              "chunk_id": 12,
+              "book_name": "core-and-advanced-java-black-book-recommended-by-cdac-revised-and-upgraded-9789351198840-9789386052216_compress-30-400.pdf",
+              "page": 5
+            },
+            {
+              "chunk_id": 1149,
+              "book_name": "core-and-advanced-java-black-book-recommended-by-cdac-revised-and-upgraded-9789351198840-9789386052216_compress-30-400.pdf",
+              "page": 364
+            },
+            {
+              "chunk_id": 1148,
+              "book_name": "core-and-advanced-java-black-book-recommended-by-cdac-revised-and-upgraded-9789351198840-9789386052216_compress-30-400.pdf",
+              "page": 363
+            },
+            {
+              "chunk_id": 1905,
+              "book_name": "Java - How to Program 10th Ed - Early Objects Version - Deitel-40-500.pdf",
+              "page": 216
+            },
+            {
+              "chunk_id": 2336,
+              "book_name": "Java - How to Program 10th Ed - Early Objects Version - Deitel-40-500.pdf",
+              "page": 339
+            }
+          ]
+        },
+        {
+          "topic_name": "Java Mail API",
+          "mapped_course_outcomes": [
+            "CO3"
+          ],
+          "enriched_subtopics_from_books": [
+            "Java Mail Basics",
+            "Sending Emails",
+            "Receiving Emails",
+            "Email Authentication",
+            "Java Mail API",
+            "Mail Server Configuration",
+            "Email Protocols"
+          ],
+          "source_references": [
+            {
+              "chunk_id": 35,
+              "book_name": "core-and-advanced-java-black-book-recommended-by-cdac-revised-and-upgraded-9789351198840-9789386052216_compress-30-400.pdf",
+              "page": 10
+            },
+            {
+              "chunk_id": 995,
+              "book_name": "core-and-advanced-java-black-book-recommended-by-cdac-revised-and-upgraded-9789351198840-9789386052216_compress-30-400.pdf",
+              "page": 314
+            },
+            {
+              "chunk_id": 30,
+              "book_name": "core-and-advanced-java-black-book-recommended-by-cdac-revised-and-upgraded-9789351198840-9789386052216_compress-30-400.pdf",
+              "page": 9
+            },
+            {
+              "chunk_id": 31,
+              "book_name": "core-and-advanced-java-black-book-recommended-by-cdac-revised-and-upgraded-9789351198840-9789386052216_compress-30-400.pdf",
+              "page": 9
+            },
+            {
+              "chunk_id": 1000,
+              "book_name": "core-and-advanced-java-black-book-recommended-by-cdac-revised-and-upgraded-9789351198840-9789386052216_compress-30-400.pdf",
+              "page": 316
+            },
+            {
+              "chunk_id": 1491,
+              "book_name": "Java - How to Program 10th Ed - Early Objects Version - Deitel-40-500.pdf",
+              "page": 94
+            },
+            {
+              "chunk_id": 997,
+              "book_name": "core-and-advanced-java-black-book-recommended-by-cdac-revised-and-upgraded-9789351198840-9789386052216_compress-30-400.pdf",
+              "page": 315
+            },
+            {
+              "chunk_id": 1247,
+              "book_name": "Java - How to Program 10th Ed - Early Objects Version - Deitel-40-500.pdf",
+              "page": 21
+            },
+            {
+              "chunk_id": 28,
+              "book_name": "core-and-advanced-java-black-book-recommended-by-cdac-revised-and-upgraded-9789351198840-9789386052216_compress-30-400.pdf",
+              "page": 9
+            },
+            {
+              "chunk_id": 1055,
+              "book_name": "core-and-advanced-java-black-book-recommended-by-cdac-revised-and-upgraded-9789351198840-9789386052216_compress-30-400.pdf",
+              "page": 333
+            }
+          ]
+        },
+        {
+          "topic_name": "SMTP, POP3 & IMAP",
+          "mapped_course_outcomes": [
+            "CO3"
+          ],
+          "enriched_subtopics_from_books": [
+            "SMTP Basics",
+            "POP3 Protocol",
+            "IMAP Overview",
+            "Email Server Setup",
+            "Network Protocol",
+            "TCP IP Basics",
+            "Email Client Configuration"
+          ],
+          "source_references": [
+            {
+              "chunk_id": 2856,
+              "book_name": "java_new.pdf",
+              "page": 72
+            },
+            {
+              "chunk_id": 973,
+              "book_name": "core-and-advanced-java-black-book-recommended-by-cdac-revised-and-upgraded-9789351198840-9789386052216_compress-30-400.pdf",
+              "page": 304
+            },
+            {
+              "chunk_id": 2418,
+              "book_name": "Java - How to Program 10th Ed - Early Objects Version - Deitel-40-500.pdf",
+              "page": 362
+            },
+            {
+              "chunk_id": 1151,
+              "book_name": "core-and-advanced-java-black-book-recommended-by-cdac-revised-and-upgraded-9789351198840-9789386052216_compress-30-400.pdf",
+              "page": 364
+            },
+            {
+              "chunk_id": 1152,
+              "book_name": "core-and-advanced-java-black-book-recommended-by-cdac-revised-and-upgraded-9789351198840-9789386052216_compress-30-400.pdf",
+              "page": 364
+            },
+            {
+              "chunk_id": 1267,
+              "book_name": "Java - How to Program 10th Ed - Early Objects Version - Deitel-40-500.pdf",
+              "page": 29
+            },
+            {
+              "chunk_id": 1164,
+              "book_name": "core-and-advanced-java-black-book-recommended-by-cdac-revised-and-upgraded-9789351198840-9789386052216_compress-30-400.pdf",
+              "page": 367
+            },
+            {
+              "chunk_id": 1153,
+              "book_name": "core-and-advanced-java-black-book-recommended-by-cdac-revised-and-upgraded-9789351198840-9789386052216_compress-30-400.pdf",
+              "page": 364
+            },
+            {
+              "chunk_id": 154,
+              "book_name": "core-and-advanced-java-black-book-recommended-by-cdac-revised-and-upgraded-9789351198840-9789386052216_compress-30-400.pdf",
+              "page": 41
+            },
+            {
+              "chunk_id": 2861,
+              "book_name": "java_new.pdf",
+              "page": 75
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "unit_number": "IV",
+      "unit_title": "JDBC AND WEB APPLICATION DEVELOPMENT",
+      "topics": [
+        {
+          "topic_name": "Servlet",
+          "mapped_course_outcomes": [
+            "CO4"
+          ],
+          "enriched_subtopics_from_books": [
+            "Servlet Basics",
+            "Java Servlet API",
+            "Servlet Security",
+            "Servlet Deployment",
+            "Servlet Configuration",
+            "Servlet Lifecycle",
+            "Servlet Applications"
+          ],
+          "source_references": [
+            {
+              "chunk_id": 30,
+              "book_name": "core-and-advanced-java-black-book-recommended-by-cdac-revised-and-upgraded-9789351198840-9789386052216_compress-30-400.pdf",
+              "page": 9
+            },
+            {
+              "chunk_id": 2821,
+              "book_name": "java_new.pdf",
+              "page": 51
+            },
+            {
+              "chunk_id": 29,
+              "book_name": "core-and-advanced-java-black-book-recommended-by-cdac-revised-and-upgraded-9789351198840-9789386052216_compress-30-400.pdf",
+              "page": 9
+            },
+            {
+              "chunk_id": 1252,
+              "book_name": "Java - How to Program 10th Ed - Early Objects Version - Deitel-40-500.pdf",
+              "page": 23
+            },
+            {
+              "chunk_id": 649,
+              "book_name": "core-and-advanced-java-black-book-recommended-by-cdac-revised-and-upgraded-9789351198840-9789386052216_compress-30-400.pdf",
+              "page": 195
+            },
+            {
+              "chunk_id": 374,
+              "book_name": "core-and-advanced-java-black-book-recommended-by-cdac-revised-and-upgraded-9789351198840-9789386052216_compress-30-400.pdf",
+              "page": 108
+            },
+            {
+              "chunk_id": 11,
+              "book_name": "core-and-advanced-java-black-book-recommended-by-cdac-revised-and-upgraded-9789351198840-9789386052216_compress-30-400.pdf",
+              "page": 5
+            },
+            {
+              "chunk_id": 1255,
+              "book_name": "Java - How to Program 10th Ed - Early Objects Version - Deitel-40-500.pdf",
+              "page": 24
+            },
+            {
+              "chunk_id": 1904,
+              "book_name": "Java - How to Program 10th Ed - Early Objects Version - Deitel-40-500.pdf",
+              "page": 216
+            },
+            {
+              "chunk_id": 1149,
+              "book_name": "core-and-advanced-java-black-book-recommended-by-cdac-revised-and-upgraded-9789351198840-9789386052216_compress-30-400.pdf",
+              "page": 364
+            }
+          ]
+        },
+        {
+          "topic_name": "Servlet Architecture",
+          "mapped_course_outcomes": [
+            "CO4"
+          ],
+          "enriched_subtopics_from_books": [
+            "Servlet Architecture Overview",
+            "Java Servlet API",
+            "Servlet Request Handling",
+            "Servlet Response Generation",
+            "Java EE Platform",
+            "Servlet Container Management",
+            "Multithreading in Servlets"
+          ],
+          "source_references": [
+            {
+              "chunk_id": 30,
+              "book_name": "core-and-advanced-java-black-book-recommended-by-cdac-revised-and-upgraded-9789351198840-9789386052216_compress-30-400.pdf",
+              "page": 9
+            },
+            {
+              "chunk_id": 29,
+              "book_name": "core-and-advanced-java-black-book-recommended-by-cdac-revised-and-upgraded-9789351198840-9789386052216_compress-30-400.pdf",
+              "page": 9
+            },
+            {
+              "chunk_id": 2821,
+              "book_name": "java_new.pdf",
+              "page": 51
+            },
+            {
+              "chunk_id": 1252,
+              "book_name": "Java - How to Program 10th Ed - Early Objects Version - Deitel-40-500.pdf",
+              "page": 23
+            },
+            {
+              "chunk_id": 32,
+              "book_name": "core-and-advanced-java-black-book-recommended-by-cdac-revised-and-upgraded-9789351198840-9789386052216_compress-30-400.pdf",
+              "page": 10
+            },
+            {
+              "chunk_id": 1255,
+              "book_name": "Java - How to Program 10th Ed - Early Objects Version - Deitel-40-500.pdf",
+              "page": 24
+            },
+            {
+              "chunk_id": 1062,
+              "book_name": "core-and-advanced-java-black-book-recommended-by-cdac-revised-and-upgraded-9789351198840-9789386052216_compress-30-400.pdf",
+              "page": 337
+            },
+            {
+              "chunk_id": 374,
+              "book_name": "core-and-advanced-java-black-book-recommended-by-cdac-revised-and-upgraded-9789351198840-9789386052216_compress-30-400.pdf",
+              "page": 108
+            },
+            {
+              "chunk_id": 28,
+              "book_name": "core-and-advanced-java-black-book-recommended-by-cdac-revised-and-upgraded-9789351198840-9789386052216_compress-30-400.pdf",
+              "page": 9
+            },
+            {
+              "chunk_id": 797,
+              "book_name": "core-and-advanced-java-black-book-recommended-by-cdac-revised-and-upgraded-9789351198840-9789386052216_compress-30-400.pdf",
+              "page": 252
+            }
+          ]
+        },
+        {
+          "topic_name": "Servlet lifecycle",
+          "mapped_course_outcomes": [
+            "CO4"
+          ],
+          "enriched_subtopics_from_books": [
+            "Servlet Initialization",
+            "Servlet Request Handling",
+            "Servlet Lifecycle Methods",
+            "Servlet Destruction",
+            "Servlet Context",
+            "Servlet Configuration"
+          ],
+          "source_references": [
+            {
+              "chunk_id": 30,
+              "book_name": "core-and-advanced-java-black-book-recommended-by-cdac-revised-and-upgraded-9789351198840-9789386052216_compress-30-400.pdf",
+              "page": 9
+            },
+            {
+              "chunk_id": 2821,
+              "book_name": "java_new.pdf",
+              "page": 51
+            },
+            {
+              "chunk_id": 29,
+              "book_name": "core-and-advanced-java-black-book-recommended-by-cdac-revised-and-upgraded-9789351198840-9789386052216_compress-30-400.pdf",
+              "page": 9
+            },
+            {
+              "chunk_id": 2819,
+              "book_name": "java_new.pdf",
+              "page": 50
+            },
+            {
+              "chunk_id": 1252,
+              "book_name": "Java - How to Program 10th Ed - Early Objects Version - Deitel-40-500.pdf",
+              "page": 23
+            },
+            {
+              "chunk_id": 374,
+              "book_name": "core-and-advanced-java-black-book-recommended-by-cdac-revised-and-upgraded-9789351198840-9789386052216_compress-30-400.pdf",
+              "page": 108
+            },
+            {
+              "chunk_id": 1256,
+              "book_name": "Java - How to Program 10th Ed - Early Objects Version - Deitel-40-500.pdf",
+              "page": 24
+            },
+            {
+              "chunk_id": 1253,
+              "book_name": "Java - How to Program 10th Ed - Early Objects Version - Deitel-40-500.pdf",
+              "page": 23
+            },
+            {
+              "chunk_id": 1255,
+              "book_name": "Java - How to Program 10th Ed - Early Objects Version - Deitel-40-500.pdf",
+              "page": 24
+            },
+            {
+              "chunk_id": 1067,
+              "book_name": "core-and-advanced-java-black-book-recommended-by-cdac-revised-and-upgraded-9789351198840-9789386052216_compress-30-400.pdf",
+              "page": 338
+            }
+          ]
+        },
+        {
+          "topic_name": "Generic Servlet",
+          "mapped_course_outcomes": [
+            "CO4"
+          ],
+          "enriched_subtopics_from_books": [
+            "Generic Servlet Overview",
+            "Java Servlet API",
+            "Servlet Lifecycle",
+            "Generic Programming",
+            "Servlet Configuration",
+            "Servlet Deployment"
+          ],
+          "source_references": [
+            {
+              "chunk_id": 30,
+              "book_name": "core-and-advanced-java-black-book-recommended-by-cdac-revised-and-upgraded-9789351198840-9789386052216_compress-30-400.pdf",
+              "page": 9
+            },
+            {
+              "chunk_id": 2831,
+              "book_name": "java_new.pdf",
+              "page": 57
+            },
+            {
+              "chunk_id": 889,
+              "book_name": "core-and-advanced-java-black-book-recommended-by-cdac-revised-and-upgraded-9789351198840-9789386052216_compress-30-400.pdf",
+              "page": 279
+            },
+            {
+              "chunk_id": 243,
+              "book_name": "core-and-advanced-java-black-book-recommended-by-cdac-revised-and-upgraded-9789351198840-9789386052216_compress-30-400.pdf",
+              "page": 67
+            },
+            {
+              "chunk_id": 2821,
+              "book_name": "java_new.pdf",
+              "page": 51
+            },
+            {
+              "chunk_id": 1196,
+              "book_name": "Java - How to Program 10th Ed - Early Objects Version - Deitel-40-500.pdf",
+              "page": 7
+            },
+            {
+              "chunk_id": 29,
+              "book_name": "core-and-advanced-java-black-book-recommended-by-cdac-revised-and-upgraded-9789351198840-9789386052216_compress-30-400.pdf",
+              "page": 9
+            },
+            {
+              "chunk_id": 844,
+              "book_name": "core-and-advanced-java-black-book-recommended-by-cdac-revised-and-upgraded-9789351198840-9789386052216_compress-30-400.pdf",
+              "page": 267
+            },
+            {
+              "chunk_id": 2832,
+              "book_name": "java_new.pdf",
+              "page": 57
+            },
+            {
+              "chunk_id": 990,
+              "book_name": "core-and-advanced-java-black-book-recommended-by-cdac-revised-and-upgraded-9789351198840-9789386052216_compress-30-400.pdf",
+              "page": 311
+            }
+          ]
+        },
+        {
+          "topic_name": "HttpServlet",
+          "mapped_course_outcomes": [
+            "CO4"
+          ],
+          "enriched_subtopics_from_books": [
+            "HttpServlet Basics",
+            "Java Servlet API",
+            "Http Protocol",
+            "Servlet Request",
+            "Servlet Response",
+            "Java Web Development",
+            "HttpServlet Lifecycle"
+          ],
+          "source_references": [
+            {
+              "chunk_id": 30,
+              "book_name": "core-and-advanced-java-black-book-recommended-by-cdac-revised-and-upgraded-9789351198840-9789386052216_compress-30-400.pdf",
+              "page": 9
+            },
+            {
+              "chunk_id": 1174,
+              "book_name": "core-and-advanced-java-black-book-recommended-by-cdac-revised-and-upgraded-9789351198840-9789386052216_compress-30-400.pdf",
+              "page": 369
+            },
+            {
+              "chunk_id": 1172,
+              "book_name": "core-and-advanced-java-black-book-recommended-by-cdac-revised-and-upgraded-9789351198840-9789386052216_compress-30-400.pdf",
+              "page": 368
+            },
+            {
+              "chunk_id": 1271,
+              "book_name": "Java - How to Program 10th Ed - Early Objects Version - Deitel-40-500.pdf",
+              "page": 30
+            },
+            {
+              "chunk_id": 1154,
+              "book_name": "core-and-advanced-java-black-book-recommended-by-cdac-revised-and-upgraded-9789351198840-9789386052216_compress-30-400.pdf",
+              "page": 365
+            },
+            {
+              "chunk_id": 1155,
+              "book_name": "core-and-advanced-java-black-book-recommended-by-cdac-revised-and-upgraded-9789351198840-9789386052216_compress-30-400.pdf",
+              "page": 365
+            },
+            {
+              "chunk_id": 29,
+              "book_name": "core-and-advanced-java-black-book-recommended-by-cdac-revised-and-upgraded-9789351198840-9789386052216_compress-30-400.pdf",
+              "page": 9
+            },
+            {
+              "chunk_id": 1173,
+              "book_name": "core-and-advanced-java-black-book-recommended-by-cdac-revised-and-upgraded-9789351198840-9789386052216_compress-30-400.pdf",
+              "page": 369
+            },
+            {
+              "chunk_id": 1149,
+              "book_name": "core-and-advanced-java-black-book-recommended-by-cdac-revised-and-upgraded-9789351198840-9789386052216_compress-30-400.pdf",
+              "page": 364
+            },
+            {
+              "chunk_id": 1153,
+              "book_name": "core-and-advanced-java-black-book-recommended-by-cdac-revised-and-upgraded-9789351198840-9789386052216_compress-30-400.pdf",
+              "page": 364
+            }
+          ]
+        },
+        {
+          "topic_name": "Server-Side Include",
+          "mapped_course_outcomes": [
+            "CO4"
+          ],
+          "enriched_subtopics_from_books": [
+            "Server Side Includes",
+            "Java Networking Basics",
+            "LAMP Technology",
+            "Network Protocol Drivers",
+            "Client Server Architecture",
+            "Socket Programming",
+            "Web Server Management"
+          ],
+          "source_references": [
+            {
+              "chunk_id": 1161,
+              "book_name": "core-and-advanced-java-black-book-recommended-by-cdac-revised-and-upgraded-9789351198840-9789386052216_compress-30-400.pdf",
+              "page": 366
+            },
+            {
+              "chunk_id": 1153,
+              "book_name": "core-and-advanced-java-black-book-recommended-by-cdac-revised-and-upgraded-9789351198840-9789386052216_compress-30-400.pdf",
+              "page": 364
+            },
+            {
+              "chunk_id": 1276,
+              "book_name": "Java - How to Program 10th Ed - Early Objects Version - Deitel-40-500.pdf",
+              "page": 32
+            },
+            {
+              "chunk_id": 2861,
+              "book_name": "java_new.pdf",
+              "page": 75
+            },
+            {
+              "chunk_id": 1165,
+              "book_name": "core-and-advanced-java-black-book-recommended-by-cdac-revised-and-upgraded-9789351198840-9789386052216_compress-30-400.pdf",
+              "page": 367
+            },
+            {
+              "chunk_id": 1164,
+              "book_name": "core-and-advanced-java-black-book-recommended-by-cdac-revised-and-upgraded-9789351198840-9789386052216_compress-30-400.pdf",
+              "page": 367
+            },
+            {
+              "chunk_id": 1236,
+              "book_name": "Java - How to Program 10th Ed - Early Objects Version - Deitel-40-500.pdf",
+              "page": 18
+            },
+            {
+              "chunk_id": 1166,
+              "book_name": "core-and-advanced-java-black-book-recommended-by-cdac-revised-and-upgraded-9789351198840-9789386052216_compress-30-400.pdf",
+              "page": 367
+            },
+            {
+              "chunk_id": 1174,
+              "book_name": "core-and-advanced-java-black-book-recommended-by-cdac-revised-and-upgraded-9789351198840-9789386052216_compress-30-400.pdf",
+              "page": 369
+            },
+            {
+              "chunk_id": 1235,
+              "book_name": "Java - How to Program 10th Ed - Early Objects Version - Deitel-40-500.pdf",
+              "page": 18
+            }
+          ]
+        },
+        {
+          "topic_name": "Overview of JSP",
+          "mapped_course_outcomes": [
+            "CO4"
+          ],
+          "enriched_subtopics_from_books": [
+            "JSP Introduction",
+            "Java Servlet API",
+            "JSP Syntax",
+            "Java Beans",
+            "JDBC Overview",
+            "JSP Deployment",
+            "Java Security"
+          ],
+          "source_references": [
+            {
+              "chunk_id": 1146,
+              "book_name": "core-and-advanced-java-black-book-recommended-by-cdac-revised-and-upgraded-9789351198840-9789386052216_compress-30-400.pdf",
+              "page": 362
+            },
+            {
+              "chunk_id": 1147,
+              "book_name": "core-and-advanced-java-black-book-recommended-by-cdac-revised-and-upgraded-9789351198840-9789386052216_compress-30-400.pdf",
+              "page": 362
+            },
+            {
+              "chunk_id": 30,
+              "book_name": "core-and-advanced-java-black-book-recommended-by-cdac-revised-and-upgraded-9789351198840-9789386052216_compress-30-400.pdf",
+              "page": 9
+            },
+            {
+              "chunk_id": 1059,
+              "book_name": "core-and-advanced-java-black-book-recommended-by-cdac-revised-and-upgraded-9789351198840-9789386052216_compress-30-400.pdf",
+              "page": 336
+            },
+            {
+              "chunk_id": 29,
+              "book_name": "core-and-advanced-java-black-book-recommended-by-cdac-revised-and-upgraded-9789351198840-9789386052216_compress-30-400.pdf",
+              "page": 9
+            },
+            {
+              "chunk_id": 8,
+              "book_name": "core-and-advanced-java-black-book-recommended-by-cdac-revised-and-upgraded-9789351198840-9789386052216_compress-30-400.pdf",
+              "page": 4
+            },
+            {
+              "chunk_id": 1296,
+              "book_name": "Java - How to Program 10th Ed - Early Objects Version - Deitel-40-500.pdf",
+              "page": 39
+            },
+            {
+              "chunk_id": 374,
+              "book_name": "core-and-advanced-java-black-book-recommended-by-cdac-revised-and-upgraded-9789351198840-9789386052216_compress-30-400.pdf",
+              "page": 108
+            },
+            {
+              "chunk_id": 17,
+              "book_name": "core-and-advanced-java-black-book-recommended-by-cdac-revised-and-upgraded-9789351198840-9789386052216_compress-30-400.pdf",
+              "page": 6
+            },
+            {
+              "chunk_id": 1904,
+              "book_name": "Java - How to Program 10th Ed - Early Objects Version - Deitel-40-500.pdf",
+              "page": 216
+            }
+          ]
+        },
+        {
+          "topic_name": "JSP Components",
+          "mapped_course_outcomes": [
+            "CO4"
+          ],
+          "enriched_subtopics_from_books": [
+            "Java Beans",
+            "JSP Components",
+            "GUI Events",
+            "Java Security",
+            "Database Connectivity",
+            "Event Handling",
+            "Java Servlet API"
+          ],
+          "source_references": [
+            {
+              "chunk_id": 1146,
+              "book_name": "core-and-advanced-java-black-book-recommended-by-cdac-revised-and-upgraded-9789351198840-9789386052216_compress-30-400.pdf",
+              "page": 362
+            },
+            {
+              "chunk_id": 1904,
+              "book_name": "Java - How to Program 10th Ed - Early Objects Version - Deitel-40-500.pdf",
+              "page": 216
+            },
+            {
+              "chunk_id": 2510,
+              "book_name": "Java - How to Program 10th Ed - Early Objects Version - Deitel-40-500.pdf",
+              "page": 394
+            },
+            {
+              "chunk_id": 26,
+              "book_name": "core-and-advanced-java-black-book-recommended-by-cdac-revised-and-upgraded-9789351198840-9789386052216_compress-30-400.pdf",
+              "page": 8
+            },
+            {
+              "chunk_id": 1905,
+              "book_name": "Java - How to Program 10th Ed - Early Objects Version - Deitel-40-500.pdf",
+              "page": 216
+            },
+            {
+              "chunk_id": 1144,
+              "book_name": "core-and-advanced-java-black-book-recommended-by-cdac-revised-and-upgraded-9789351198840-9789386052216_compress-30-400.pdf",
+              "page": 362
+            },
+            {
+              "chunk_id": 1147,
+              "book_name": "core-and-advanced-java-black-book-recommended-by-cdac-revised-and-upgraded-9789351198840-9789386052216_compress-30-400.pdf",
+              "page": 362
+            },
+            {
+              "chunk_id": 1059,
+              "book_name": "core-and-advanced-java-black-book-recommended-by-cdac-revised-and-upgraded-9789351198840-9789386052216_compress-30-400.pdf",
+              "page": 336
+            },
+            {
+              "chunk_id": 30,
+              "book_name": "core-and-advanced-java-black-book-recommended-by-cdac-revised-and-upgraded-9789351198840-9789386052216_compress-30-400.pdf",
+              "page": 9
+            },
+            {
+              "chunk_id": 1903,
+              "book_name": "Java - How to Program 10th Ed - Early Objects Version - Deitel-40-500.pdf",
+              "page": 216
+            }
+          ]
+        },
+        {
+          "topic_name": "Bean",
+          "mapped_course_outcomes": [
+            "CO4"
+          ],
+          "enriched_subtopics_from_books": [
+            "Bean Properties",
+            "Bean Customization",
+            "Java Beans",
+            "Bean Events",
+            "Bean Persistence",
+            "Bean Installation",
+            "BeanInfo Classes"
+          ],
+          "source_references": [
+            {
+              "chunk_id": 1066,
+              "book_name": "core-and-advanced-java-black-book-recommended-by-cdac-revised-and-upgraded-9789351198840-9789386052216_compress-30-400.pdf",
+              "page": 338
+            },
+            {
+              "chunk_id": 1067,
+              "book_name": "core-and-advanced-java-black-book-recommended-by-cdac-revised-and-upgraded-9789351198840-9789386052216_compress-30-400.pdf",
+              "page": 338
+            },
+            {
+              "chunk_id": 1090,
+              "book_name": "core-and-advanced-java-black-book-recommended-by-cdac-revised-and-upgraded-9789351198840-9789386052216_compress-30-400.pdf",
+              "page": 345
+            },
+            {
+              "chunk_id": 1060,
+              "book_name": "core-and-advanced-java-black-book-recommended-by-cdac-revised-and-upgraded-9789351198840-9789386052216_compress-30-400.pdf",
+              "page": 337
+            },
+            {
+              "chunk_id": 1062,
+              "book_name": "core-and-advanced-java-black-book-recommended-by-cdac-revised-and-upgraded-9789351198840-9789386052216_compress-30-400.pdf",
+              "page": 337
+            },
+            {
+              "chunk_id": 1084,
+              "book_name": "core-and-advanced-java-black-book-recommended-by-cdac-revised-and-upgraded-9789351198840-9789386052216_compress-30-400.pdf",
+              "page": 343
+            },
+            {
+              "chunk_id": 1078,
+              "book_name": "core-and-advanced-java-black-book-recommended-by-cdac-revised-and-upgraded-9789351198840-9789386052216_compress-30-400.pdf",
+              "page": 340
+            },
+            {
+              "chunk_id": 1061,
+              "book_name": "core-and-advanced-java-black-book-recommended-by-cdac-revised-and-upgraded-9789351198840-9789386052216_compress-30-400.pdf",
+              "page": 337
+            },
+            {
+              "chunk_id": 1065,
+              "book_name": "core-and-advanced-java-black-book-recommended-by-cdac-revised-and-upgraded-9789351198840-9789386052216_compress-30-400.pdf",
+              "page": 337
+            },
+            {
+              "chunk_id": 1119,
+              "book_name": "core-and-advanced-java-black-book-recommended-by-cdac-revised-and-upgraded-9789351198840-9789386052216_compress-30-400.pdf",
+              "page": 354
+            }
+          ]
+        },
+        {
+          "topic_name": "Session Tracking",
+          "mapped_course_outcomes": [
+            "CO4"
+          ],
+          "enriched_subtopics_from_books": [
+            "Session Management",
+            "Cookie Tracking",
+            "Token Based",
+            "User Authentication",
+            "Server Side Tracking",
+            "Client Side Tracking"
+          ],
+          "source_references": [
+            {
+              "chunk_id": 1274,
+              "book_name": "Java - How to Program 10th Ed - Early Objects Version - Deitel-40-500.pdf",
+              "page": 31
+            },
+            {
+              "chunk_id": 798,
+              "book_name": "core-and-advanced-java-black-book-recommended-by-cdac-revised-and-upgraded-9789351198840-9789386052216_compress-30-400.pdf",
+              "page": 252
+            },
+            {
+              "chunk_id": 1144,
+              "book_name": "core-and-advanced-java-black-book-recommended-by-cdac-revised-and-upgraded-9789351198840-9789386052216_compress-30-400.pdf",
+              "page": 362
+            },
+            {
+              "chunk_id": 1030,
+              "book_name": "core-and-advanced-java-black-book-recommended-by-cdac-revised-and-upgraded-9789351198840-9789386052216_compress-30-400.pdf",
+              "page": 325
+            },
+            {
+              "chunk_id": 1692,
+              "book_name": "Java - How to Program 10th Ed - Early Objects Version - Deitel-40-500.pdf",
+              "page": 151
+            },
+            {
+              "chunk_id": 2645,
+              "book_name": "Java - How to Program 10th Ed - Early Objects Version - Deitel-40-500.pdf",
+              "page": 436
+            },
+            {
+              "chunk_id": 1203,
+              "book_name": "Java - How to Program 10th Ed - Early Objects Version - Deitel-40-500.pdf",
+              "page": 9
+            },
+            {
+              "chunk_id": 1031,
+              "book_name": "core-and-advanced-java-black-book-recommended-by-cdac-revised-and-upgraded-9789351198840-9789386052216_compress-30-400.pdf",
+              "page": 325
+            },
+            {
+              "chunk_id": 799,
+              "book_name": "core-and-advanced-java-black-book-recommended-by-cdac-revised-and-upgraded-9789351198840-9789386052216_compress-30-400.pdf",
+              "page": 253
+            },
+            {
+              "chunk_id": 1179,
+              "book_name": "core-and-advanced-java-black-book-recommended-by-cdac-revised-and-upgraded-9789351198840-9789386052216_compress-30-400.pdf",
+              "page": 370
+            }
+          ]
+        },
+        {
+          "topic_name": "Accessing Database with JDBC",
+          "mapped_course_outcomes": [
+            "CO4"
+          ],
+          "enriched_subtopics_from_books": [
+            "JDBC Introduction",
+            "JDBC Drivers",
+            "JDBC API",
+            "Database Connectivity",
+            "JDBC Security",
+            "JDBC Classes",
+            "JDBC Advantages"
+          ],
+          "source_references": [
+            {
+              "chunk_id": 2857,
+              "book_name": "java_new.pdf",
+              "page": 73
+            },
+            {
+              "chunk_id": 1904,
+              "book_name": "Java - How to Program 10th Ed - Early Objects Version - Deitel-40-500.pdf",
+              "page": 216
+            },
+            {
+              "chunk_id": 30,
+              "book_name": "core-and-advanced-java-black-book-recommended-by-cdac-revised-and-upgraded-9789351198840-9789386052216_compress-30-400.pdf",
+              "page": 9
+            },
+            {
+              "chunk_id": 2858,
+              "book_name": "java_new.pdf",
+              "page": 74
+            },
+            {
+              "chunk_id": 1146,
+              "book_name": "core-and-advanced-java-black-book-recommended-by-cdac-revised-and-upgraded-9789351198840-9789386052216_compress-30-400.pdf",
+              "page": 362
+            },
+            {
+              "chunk_id": 2861,
+              "book_name": "java_new.pdf",
+              "page": 75
+            },
+            {
+              "chunk_id": 2860,
+              "book_name": "java_new.pdf",
+              "page": 75
+            },
+            {
+              "chunk_id": 2862,
+              "book_name": "java_new.pdf",
+              "page": 76
+            },
+            {
+              "chunk_id": 29,
+              "book_name": "core-and-advanced-java-black-book-recommended-by-cdac-revised-and-upgraded-9789351198840-9789386052216_compress-30-400.pdf",
+              "page": 9
+            },
+            {
+              "chunk_id": 25,
+              "book_name": "core-and-advanced-java-black-book-recommended-by-cdac-revised-and-upgraded-9789351198840-9789386052216_compress-30-400.pdf",
+              "page": 8
+            }
+          ]
+        },
+        {
+          "topic_name": "Basics",
+          "mapped_course_outcomes": [
+            "CO4"
+          ],
+          "enriched_subtopics_from_books": [
+            "Java Basics",
+            "Object Oriented Design",
+            "Class Methods",
+            "Array Implementation",
+            "Java Constructors",
+            "Data Persistence",
+            "Modular Programming"
+          ],
+          "source_references": [
+            {
+              "chunk_id": 1147,
+              "book_name": "core-and-advanced-java-black-book-recommended-by-cdac-revised-and-upgraded-9789351198840-9789386052216_compress-30-400.pdf",
+              "page": 362
+            },
+            {
+              "chunk_id": 1191,
+              "book_name": "Java - How to Program 10th Ed - Early Objects Version - Deitel-40-500.pdf",
+              "page": 5
+            },
+            {
+              "chunk_id": 2185,
+              "book_name": "Java - How to Program 10th Ed - Early Objects Version - Deitel-40-500.pdf",
+              "page": 298
+            },
+            {
+              "chunk_id": 1375,
+              "book_name": "Java - How to Program 10th Ed - Early Objects Version - Deitel-40-500.pdf",
+              "page": 62
+            },
+            {
+              "chunk_id": 1221,
+              "book_name": "Java - How to Program 10th Ed - Early Objects Version - Deitel-40-500.pdf",
+              "page": 14
+            },
+            {
+              "chunk_id": 1861,
+              "book_name": "Java - How to Program 10th Ed - Early Objects Version - Deitel-40-500.pdf",
+              "page": 205
+            },
+            {
+              "chunk_id": 340,
+              "book_name": "core-and-advanced-java-black-book-recommended-by-cdac-revised-and-upgraded-9789351198840-9789386052216_compress-30-400.pdf",
+              "page": 98
+            },
+            {
+              "chunk_id": 1415,
+              "book_name": "Java - How to Program 10th Ed - Early Objects Version - Deitel-40-500.pdf",
+              "page": 73
+            },
+            {
+              "chunk_id": 1500,
+              "book_name": "Java - How to Program 10th Ed - Early Objects Version - Deitel-40-500.pdf",
+              "page": 97
+            },
+            {
+              "chunk_id": 1966,
+              "book_name": "Java - How to Program 10th Ed - Early Objects Version - Deitel-40-500.pdf",
+              "page": 235
+            }
+          ]
+        },
+        {
+          "topic_name": "Manipulating Databases with JDBC",
+          "mapped_course_outcomes": [
+            "CO4"
+          ],
+          "enriched_subtopics_from_books": [
+            "JDBC Introduction",
+            "JDBC Drivers",
+            "Database Connectivity",
+            "JDBC API Classes",
+            "JDBC Advantages",
+            "JDBC Disadvantages",
+            "JDBC Security"
+          ],
+          "source_references": [
+            {
+              "chunk_id": 2857,
+              "book_name": "java_new.pdf",
+              "page": 73
+            },
+            {
+              "chunk_id": 2861,
+              "book_name": "java_new.pdf",
+              "page": 75
+            },
+            {
+              "chunk_id": 1904,
+              "book_name": "Java - How to Program 10th Ed - Early Objects Version - Deitel-40-500.pdf",
+              "page": 216
+            },
+            {
+              "chunk_id": 30,
+              "book_name": "core-and-advanced-java-black-book-recommended-by-cdac-revised-and-upgraded-9789351198840-9789386052216_compress-30-400.pdf",
+              "page": 9
+            },
+            {
+              "chunk_id": 2858,
+              "book_name": "java_new.pdf",
+              "page": 74
+            },
+            {
+              "chunk_id": 2860,
+              "book_name": "java_new.pdf",
+              "page": 75
+            },
+            {
+              "chunk_id": 2862,
+              "book_name": "java_new.pdf",
+              "page": 76
+            },
+            {
+              "chunk_id": 1144,
+              "book_name": "core-and-advanced-java-black-book-recommended-by-cdac-revised-and-upgraded-9789351198840-9789386052216_compress-30-400.pdf",
+              "page": 362
+            },
+            {
+              "chunk_id": 1146,
+              "book_name": "core-and-advanced-java-black-book-recommended-by-cdac-revised-and-upgraded-9789351198840-9789386052216_compress-30-400.pdf",
+              "page": 362
+            },
+            {
+              "chunk_id": 29,
+              "book_name": "core-and-advanced-java-black-book-recommended-by-cdac-revised-and-upgraded-9789351198840-9789386052216_compress-30-400.pdf",
+              "page": 9
+            }
+          ]
+        },
+        {
+          "topic_name": "Java Server Faces",
+          "mapped_course_outcomes": [
+            "CO4"
+          ],
+          "enriched_subtopics_from_books": [
+            "Java Server Faces",
+            "JSF Framework",
+            "Java EE Features",
+            "Networking Basics",
+            "Java Security Package",
+            "JSF Components",
+            "Java Web Development"
+          ],
+          "source_references": [
+            {
+              "chunk_id": 29,
+              "book_name": "core-and-advanced-java-black-book-recommended-by-cdac-revised-and-upgraded-9789351198840-9789386052216_compress-30-400.pdf",
+              "page": 9
+            },
+            {
+              "chunk_id": 1904,
+              "book_name": "Java - How to Program 10th Ed - Early Objects Version - Deitel-40-500.pdf",
+              "page": 216
+            },
+            {
+              "chunk_id": 1959,
+              "book_name": "Java - How to Program 10th Ed - Early Objects Version - Deitel-40-500.pdf",
+              "page": 232
+            },
+            {
+              "chunk_id": 1960,
+              "book_name": "Java - How to Program 10th Ed - Early Objects Version - Deitel-40-500.pdf",
+              "page": 232
+            },
+            {
+              "chunk_id": 1153,
+              "book_name": "core-and-advanced-java-black-book-recommended-by-cdac-revised-and-upgraded-9789351198840-9789386052216_compress-30-400.pdf",
+              "page": 364
+            },
+            {
+              "chunk_id": 1149,
+              "book_name": "core-and-advanced-java-black-book-recommended-by-cdac-revised-and-upgraded-9789351198840-9789386052216_compress-30-400.pdf",
+              "page": 364
+            },
+            {
+              "chunk_id": 1264,
+              "book_name": "Java - How to Program 10th Ed - Early Objects Version - Deitel-40-500.pdf",
+              "page": 27
+            },
+            {
+              "chunk_id": 1148,
+              "book_name": "core-and-advanced-java-black-book-recommended-by-cdac-revised-and-upgraded-9789351198840-9789386052216_compress-30-400.pdf",
+              "page": 363
+            },
+            {
+              "chunk_id": 1246,
+              "book_name": "Java - How to Program 10th Ed - Early Objects Version - Deitel-40-500.pdf",
+              "page": 21
+            },
+            {
+              "chunk_id": 375,
+              "book_name": "core-and-advanced-java-black-book-recommended-by-cdac-revised-and-upgraded-9789351198840-9789386052216_compress-30-400.pdf",
+              "page": 108
+            }
+          ]
+        },
+        {
+          "topic_name": "Multitier",
+          "mapped_course_outcomes": [
+            "CO4"
+          ],
+          "enriched_subtopics_from_books": [
+            "Multitier Architecture",
+            "Thread Synchronization",
+            "Inheritance Types",
+            "Multilevel Inheritance",
+            "Thread Communication",
+            "Class Hierarchy",
+            "Multithreading Concepts"
+          ],
+          "source_references": [
+            {
+              "chunk_id": 2762,
+              "book_name": "java_new.pdf",
+              "page": 17
+            },
+            {
+              "chunk_id": 683,
+              "book_name": "core-and-advanced-java-black-book-recommended-by-cdac-revised-and-upgraded-9789351198840-9789386052216_compress-30-400.pdf",
+              "page": 209
+            },
+            {
+              "chunk_id": 40,
+              "book_name": "core-and-advanced-java-black-book-recommended-by-cdac-revised-and-upgraded-9789351198840-9789386052216_compress-30-400.pdf",
+              "page": 11
+            },
+            {
+              "chunk_id": 759,
+              "book_name": "core-and-advanced-java-black-book-recommended-by-cdac-revised-and-upgraded-9789351198840-9789386052216_compress-30-400.pdf",
+              "page": 237
+            },
+            {
+              "chunk_id": 1777,
+              "book_name": "Java - How to Program 10th Ed - Early Objects Version - Deitel-40-500.pdf",
+              "page": 176
+            },
+            {
+              "chunk_id": 1877,
+              "book_name": "Java - How to Program 10th Ed - Early Objects Version - Deitel-40-500.pdf",
+              "page": 209
+            },
+            {
+              "chunk_id": 2432,
+              "book_name": "Java - How to Program 10th Ed - Early Objects Version - Deitel-40-500.pdf",
+              "page": 367
+            },
+            {
+              "chunk_id": 1706,
+              "book_name": "Java - How to Program 10th Ed - Early Objects Version - Deitel-40-500.pdf",
+              "page": 154
+            },
+            {
+              "chunk_id": 1409,
+              "book_name": "Java - How to Program 10th Ed - Early Objects Version - Deitel-40-500.pdf",
+              "page": 70
+            },
+            {
+              "chunk_id": 1404,
+              "book_name": "Java - How to Program 10th Ed - Early Objects Version - Deitel-40-500.pdf",
+              "page": 69
+            }
+          ]
+        },
+        {
+          "topic_name": "Application Architecture",
+          "mapped_course_outcomes": [
+            "CO4"
+          ],
+          "enriched_subtopics_from_books": [
+            "Java Application Architecture",
+            "Network Architecture Design",
+            "Server Side Applications",
+            "Client Server Communication",
+            "Java Enterprise Edition",
+            "Cloud Computing Platforms",
+            "Software Development Models"
+          ],
+          "source_references": [
+            {
+              "chunk_id": 1061,
+              "book_name": "core-and-advanced-java-black-book-recommended-by-cdac-revised-and-upgraded-9789351198840-9789386052216_compress-30-400.pdf",
+              "page": 337
+            },
+            {
+              "chunk_id": 1196,
+              "book_name": "Java - How to Program 10th Ed - Early Objects Version - Deitel-40-500.pdf",
+              "page": 7
+            },
+            {
+              "chunk_id": 1165,
+              "book_name": "core-and-advanced-java-black-book-recommended-by-cdac-revised-and-upgraded-9789351198840-9789386052216_compress-30-400.pdf",
+              "page": 367
+            },
+            {
+              "chunk_id": 28,
+              "book_name": "core-and-advanced-java-black-book-recommended-by-cdac-revised-and-upgraded-9789351198840-9789386052216_compress-30-400.pdf",
+              "page": 9
+            },
+            {
+              "chunk_id": 32,
+              "book_name": "core-and-advanced-java-black-book-recommended-by-cdac-revised-and-upgraded-9789351198840-9789386052216_compress-30-400.pdf",
+              "page": 10
+            },
+            {
+              "chunk_id": 29,
+              "book_name": "core-and-advanced-java-black-book-recommended-by-cdac-revised-and-upgraded-9789351198840-9789386052216_compress-30-400.pdf",
+              "page": 9
+            },
+            {
+              "chunk_id": 36,
+              "book_name": "core-and-advanced-java-black-book-recommended-by-cdac-revised-and-upgraded-9789351198840-9789386052216_compress-30-400.pdf",
+              "page": 11
+            },
+            {
+              "chunk_id": 375,
+              "book_name": "core-and-advanced-java-black-book-recommended-by-cdac-revised-and-upgraded-9789351198840-9789386052216_compress-30-400.pdf",
+              "page": 108
+            },
+            {
+              "chunk_id": 1233,
+              "book_name": "Java - How to Program 10th Ed - Early Objects Version - Deitel-40-500.pdf",
+              "page": 17
+            },
+            {
+              "chunk_id": 1278,
+              "book_name": "Java - How to Program 10th Ed - Early Objects Version - Deitel-40-500.pdf",
+              "page": 32
+            }
+          ]
+        },
+        {
+          "topic_name": "MVC Architecture of JSF Apps",
+          "mapped_course_outcomes": [
+            "CO4"
+          ],
+          "enriched_subtopics_from_books": [
+            "JSF Architecture Overview",
+            "MVC Pattern Basics",
+            "Java Servlet API",
+            "JSF Application Design",
+            "Java Bean Components",
+            "Enterprise Application Development"
+          ],
+          "source_references": [
+            {
+              "chunk_id": 1273,
+              "book_name": "Java - How to Program 10th Ed - Early Objects Version - Deitel-40-500.pdf",
+              "page": 31
+            },
+            {
+              "chunk_id": 30,
+              "book_name": "core-and-advanced-java-black-book-recommended-by-cdac-revised-and-upgraded-9789351198840-9789386052216_compress-30-400.pdf",
+              "page": 9
+            },
+            {
+              "chunk_id": 1187,
+              "book_name": "Java - How to Program 10th Ed - Early Objects Version - Deitel-40-500.pdf",
+              "page": 3
+            },
+            {
+              "chunk_id": 29,
+              "book_name": "core-and-advanced-java-black-book-recommended-by-cdac-revised-and-upgraded-9789351198840-9789386052216_compress-30-400.pdf",
+              "page": 9
+            },
+            {
+              "chunk_id": 374,
+              "book_name": "core-and-advanced-java-black-book-recommended-by-cdac-revised-and-upgraded-9789351198840-9789386052216_compress-30-400.pdf",
+              "page": 108
+            },
+            {
+              "chunk_id": 1904,
+              "book_name": "Java - How to Program 10th Ed - Early Objects Version - Deitel-40-500.pdf",
+              "page": 216
+            },
+            {
+              "chunk_id": 1144,
+              "book_name": "core-and-advanced-java-black-book-recommended-by-cdac-revised-and-upgraded-9789351198840-9789386052216_compress-30-400.pdf",
+              "page": 362
+            },
+            {
+              "chunk_id": 1146,
+              "book_name": "core-and-advanced-java-black-book-recommended-by-cdac-revised-and-upgraded-9789351198840-9789386052216_compress-30-400.pdf",
+              "page": 362
+            },
+            {
+              "chunk_id": 37,
+              "book_name": "core-and-advanced-java-black-book-recommended-by-cdac-revised-and-upgraded-9789351198840-9789386052216_compress-30-400.pdf",
+              "page": 11
+            },
+            {
+              "chunk_id": 1247,
+              "book_name": "Java - How to Program 10th Ed - Early Objects Version - Deitel-40-500.pdf",
+              "page": 21
+            }
+          ]
+        },
+        {
+          "topic_name": "Common JSF Components",
+          "mapped_course_outcomes": [
+            "CO4"
+          ],
+          "enriched_subtopics_from_books": [
+            "JSF Components Overview",
+            "Java Beans Basics",
+            "GUI Components",
+            "Event Handling",
+            "Java Swing Package",
+            "JavaBeans Bridge",
+            "Java Security Package"
+          ],
+          "source_references": [
+            {
+              "chunk_id": 1146,
+              "book_name": "core-and-advanced-java-black-book-recommended-by-cdac-revised-and-upgraded-9789351198840-9789386052216_compress-30-400.pdf",
+              "page": 362
+            },
+            {
+              "chunk_id": 1904,
+              "book_name": "Java - How to Program 10th Ed - Early Objects Version - Deitel-40-500.pdf",
+              "page": 216
+            },
+            {
+              "chunk_id": 2511,
+              "book_name": "Java - How to Program 10th Ed - Early Objects Version - Deitel-40-500.pdf",
+              "page": 394
+            },
+            {
+              "chunk_id": 2510,
+              "book_name": "Java - How to Program 10th Ed - Early Objects Version - Deitel-40-500.pdf",
+              "page": 394
+            },
+            {
+              "chunk_id": 1905,
+              "book_name": "Java - How to Program 10th Ed - Early Objects Version - Deitel-40-500.pdf",
+              "page": 216
+            },
+            {
+              "chunk_id": 1144,
+              "book_name": "core-and-advanced-java-black-book-recommended-by-cdac-revised-and-upgraded-9789351198840-9789386052216_compress-30-400.pdf",
+              "page": 362
+            },
+            {
+              "chunk_id": 1067,
+              "book_name": "core-and-advanced-java-black-book-recommended-by-cdac-revised-and-upgraded-9789351198840-9789386052216_compress-30-400.pdf",
+              "page": 338
+            },
+            {
+              "chunk_id": 1060,
+              "book_name": "core-and-advanced-java-black-book-recommended-by-cdac-revised-and-upgraded-9789351198840-9789386052216_compress-30-400.pdf",
+              "page": 337
+            },
+            {
+              "chunk_id": 1903,
+              "book_name": "Java - How to Program 10th Ed - Early Objects Version - Deitel-40-500.pdf",
+              "page": 216
+            },
+            {
+              "chunk_id": 1061,
+              "book_name": "core-and-advanced-java-black-book-recommended-by-cdac-revised-and-upgraded-9789351198840-9789386052216_compress-30-400.pdf",
+              "page": 337
+            }
+          ]
+        },
+        {
+          "topic_name": "Session Tracking",
+          "mapped_course_outcomes": [
+            "CO4"
+          ],
+          "enriched_subtopics_from_books": [
+            "Session Management",
+            "Cookie Tracking",
+            "Token Based",
+            "User Authentication",
+            "Server Side Sessions",
+            "Client Side Sessions",
+            "Session Persistence"
+          ],
+          "source_references": [
+            {
+              "chunk_id": 1274,
+              "book_name": "Java - How to Program 10th Ed - Early Objects Version - Deitel-40-500.pdf",
+              "page": 31
+            },
+            {
+              "chunk_id": 798,
+              "book_name": "core-and-advanced-java-black-book-recommended-by-cdac-revised-and-upgraded-9789351198840-9789386052216_compress-30-400.pdf",
+              "page": 252
+            },
+            {
+              "chunk_id": 1144,
+              "book_name": "core-and-advanced-java-black-book-recommended-by-cdac-revised-and-upgraded-9789351198840-9789386052216_compress-30-400.pdf",
+              "page": 362
+            },
+            {
+              "chunk_id": 1030,
+              "book_name": "core-and-advanced-java-black-book-recommended-by-cdac-revised-and-upgraded-9789351198840-9789386052216_compress-30-400.pdf",
+              "page": 325
+            },
+            {
+              "chunk_id": 1692,
+              "book_name": "Java - How to Program 10th Ed - Early Objects Version - Deitel-40-500.pdf",
+              "page": 151
+            },
+            {
+              "chunk_id": 2645,
+              "book_name": "Java - How to Program 10th Ed - Early Objects Version - Deitel-40-500.pdf",
+              "page": 436
+            },
+            {
+              "chunk_id": 1203,
+              "book_name": "Java - How to Program 10th Ed - Early Objects Version - Deitel-40-500.pdf",
+              "page": 9
+            },
+            {
+              "chunk_id": 1031,
+              "book_name": "core-and-advanced-java-black-book-recommended-by-cdac-revised-and-upgraded-9789351198840-9789386052216_compress-30-400.pdf",
+              "page": 325
+            },
+            {
+              "chunk_id": 799,
+              "book_name": "core-and-advanced-java-black-book-recommended-by-cdac-revised-and-upgraded-9789351198840-9789386052216_compress-30-400.pdf",
+              "page": 253
+            },
+            {
+              "chunk_id": 1179,
+              "book_name": "core-and-advanced-java-black-book-recommended-by-cdac-revised-and-upgraded-9789351198840-9789386052216_compress-30-400.pdf",
+              "page": 370
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "unit_number": "V",
+      "unit_title": "ADVANCED FRAMEWORKS",
+      "topics": [
+        {
+          "topic_name": "Advanced Frameworks",
+          "mapped_course_outcomes": [
+            "CO5"
+          ],
+          "enriched_subtopics_from_books": [
+            "Java Collections Framework",
+            "Lambda Expressions",
+            "Streams API",
+            "Functional Programming",
+            "Java EE Features",
+            "Distributed Communication",
+            "Scalable Architecture"
+          ],
+          "source_references": [
+            {
+              "chunk_id": 386,
+              "book_name": "core-and-advanced-java-black-book-recommended-by-cdac-revised-and-upgraded-9789351198840-9789386052216_compress-30-400.pdf",
+              "page": 111
+            },
+            {
+              "chunk_id": 29,
+              "book_name": "core-and-advanced-java-black-book-recommended-by-cdac-revised-and-upgraded-9789351198840-9789386052216_compress-30-400.pdf",
+              "page": 9
+            },
+            {
+              "chunk_id": 2829,
+              "book_name": "java_new.pdf",
+              "page": 56
+            },
+            {
+              "chunk_id": 818,
+              "book_name": "core-and-advanced-java-black-book-recommended-by-cdac-revised-and-upgraded-9789351198840-9789386052216_compress-30-400.pdf",
+              "page": 259
+            },
+            {
+              "chunk_id": 826,
+              "book_name": "core-and-advanced-java-black-book-recommended-by-cdac-revised-and-upgraded-9789351198840-9789386052216_compress-30-400.pdf",
+              "page": 262
+            },
+            {
+              "chunk_id": 1903,
+              "book_name": "Java - How to Program 10th Ed - Early Objects Version - Deitel-40-500.pdf",
+              "page": 216
+            },
+            {
+              "chunk_id": 1250,
+              "book_name": "Java - How to Program 10th Ed - Early Objects Version - Deitel-40-500.pdf",
+              "page": 22
+            },
+            {
+              "chunk_id": 1244,
+              "book_name": "Java - How to Program 10th Ed - Early Objects Version - Deitel-40-500.pdf",
+              "page": 20
+            },
+            {
+              "chunk_id": 1196,
+              "book_name": "Java - How to Program 10th Ed - Early Objects Version - Deitel-40-500.pdf",
+              "page": 7
+            },
+            {
+              "chunk_id": 1243,
+              "book_name": "Java - How to Program 10th Ed - Early Objects Version - Deitel-40-500.pdf",
+              "page": 20
+            }
+          ]
+        },
+        {
+          "topic_name": "MVC framework",
+          "mapped_course_outcomes": [
+            "CO5"
+          ],
+          "enriched_subtopics_from_books": [
+            "MVC Framework Basics",
+            "Java Collections",
+            "GUI Event Listeners",
+            "Network Architecture",
+            "Java Swing Events",
+            "Lambda Expressions",
+            "Ajax Technology"
+          ],
+          "source_references": [
+            {
+              "chunk_id": 29,
+              "book_name": "core-and-advanced-java-black-book-recommended-by-cdac-revised-and-upgraded-9789351198840-9789386052216_compress-30-400.pdf",
+              "page": 9
+            },
+            {
+              "chunk_id": 2829,
+              "book_name": "java_new.pdf",
+              "page": 56
+            },
+            {
+              "chunk_id": 386,
+              "book_name": "core-and-advanced-java-black-book-recommended-by-cdac-revised-and-upgraded-9789351198840-9789386052216_compress-30-400.pdf",
+              "page": 111
+            },
+            {
+              "chunk_id": 2645,
+              "book_name": "Java - How to Program 10th Ed - Early Objects Version - Deitel-40-500.pdf",
+              "page": 436
+            },
+            {
+              "chunk_id": 413,
+              "book_name": "core-and-advanced-java-black-book-recommended-by-cdac-revised-and-upgraded-9789351198840-9789386052216_compress-30-400.pdf",
+              "page": 120
+            },
+            {
+              "chunk_id": 1165,
+              "book_name": "core-and-advanced-java-black-book-recommended-by-cdac-revised-and-upgraded-9789351198840-9789386052216_compress-30-400.pdf",
+              "page": 367
+            },
+            {
+              "chunk_id": 1905,
+              "book_name": "Java - How to Program 10th Ed - Early Objects Version - Deitel-40-500.pdf",
+              "page": 216
+            },
+            {
+              "chunk_id": 1235,
+              "book_name": "Java - How to Program 10th Ed - Early Objects Version - Deitel-40-500.pdf",
+              "page": 18
+            },
+            {
+              "chunk_id": 442,
+              "book_name": "core-and-advanced-java-black-book-recommended-by-cdac-revised-and-upgraded-9789351198840-9789386052216_compress-30-400.pdf",
+              "page": 128
+            },
+            {
+              "chunk_id": 1273,
+              "book_name": "Java - How to Program 10th Ed - Early Objects Version - Deitel-40-500.pdf",
+              "page": 31
+            }
+          ]
+        },
+        {
+          "topic_name": "Hibernate",
+          "mapped_course_outcomes": [
+            "CO5"
+          ],
+          "enriched_subtopics_from_books": [
+            "Thread Creation Methods",
+            "Thread Priority",
+            "Sleep Mode",
+            "Thread Termination",
+            "Thread Pooling",
+            "Daemon Threads",
+            "Thread Synchronization"
+          ],
+          "source_references": [
+            {
+              "chunk_id": 714,
+              "book_name": "core-and-advanced-java-black-book-recommended-by-cdac-revised-and-upgraded-9789351198840-9789386052216_compress-30-400.pdf",
+              "page": 221
+            },
+            {
+              "chunk_id": 2813,
+              "book_name": "java_new.pdf",
+              "page": 47
+            },
+            {
+              "chunk_id": 2804,
+              "book_name": "java_new.pdf",
+              "page": 42
+            },
+            {
+              "chunk_id": 2806,
+              "book_name": "java_new.pdf",
+              "page": 43
+            },
+            {
+              "chunk_id": 29,
+              "book_name": "core-and-advanced-java-black-book-recommended-by-cdac-revised-and-upgraded-9789351198840-9789386052216_compress-30-400.pdf",
+              "page": 9
+            },
+            {
+              "chunk_id": 770,
+              "book_name": "core-and-advanced-java-black-book-recommended-by-cdac-revised-and-upgraded-9789351198840-9789386052216_compress-30-400.pdf",
+              "page": 241
+            },
+            {
+              "chunk_id": 676,
+              "book_name": "core-and-advanced-java-black-book-recommended-by-cdac-revised-and-upgraded-9789351198840-9789386052216_compress-30-400.pdf",
+              "page": 205
+            },
+            {
+              "chunk_id": 713,
+              "book_name": "core-and-advanced-java-black-book-recommended-by-cdac-revised-and-upgraded-9789351198840-9789386052216_compress-30-400.pdf",
+              "page": 221
+            },
+            {
+              "chunk_id": 766,
+              "book_name": "core-and-advanced-java-black-book-recommended-by-cdac-revised-and-upgraded-9789351198840-9789386052216_compress-30-400.pdf",
+              "page": 239
+            },
+            {
+              "chunk_id": 2821,
+              "book_name": "java_new.pdf",
+              "page": 51
+            }
+          ]
+        },
+        {
+          "topic_name": "Using Annotations",
+          "mapped_course_outcomes": [
+            "CO5"
+          ],
+          "enriched_subtopics_from_books": [
+            "Annotation Basics",
+            "Repeated Annotations",
+            "Type Annotations",
+            "Annotation Reflection",
+            "Documented Annotations",
+            "SuppressWarnings Annotation"
+          ],
+          "source_references": [
+            {
+              "chunk_id": 1006,
+              "book_name": "core-and-advanced-java-black-book-recommended-by-cdac-revised-and-upgraded-9789351198840-9789386052216_compress-30-400.pdf",
+              "page": 317
+            },
+            {
+              "chunk_id": 19,
+              "book_name": "core-and-advanced-java-black-book-recommended-by-cdac-revised-and-upgraded-9789351198840-9789386052216_compress-30-400.pdf",
+              "page": 6
+            },
+            {
+              "chunk_id": 1005,
+              "book_name": "core-and-advanced-java-black-book-recommended-by-cdac-revised-and-upgraded-9789351198840-9789386052216_compress-30-400.pdf",
+              "page": 317
+            },
+            {
+              "chunk_id": 1017,
+              "book_name": "core-and-advanced-java-black-book-recommended-by-cdac-revised-and-upgraded-9789351198840-9789386052216_compress-30-400.pdf",
+              "page": 321
+            },
+            {
+              "chunk_id": 1004,
+              "book_name": "core-and-advanced-java-black-book-recommended-by-cdac-revised-and-upgraded-9789351198840-9789386052216_compress-30-400.pdf",
+              "page": 317
+            },
+            {
+              "chunk_id": 1016,
+              "book_name": "core-and-advanced-java-black-book-recommended-by-cdac-revised-and-upgraded-9789351198840-9789386052216_compress-30-400.pdf",
+              "page": 320
+            },
+            {
+              "chunk_id": 1019,
+              "book_name": "core-and-advanced-java-black-book-recommended-by-cdac-revised-and-upgraded-9789351198840-9789386052216_compress-30-400.pdf",
+              "page": 321
+            },
+            {
+              "chunk_id": 1009,
+              "book_name": "core-and-advanced-java-black-book-recommended-by-cdac-revised-and-upgraded-9789351198840-9789386052216_compress-30-400.pdf",
+              "page": 318
+            },
+            {
+              "chunk_id": 392,
+              "book_name": "core-and-advanced-java-black-book-recommended-by-cdac-revised-and-upgraded-9789351198840-9789386052216_compress-30-400.pdf",
+              "page": 113
+            },
+            {
+              "chunk_id": 1013,
+              "book_name": "core-and-advanced-java-black-book-recommended-by-cdac-revised-and-upgraded-9789351198840-9789386052216_compress-30-400.pdf",
+              "page": 320
+            }
+          ]
+        },
+        {
+          "topic_name": "Hibernate Query language",
+          "mapped_course_outcomes": [
+            "CO5"
+          ],
+          "enriched_subtopics_from_books": [
+            "Hibernate Basics",
+            "Query Language Syntax",
+            "JDBC Drivers",
+            "Database Connectivity",
+            "Java Annotations",
+            "Object Oriented Programming",
+            "SQL Execution"
+          ],
+          "source_references": [
+            {
+              "chunk_id": 376,
+              "book_name": "core-and-advanced-java-black-book-recommended-by-cdac-revised-and-upgraded-9789351198840-9789386052216_compress-30-400.pdf",
+              "page": 109
+            },
+            {
+              "chunk_id": 2857,
+              "book_name": "java_new.pdf",
+              "page": 73
+            },
+            {
+              "chunk_id": 2863,
+              "book_name": "java_new.pdf",
+              "page": 77
+            },
+            {
+              "chunk_id": 2864,
+              "book_name": "java_new.pdf",
+              "page": 77
+            },
+            {
+              "chunk_id": 1248,
+              "book_name": "Java - How to Program 10th Ed - Early Objects Version - Deitel-40-500.pdf",
+              "page": 21
+            },
+            {
+              "chunk_id": 1000,
+              "book_name": "core-and-advanced-java-black-book-recommended-by-cdac-revised-and-upgraded-9789351198840-9789386052216_compress-30-400.pdf",
+              "page": 316
+            },
+            {
+              "chunk_id": 2733,
+              "book_name": "java_new.pdf",
+              "page": 0
+            },
+            {
+              "chunk_id": 2573,
+              "book_name": "Java - How to Program 10th Ed - Early Objects Version - Deitel-40-500.pdf",
+              "page": 412
+            },
+            {
+              "chunk_id": 2577,
+              "book_name": "Java - How to Program 10th Ed - Early Objects Version - Deitel-40-500.pdf",
+              "page": 413
+            },
+            {
+              "chunk_id": 1005,
+              "book_name": "core-and-advanced-java-black-book-recommended-by-cdac-revised-and-upgraded-9789351198840-9789386052216_compress-30-400.pdf",
+              "page": 317
+            }
+          ]
+        },
+        {
+          "topic_name": "O/R mapping",
+          "mapped_course_outcomes": [
+            "CO5"
+          ],
+          "enriched_subtopics_from_books": [
+            "O/R Mapping Basics",
+            "Java Map Interface",
+            "Map Implementations",
+            "TreeMap Methods",
+            "HashMap Features",
+            "NavigableMap Usage",
+            "Map Entry Sets"
+          ],
+          "source_references": [
+            {
+              "chunk_id": 2851,
+              "book_name": "java_new.pdf",
+              "page": 69
+            },
+            {
+              "chunk_id": 2845,
+              "book_name": "java_new.pdf",
+              "page": 66
+            },
+            {
+              "chunk_id": 823,
+              "book_name": "core-and-advanced-java-black-book-recommended-by-cdac-revised-and-upgraded-9789351198840-9789386052216_compress-30-400.pdf",
+              "page": 261
+            },
+            {
+              "chunk_id": 914,
+              "book_name": "core-and-advanced-java-black-book-recommended-by-cdac-revised-and-upgraded-9789351198840-9789386052216_compress-30-400.pdf",
+              "page": 287
+            },
+            {
+              "chunk_id": 927,
+              "book_name": "core-and-advanced-java-black-book-recommended-by-cdac-revised-and-upgraded-9789351198840-9789386052216_compress-30-400.pdf",
+              "page": 291
+            },
+            {
+              "chunk_id": 925,
+              "book_name": "core-and-advanced-java-black-book-recommended-by-cdac-revised-and-upgraded-9789351198840-9789386052216_compress-30-400.pdf",
+              "page": 291
+            },
+            {
+              "chunk_id": 922,
+              "book_name": "core-and-advanced-java-black-book-recommended-by-cdac-revised-and-upgraded-9789351198840-9789386052216_compress-30-400.pdf",
+              "page": 290
+            },
+            {
+              "chunk_id": 924,
+              "book_name": "core-and-advanced-java-black-book-recommended-by-cdac-revised-and-upgraded-9789351198840-9789386052216_compress-30-400.pdf",
+              "page": 291
+            },
+            {
+              "chunk_id": 926,
+              "book_name": "core-and-advanced-java-black-book-recommended-by-cdac-revised-and-upgraded-9789351198840-9789386052216_compress-30-400.pdf",
+              "page": 291
+            },
+            {
+              "chunk_id": 911,
+              "book_name": "core-and-advanced-java-black-book-recommended-by-cdac-revised-and-upgraded-9789351198840-9789386052216_compress-30-400.pdf",
+              "page": 286
+            }
+          ]
+        },
+        {
+          "topic_name": "Spring Framework",
+          "mapped_course_outcomes": [
+            "CO5"
+          ],
+          "enriched_subtopics_from_books": [
+            "Spring Framework Overview",
+            "Java Beans",
+            "Java Collections",
+            "Type Annotations",
+            "Java EE Features",
+            "Bean Persistence",
+            "Event Handling"
+          ],
+          "source_references": [
+            {
+              "chunk_id": 0,
+              "book_name": "core-and-advanced-java-black-book-recommended-by-cdac-revised-and-upgraded-9789351198840-9789386052216_compress-30-400.pdf",
+              "page": 0
+            },
+            {
+              "chunk_id": 1135,
+              "book_name": "core-and-advanced-java-black-book-recommended-by-cdac-revised-and-upgraded-9789351198840-9789386052216_compress-30-400.pdf",
+              "page": 359
+            },
+            {
+              "chunk_id": 2829,
+              "book_name": "java_new.pdf",
+              "page": 56
+            },
+            {
+              "chunk_id": 1017,
+              "book_name": "core-and-advanced-java-black-book-recommended-by-cdac-revised-and-upgraded-9789351198840-9789386052216_compress-30-400.pdf",
+              "page": 321
+            },
+            {
+              "chunk_id": 29,
+              "book_name": "core-and-advanced-java-black-book-recommended-by-cdac-revised-and-upgraded-9789351198840-9789386052216_compress-30-400.pdf",
+              "page": 9
+            },
+            {
+              "chunk_id": 1067,
+              "book_name": "core-and-advanced-java-black-book-recommended-by-cdac-revised-and-upgraded-9789351198840-9789386052216_compress-30-400.pdf",
+              "page": 338
+            },
+            {
+              "chunk_id": 996,
+              "book_name": "core-and-advanced-java-black-book-recommended-by-cdac-revised-and-upgraded-9789351198840-9789386052216_compress-30-400.pdf",
+              "page": 314
+            },
+            {
+              "chunk_id": 1066,
+              "book_name": "core-and-advanced-java-black-book-recommended-by-cdac-revised-and-upgraded-9789351198840-9789386052216_compress-30-400.pdf",
+              "page": 338
+            },
+            {
+              "chunk_id": 1905,
+              "book_name": "Java - How to Program 10th Ed - Early Objects Version - Deitel-40-500.pdf",
+              "page": 216
+            },
+            {
+              "chunk_id": 1140,
+              "book_name": "core-and-advanced-java-black-book-recommended-by-cdac-revised-and-upgraded-9789351198840-9789386052216_compress-30-400.pdf",
+              "page": 361
+            }
+          ]
+        },
+        {
+          "topic_name": "Case Studies",
+          "mapped_course_outcomes": [
+            "CO5"
+          ],
+          "enriched_subtopics_from_books": [
+            "GUI Case Study",
+            "Polymorphism Case",
+            "AutoPolicy Case",
+            "Switch Statements",
+            "Moore's Law",
+            "Object Oriented Programming",
+            "Graphical User Interfaces"
+          ],
+          "source_references": [
+            {
+              "chunk_id": 1490,
+              "book_name": "Java - How to Program 10th Ed - Early Objects Version - Deitel-40-500.pdf",
+              "page": 94
+            },
+            {
+              "chunk_id": 1493,
+              "book_name": "Java - How to Program 10th Ed - Early Objects Version - Deitel-40-500.pdf",
+              "page": 94
+            },
+            {
+              "chunk_id": 2533,
+              "book_name": "Java - How to Program 10th Ed - Early Objects Version - Deitel-40-500.pdf",
+              "page": 400
+            },
+            {
+              "chunk_id": 1771,
+              "book_name": "Java - How to Program 10th Ed - Early Objects Version - Deitel-40-500.pdf",
+              "page": 175
+            },
+            {
+              "chunk_id": 1832,
+              "book_name": "Java - How to Program 10th Ed - Early Objects Version - Deitel-40-500.pdf",
+              "page": 196
+            },
+            {
+              "chunk_id": 1831,
+              "book_name": "Java - How to Program 10th Ed - Early Objects Version - Deitel-40-500.pdf",
+              "page": 196
+            },
+            {
+              "chunk_id": 1765,
+              "book_name": "Java - How to Program 10th Ed - Early Objects Version - Deitel-40-500.pdf",
+              "page": 173
+            },
+            {
+              "chunk_id": 1200,
+              "book_name": "Java - How to Program 10th Ed - Early Objects Version - Deitel-40-500.pdf",
+              "page": 8
+            },
+            {
+              "chunk_id": 337,
+              "book_name": "core-and-advanced-java-black-book-recommended-by-cdac-revised-and-upgraded-9789351198840-9789386052216_compress-30-400.pdf",
+              "page": 96
+            },
+            {
+              "chunk_id": 2241,
+              "book_name": "Java - How to Program 10th Ed - Early Objects Version - Deitel-40-500.pdf",
+              "page": 311
+            }
+          ]
+        }
+      ]
+    }
+  ],
+  "course_outcomes": {
+    "CO1": "Implement Object-Oriented concepts of Java programming.",
+    "CO2": "Work with Generics, Networking and GUI based application development.",
+    "CO3": "Create responsive applications using AJAX & JSON.",
+    "CO4": "Develop dynamic web applications with database connectivity using server-side technologies.",
+    "CO5": "Design and development of applications using advanced frameworks.",
+    "CO6": "To obtain knowledge on usage of IDEs for design and implementation of real time application in Java."
+  }
+}

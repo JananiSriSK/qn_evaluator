@@ -1,179 +1,203 @@
+"""
+API Testing Script for Question Intelligence System v2.0
+Tests all REST endpoints for frontend integration
+"""
+
 import requests
 import json
+from pathlib import Path
 
-# Test data
-test_course = {
-    "course_name": "Data Structures",
-    "syllabus": [
-        {
-            "unit_number": 1,
-            "title": "Arrays and Linked Lists",
-            "content": "Introduction to arrays, dynamic arrays, singly linked lists, doubly linked lists, operations on linked lists"
-        },
-        {
-            "unit_number": 2,
-            "title": "Stacks and Queues",
-            "content": "Stack operations, queue operations, circular queues, priority queues, applications"
-        }
-    ],
-    "course_outcomes": [
-        {
-            "id": "CO1",
-            "description": "Understand fundamental data structures and their operations"
-        },
-        {
-            "id": "CO2", 
-            "description": "Implement and analyze linear data structures"
-        }
+BASE_URL = "http://localhost:8002"
+
+def test_health():
+    """Test health check"""
+    print("\n=== Testing Health Check ===")
+    response = requests.get(f"{BASE_URL}/")
+    print(f"Status: {response.status_code}")
+    print(f"Response: {response.json()}")
+    return response.status_code == 200
+
+def test_create_domain():
+    """Test domain creation"""
+    print("\n=== Testing Domain Creation ===")
+    data = {
+        "user_id": "test_user",
+        "domain_name": "TEST_DOMAIN"
+    }
+    response = requests.post(f"{BASE_URL}/domains/create", json=data)
+    print(f"Status: {response.status_code}")
+    print(f"Response: {response.json()}")
+    return response.status_code == 200
+
+def test_list_domains():
+    """Test listing domains"""
+    print("\n=== Testing List Domains ===")
+    response = requests.get(f"{BASE_URL}/domains/test_user")
+    print(f"Status: {response.status_code}")
+    print(f"Response: {response.json()}")
+    return response.status_code == 200
+
+def test_upload_syllabus():
+    """Test syllabus upload"""
+    print("\n=== Testing Syllabus Upload ===")
+    
+    # Check if syllabus exists
+    syllabus_path = Path("extract/syllabus.txt")
+    if not syllabus_path.exists():
+        print("❌ Syllabus file not found at extract/syllabus.txt")
+        return False
+    
+    with open(syllabus_path, "rb") as f:
+        files = {"file": ("syllabus.txt", f, "text/plain")}
+        response = requests.post(
+            f"{BASE_URL}/domains/test_user/TEST_DOMAIN/syllabus",
+            files=files
+        )
+    
+    print(f"Status: {response.status_code}")
+    print(f"Response: {response.json()}")
+    return response.status_code == 200
+
+def test_upload_books():
+    """Test books upload"""
+    print("\n=== Testing Books Upload ===")
+    
+    # Check if books exist
+    books_path = Path("extract/books")
+    if not books_path.exists():
+        print("❌ Books directory not found at extract/books")
+        return False
+    
+    pdf_files = list(books_path.glob("*.pdf"))
+    if not pdf_files:
+        print("❌ No PDF files found in extract/books")
+        return False
+    
+    files = []
+    for pdf in pdf_files[:2]:  # Upload first 2 books for testing
+        files.append(("files", (pdf.name, open(pdf, "rb"), "application/pdf")))
+    
+    response = requests.post(
+        f"{BASE_URL}/domains/test_user/TEST_DOMAIN/books",
+        files=files
+    )
+    
+    # Close files
+    for _, (_, f, _) in files:
+        f.close()
+    
+    print(f"Status: {response.status_code}")
+    print(f"Response: {response.json()}")
+    return response.status_code == 200
+
+def test_domain_status():
+    """Test domain status"""
+    print("\n=== Testing Domain Status ===")
+    response = requests.get(f"{BASE_URL}/domains/test_user/TEST_DOMAIN/status")
+    print(f"Status: {response.status_code}")
+    print(f"Response: {response.json()}")
+    return response.status_code == 200
+
+def test_evaluate_question():
+    """Test single question evaluation"""
+    print("\n=== Testing Question Evaluation ===")
+    data = {
+        "user_id": "test_user",
+        "domain_name": "TEST_DOMAIN",
+        "question": "Explain why multiple inheritance is not applicable in Java?"
+    }
+    response = requests.post(f"{BASE_URL}/evaluate", json=data)
+    print(f"Status: {response.status_code}")
+    result = response.json()
+    
+    if response.status_code == 200:
+        print(f"Question: {result['question']}")
+        print(f"Unit: {result['unit']}")
+        print(f"Topic: {result['topic']}")
+        print(f"Bloom Level: {result['bloom_level']} (confidence: {result['bloom_confidence']:.2f})")
+        print(f"Course Outcomes: {result['course_outcomes']}")
+        print(f"Subtopics: {len(result.get('subtopics', []))}")
+        print(f"Relevant Chunks: {len(result.get('relevant_chunks', []))}")
+    else:
+        print(f"Error: {result}")
+    
+    return response.status_code == 200
+
+def test_delete_domain():
+    """Test domain deletion"""
+    print("\n=== Testing Domain Deletion ===")
+    response = requests.delete(f"{BASE_URL}/domains/test_user/TEST_DOMAIN")
+    print(f"Status: {response.status_code}")
+    print(f"Response: {response.json()}")
+    return response.status_code == 200
+
+def test_existing_domain():
+    """Test with existing default_user/JAVA_PROGRAMMING domain"""
+    print("\n=== Testing Existing Domain ===")
+    
+    # Check status
+    response = requests.get(f"{BASE_URL}/domains/default_user/JAVA_PROGRAMMING/status")
+    print(f"Status Check: {response.status_code}")
+    print(f"Response: {response.json()}")
+    
+    if response.status_code != 200:
+        print("❌ Default domain not found")
+        return False
+    
+    # Evaluate question
+    data = {
+        "user_id": "default_user",
+        "domain_name": "JAVA_PROGRAMMING",
+        "question": "What is polymorphism in Java?"
+    }
+    response = requests.post(f"{BASE_URL}/evaluate", json=data)
+    print(f"\nEvaluation Status: {response.status_code}")
+    
+    if response.status_code == 200:
+        result = response.json()
+        print(f"Unit: {result['unit']}")
+        print(f"Topic: {result['topic']}")
+        print(f"Bloom: {result['bloom_level']} ({result['bloom_confidence']:.2f})")
+    else:
+        print(f"Error: {response.json()}")
+    
+    return response.status_code == 200
+
+def run_full_test():
+    """Run complete test suite"""
+    print("=" * 60)
+    print("Question Intelligence System v2.0 - API Test Suite")
+    print("=" * 60)
+    
+    tests = [
+        ("Health Check", test_health),
+        ("Create Domain", test_create_domain),
+        ("List Domains", test_list_domains),
+        ("Upload Syllabus", test_upload_syllabus),
+        ("Upload Books", test_upload_books),
+        ("Domain Status", test_domain_status),
+        ("Evaluate Question", test_evaluate_question),
+        ("Delete Domain", test_delete_domain),
+        ("Test Existing Domain", test_existing_domain)
     ]
-}
-
-def test_course_ingestion():
-    """Test the course ingestion endpoint"""
-    url = "http://localhost:8001/ingest-course"
     
-    try:
-        response = requests.post(url, json=test_course)
-        
-        if response.status_code == 200:
-            result = response.json()
-            print("✅ Course ingestion successful!")
-            print(f"Course: {result['course_name']}")
-            print(f"Units processed: {result['units_processed']}")
-            print(f"Embeddings stored: {result['embeddings_stored']}")
-        else:
-            print(f"❌ Error: {response.status_code}")
-            print(response.text)
-            
-    except requests.exceptions.ConnectionError:
-        print("❌ Server not running. Start with: python main.py")
-    except Exception as e:
-        print(f"❌ Error: {e}")
-
-def test_health_check():
-    """Test the health check endpoint"""
-    try:
-        response = requests.get("http://localhost:8001/")
-        if response.status_code == 200:
-            print("✅ Server is running")
-            print(response.json())
-        else:
-            print(f"❌ Health check failed: {response.status_code}")
-    except requests.exceptions.ConnectionError:
-        print("❌ Server not running")
-
-def test_question_evaluation():
-    """Test the question evaluation endpoint"""
-    url = "http://localhost:8001/evaluate-question"
+    results = []
+    for name, test_func in tests:
+        try:
+            success = test_func()
+            results.append((name, "✓ PASS" if success else "✗ FAIL"))
+        except Exception as e:
+            print(f"❌ Exception: {e}")
+            results.append((name, f"✗ ERROR: {str(e)[:50]}"))
     
-    test_question = {
-        "course_name": "Data Structures",
-        "question": "Explain the implementation of a stack using arrays and discuss its time complexity"
-    }
+    print("\n" + "=" * 60)
+    print("TEST RESULTS")
+    print("=" * 60)
+    for name, result in results:
+        print(f"{name:.<40} {result}")
     
-    try:
-        response = requests.post(url, json=test_question)
-        
-        if response.status_code == 200:
-            result = response.json()
-            print("✅ Question evaluation successful!")
-            print(f"Predicted CO: {result['predicted_co']}")
-            print(f"Relevance Score: {result['relevance_score']}")
-            print(f"Matched Unit: {result['matched_unit']}")
-            print(f"Context: {result['matched_syllabus_context'][:100]}...")
-            
-            # Display explainability data if available
-            if result.get('explanation') and result['explanation'].get('top_matches'):
-                print("\n📊 Top Semantic Matches (Explainability):")
-                for i, match in enumerate(result['explanation']['top_matches'], 1):
-                    print(f"  {i}. Unit: {match['unit']} | CO: {match['co'][:50]}... | Score: {match['similarity']}")
-        else:
-            print(f"❌ Error: {response.status_code}")
-            print(response.text)
-            
-    except requests.exceptions.ConnectionError:
-        print("❌ Server not running. Start with: python main.py")
-    except Exception as e:
-        print(f"❌ Error: {e}")
-
-def test_subtopic_suggestion():
-    """Test the subtopic suggestion endpoint"""
-    url = "http://localhost:8001/suggest-subtopics"
-    
-    test_data = {
-        "course_name": "Data Structures",
-        "unit_title": "Arrays and Linked Lists",
-        "unit_content": "Introduction to arrays, dynamic arrays, singly linked lists, doubly linked lists, operations on linked lists"
-    }
-    
-    try:
-        response = requests.post(url, json=test_data)
-        
-        if response.status_code == 200:
-            result = response.json()
-            print("✅ Subtopic suggestion successful!")
-            print(f"Unit: {result['unit']}")
-            print(f"Suggested Subtopics: {result['suggested_subtopics']}")
-        else:
-            print(f"❌ Error: {response.status_code}")
-            print(response.text)
-            
-    except requests.exceptions.ConnectionError:
-        print("❌ Server not running. Start with: python main.py")
-    except Exception as e:
-        print(f"❌ Error: {e}")
-
-def test_subtopic_confirmation():
-    """Test the subtopic confirmation endpoint"""
-    url = "http://localhost:8001/confirm-subtopics"
-    
-    test_data = {
-        "course_name": "Data Structures",
-        "unit_title": "Arrays and Linked Lists",
-        "final_subtopics": [
-            "Array declaration and initialization",
-            "Dynamic array operations",
-            "Singly linked list implementation",
-            "Doubly linked list operations"
-        ],
-        "course_outcomes": [
-            {"id": "CO1", "description": "Understand fundamental data structures"},
-            {"id": "CO2", "description": "Implement linear data structures"}
-        ]
-    }
-    
-    try:
-        response = requests.post(url, json=test_data)
-        
-        if response.status_code == 200:
-            result = response.json()
-            print("✅ Subtopic confirmation successful!")
-            print(f"Message: {result['message']}")
-            print(f"Unit: {result['unit']}")
-            print(f"Subtopics processed: {result['subtopics_processed']}")
-            print(f"Embeddings stored: {result['embeddings_stored']}")
-        else:
-            print(f"❌ Error: {response.status_code}")
-            print(response.text)
-            
-    except requests.exceptions.ConnectionError:
-        print("❌ Server not running. Start with: python main.py")
-    except Exception as e:
-        print(f"❌ Error: {e}")
+    passed = sum(1 for _, r in results if "PASS" in r)
+    print(f"\nTotal: {passed}/{len(tests)} passed")
 
 if __name__ == "__main__":
-    print("Testing Question Intelligence System...")
-    print("\n1. Health Check:")
-    test_health_check()
-    
-    print("\n2. Course Ingestion:")
-    test_course_ingestion()
-    
-    print("\n3. Question Evaluation:")
-    test_question_evaluation()
-    
-    print("\n4. Subtopic Suggestion:")
-    test_subtopic_suggestion()
-    
-    print("\n5. Subtopic Confirmation:")
-    test_subtopic_confirmation()
+    run_full_test()

@@ -1,7 +1,43 @@
-venv/
+# Python
 __pycache__/
-*.pyc
-.env
+*.py[cod]
+*$py.class
+*.so
+.Python
+env/
+venv/
+ENV/
+*.egg-info/
 
-node_modules/
+# Environment
+.env
+*.env
+
+# Data and models
+backend/data/
+backend/vector_db/
+backend/extract/vector_db/
+*.bin
+*.index
+*.faiss
+
+# Node modules
+frontend/node_modules/
+frontend/dist/
+frontend/build/
+
+# IDE
+.vscode/
+.idea/
+*.swp
+*.swo
+
+# OS
 .DS_Store
+Thumbs.db
+
+# Logs
+*.log
+
+# Temp files
+temp_*

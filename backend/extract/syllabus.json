@@ -1,0 +1,251 @@
+{
+  "course_name": "JAVA PROGRAMMING",
+  "units": [
+    {
+      "unit_number": "I",
+      "unit_title": "JAVA BASICS",
+      "topics": [
+        {
+          "topic_name": "Overview of Java",
+          "mapped_course_outcomes": []
+        },
+        {
+          "topic_name": "Java Fundamentals: Classes, Objects, Methods and Strings",
+          "mapped_course_outcomes": []
+        },
+        {
+          "topic_name": "Methods: A Deeper Look",
+          "mapped_course_outcomes": []
+        },
+        {
+          "topic_name": "Arrays and Array Lists",
+          "mapped_course_outcomes": []
+        },
+        {
+          "topic_name": "Classes and Objects: A Deeper Look",
+          "mapped_course_outcomes": []
+        },
+        {
+          "topic_name": "Inheritance",
+          "mapped_course_outcomes": []
+        },
+        {
+          "topic_name": "Polymorphism",
+          "mapped_course_outcomes": []
+        },
+        {
+          "topic_name": "Interfaces",
+          "mapped_course_outcomes": []
+        },
+        {
+          "topic_name": "Packages",
+          "mapped_course_outcomes": []
+        },
+        {
+          "topic_name": "Exception Handling",
+          "mapped_course_outcomes": []
+        }
+      ]
+    },
+    {
+      "unit_number": "II",
+      "unit_title": "GUI, I/O AND NETWORK PROGRAMMING",
+      "topics": [
+        {
+          "topic_name": "AWT & Swings",
+          "mapped_course_outcomes": []
+        },
+        {
+          "topic_name": "Strings, Characters and Regular Expressions",
+          "mapped_course_outcomes": []
+        },
+        {
+          "topic_name": "Files, Streams and Object Serialization",
+          "mapped_course_outcomes": []
+        },
+        {
+          "topic_name": "Generic collections",
+          "mapped_course_outcomes": []
+        },
+        {
+          "topic_name": "Generic Classes and Methods",
+          "mapped_course_outcomes": []
+        },
+        {
+          "topic_name": "Networking: Manipulating URLs",
+          "mapped_course_outcomes": []
+        },
+        {
+          "topic_name": "Reading web pages",
+          "mapped_course_outcomes": []
+        },
+        {
+          "topic_name": "Using stream sockets",
+          "mapped_course_outcomes": []
+        },
+        {
+          "topic_name": "Datagrams",
+          "mapped_course_outcomes": []
+        },
+        {
+          "topic_name": "Multicasting",
+          "mapped_course_outcomes": []
+        },
+        {
+          "topic_name": "Multicasting sockets",
+          "mapped_course_outcomes": []
+        }
+      ]
+    },
+    {
+      "unit_number": "III",
+      "unit_title": "DISTRIBUTED OBJECTS",
+      "topics": [
+        {
+          "topic_name": "JSON",
+          "mapped_course_outcomes": []
+        },
+        {
+          "topic_name": "AJAX Enabled Rich Internet Applications with JSON",
+          "mapped_course_outcomes": []
+        },
+        {
+          "topic_name": "Java Mail API",
+          "mapped_course_outcomes": []
+        },
+        {
+          "topic_name": "SMTP, POP3 & IMAP",
+          "mapped_course_outcomes": []
+        }
+      ]
+    },
+    {
+      "unit_number": "IV",
+      "unit_title": "JDBC AND WEB APPLICATION DEVELOPMENT",
+      "topics": [
+        {
+          "topic_name": "Servlet",
+          "mapped_course_outcomes": []
+        },
+        {
+          "topic_name": "Servlet Architecture",
+          "mapped_course_outcomes": []
+        },
+        {
+          "topic_name": "Servlet lifecycle",
+          "mapped_course_outcomes": []
+        },
+        {
+          "topic_name": "Generic Servlet",
+          "mapped_course_outcomes": []
+        },
+        {
+          "topic_name": "HttpServlet",
+          "mapped_course_outcomes": []
+        },
+        {
+          "topic_name": "Server-Side Include",
+          "mapped_course_outcomes": []
+        },
+        {
+          "topic_name": "Overview of JSP",
+          "mapped_course_outcomes": []
+        },
+        {
+          "topic_name": "JSP Components",
+          "mapped_course_outcomes": []
+        },
+        {
+          "topic_name": "Bean",
+          "mapped_course_outcomes": []
+        },
+        {
+          "topic_name": "Session Tracking",
+          "mapped_course_outcomes": []
+        },
+        {
+          "topic_name": "Accessing Database with JDBC",
+          "mapped_course_outcomes": []
+        },
+        {
+          "topic_name": "Basics",
+          "mapped_course_outcomes": []
+        },
+        {
+          "topic_name": "Manipulating Databases with JDBC",
+          "mapped_course_outcomes": []
+        },
+        {
+          "topic_name": "Java Server Faces",
+          "mapped_course_outcomes": []
+        },
+        {
+          "topic_name": "Multitier",
+          "mapped_course_outcomes": []
+        },
+        {
+          "topic_name": "Application Architecture",
+          "mapped_course_outcomes": []
+        },
+        {
+          "topic_name": "MVC Architecture of JSF Apps",
+          "mapped_course_outcomes": []
+        },
+        {
+          "topic_name": "Common JSF Components",
+          "mapped_course_outcomes": []
+        },
+        {
+          "topic_name": "Session Tracking",
+          "mapped_course_outcomes": []
+        }
+      ]
+    },
+    {
+      "unit_number": "V",
+      "unit_title": "ADVANCED FRAMEWORKS",
+      "topics": [
+        {
+          "topic_name": "Advanced Frameworks",
+          "mapped_course_outcomes": []
+        },
+        {
+          "topic_name": "MVC framework",
+          "mapped_course_outcomes": []
+        },
+        {
+          "topic_name": "Hibernate",
+          "mapped_course_outcomes": []
+        },
+        {
+          "topic_name": "Using Annotations",
+          "mapped_course_outcomes": []
+        },
+        {
+          "topic_name": "Hibernate Query language",
+          "mapped_course_outcomes": []
+        },
+        {
+          "topic_name": "O/R mapping",
+          "mapped_course_outcomes": []
+        },
+        {
+          "topic_name": "Spring Framework",
+          "mapped_course_outcomes": []
+        },
+        {
+          "topic_name": "Case Studies",
+          "mapped_course_outcomes": []
+        }
+      ]
+    }
+  ],
+  "course_outcomes": {
+    "CO1": "Implement Object-Oriented concepts of Java programming.",
+    "CO2": "Work with Generics, Networking and GUI based application development.",
+    "CO3": "Create responsive applications using AJAX & JSON.",
+    "CO4": "Develop dynamic web applications with database connectivity using server-side technologies.",
+    "CO5": "Design and development of applications using advanced frameworks.",
+    "CO6": "To obtain knowledge on usage of IDEs for design and implementation of real time application in Java."
+  }
+}

@@ -1,0 +1,25 @@
+JAVA PROGRAMMING
+
+UNIT I JAVA BASICS 
+Overview of Java – Java Fundamentals: Classes, Objects, Methods and Strings – Methods: A Deeper Look – Arrays and Array Lists – Classes and Objects: A Deeper Look – Inheritance – Polymorphism – Interfaces – Packages – Exception Handling.
+UNIT II GUI, I/O AND NETWORK PROGRAMMING 
+AWT & Swings – Strings, Characters and Regular Expressions – Files, Streams and Object Serialization – Generic collections – Generic Classes and Methods – Networking: Manipulating URLs – Reading web pages – Using stream sockets – Datagrams – Multicasting – Multicasting sockets.
+UNIT III DISTRIBUTED OBJECTS 
+JSON – AJAX Enabled Rich Internet Applications with JSON – Java Mail API – SMTP, POP3 & IMAP.
+UNIT IV JDBC AND WEB APPLICATION DEVELOPMENT 
+Servlet – Servlet Architecture – Servlet lifecycle – Generic Servlet – HttpServlet –Server-Side Include – Overview of JSP – JSP Components – Bean – Session Tracking – Accessing Database with JDBC – Basics – Manipulating Databases with JDBC – Java Server Faces – Multitier
+Application Architecture – MVC Architecture of JSF Apps – Common JSF Components – Session Tracking.
+UNIT V ADVANCED FRAMEWORKS 
+Advanced Frameworks – MVC framework – Hibernate – Using Annotations – Hibernate Query language – O/R mapping – Spring Framework –Case Studies.
+
+
+CO1: Implement Object-Oriented concepts of Java programming.
+CO2: Work with Generics, Networking and GUI based application development.
+CO3: Create responsive applications using AJAX & JSON.
+CO4: Develop dynamic web applications with database connectivity using server-side technologies.
+CO5: Design and development of applications using advanced frameworks.
+CO6: To obtain knowledge on usage of IDEs for design and implementation of real time application in Java.
+
+
+
+
