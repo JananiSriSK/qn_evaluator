@@ -14,12 +14,8 @@ class EnrichmentService:
             raise ValueError("GROQ_API_KEY not found in environment")
         self.groq_client = Groq(api_key=api_key)
     
-    def enrich_syllabus(self, syllabus_path, index, metadata, bi_encoder, cross_encoder):
-        """Enrich syllabus with subtopics from book chunks using Groq LLM"""
-        
-        with open(syllabus_path, "r") as f:
-            syllabus = json.load(f)
-        
+    def enrich_syllabus_data(self, syllabus, index, metadata, bi_encoder, cross_encoder):
+        """Enrich syllabus data dict (for MongoDB storage)"""
         logger.info(f"Enriching syllabus with {len(metadata)} chunks...")
         
         for unit in syllabus["units"]:
@@ -48,11 +44,20 @@ class EnrichmentService:
                     for chunk in top_chunks
                 ]
         
+        logger.info("✓ Syllabus enriched successfully")
+        return syllabus
+    
+    def enrich_syllabus(self, syllabus_path, index, metadata, bi_encoder, cross_encoder):
+        """Enrich syllabus file (for file-based storage)"""
+        with open(syllabus_path, "r") as f:
+            syllabus = json.load(f)
+        
+        syllabus = self.enrich_syllabus_data(syllabus, index, metadata, bi_encoder, cross_encoder)
+        
         # Save enriched syllabus
         with open(syllabus_path, "w") as f:
             json.dump(syllabus, f, indent=2)
         
-        logger.info("✓ Syllabus enriched successfully")
         return syllabus
     
     def _retrieve_candidates(self, topic, index, metadata, bi_encoder, top_k=20):

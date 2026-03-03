@@ -11,6 +11,8 @@ class PDFQuestionParser:
     @staticmethod
     def clean_question(text):
         """Remove noise from question text"""
+        raw_text = text
+        
         # Remove Part headers
         text = re.sub(r'Part\s+[A-Z]\b', '', text, flags=re.IGNORECASE)
         
@@ -28,11 +30,14 @@ class PDFQuestionParser:
         text = re.sub(r'\s+', ' ', text)
         text = text.strip()
         
+        logger.info(f"[PDF_PARSER] RAW: '{raw_text[:100]}'")
+        logger.info(f"[PDF_PARSER] CLEANED: '{text[:100]}'")
+        
         return text
     
     @staticmethod
     def detect_part(text, question_number):
-        """Detect which part (A, B, C) the question belongs to"""
+        """Detect which part (A, B, C) the question belongs to - ONLY from explicit markers"""
         # Check for explicit Part markers
         if re.search(r'Part\s+A\b', text, re.IGNORECASE):
             return 'Part A'
@@ -41,17 +46,8 @@ class PDFQuestionParser:
         if re.search(r'Part\s+C\b', text, re.IGNORECASE):
             return 'Part C'
         
-        # Infer from question number
-        if question_number.replace('(a)', '').replace('(b)', '').isdigit():
-            num = int(question_number.replace('(a)', '').replace('(b)', ''))
-            if num <= 10:
-                return 'Part A'
-            elif num <= 19:
-                return 'Part B'
-            else:
-                return 'Part C'
-        
-        return 'Part A'
+        # No explicit marker found - do not guess
+        return None
     
     @staticmethod
     def split_or_questions(question_text, question_number):
@@ -102,51 +98,73 @@ class PDFQuestionParser:
     
     @staticmethod
     def split_questions(text):
-        """Split text into individual questions with part detection"""
-        # Detect part boundaries
-        part_markers = list(re.finditer(r'Part\s+([A-C])\b', text, re.IGNORECASE))
-        current_part = 'Part A'
-        
-        # Common question patterns
-        patterns = [
-            r'\n\s*(\d+)\.?\s+',
-            r'\n\s*Q(\d+)[:\.\)]\s+',
-            r'\n\s*Question\s+(\d+)[:\.\)]\s+',
-        ]
-        
+        """Split text into individual questions with proper Part detection between questions"""
+        lines = text.split('\n')
         questions = []
+        current_part = "Part A"  # Default
+        current_question = None
+        current_number = None
+        pending_part_change = None  # Track part changes between questions
         
-        for pattern in patterns:
-            matches = list(re.finditer(pattern, text, re.IGNORECASE))
+        # Part header: Must be standalone line with "Marks" keyword
+        part_pattern = re.compile(r'^\s*Part\s+([ABC])\s*[:\-–—].*Marks', re.IGNORECASE)
+        question_pattern = re.compile(r'^\s*(\d+)\.\s+')
+        or_pattern = re.compile(r'^\s*(\d+)\s*\(([a-z])\)', re.IGNORECASE)
+        
+        for line in lines:
+            line_stripped = line.strip()
+            if not line_stripped:
+                continue
             
-            if len(matches) > 1:
-                for i, match in enumerate(matches):
-                    start = match.end()
-                    end = matches[i + 1].start() if i + 1 < len(matches) else len(text)
-                    question_text = text[start:end].strip()
-                    
-                    if question_text:
-                        # Clean the question
-                        cleaned = PDFQuestionParser.clean_question(question_text)
-                        if cleaned:
-                            # Detect part
-                            part = PDFQuestionParser.detect_part(text[max(0, match.start()-100):match.end()+100], match.group(1))
-                            
-                            # Split OR questions
-                            sub_questions = PDFQuestionParser.split_or_questions(cleaned, match.group(1))
-                            
-                            for sq in sub_questions:
-                                sq['part'] = part
-                                questions.append(sq)
+            # Check for Part header
+            part_match = part_pattern.match(line_stripped)
+            if part_match:
+                pending_part_change = f"Part {part_match.group(1).upper()}"
+                logger.info(f"[PART DETECTED] {pending_part_change} from: {line_stripped[:80]}")
+                continue
+            
+            # Check for question number
+            q_match = question_pattern.match(line_stripped)
+            or_match = or_pattern.match(line_stripped)
+            
+            if q_match or or_match:
+                # Save previous question
+                if current_question and current_number:
+                    questions.append({
+                        "number": current_number,
+                        "text": current_question.strip(),
+                        "part": current_part
+                    })
+                    logger.info(f"[SAVED] Q{current_number} → {current_part}")
                 
-                if questions:
-                    break
+                # Apply pending part change NOW (before starting new question)
+                if pending_part_change:
+                    current_part = pending_part_change
+                    logger.info(f"[PART SWITCH] Now in {current_part}")
+                    pending_part_change = None
+                
+                # Start new question
+                if or_match:
+                    current_number = f"{or_match.group(1)}({or_match.group(2)})"
+                    current_question = re.sub(r'^\s*\d+\s*\([a-z]\)\s*', '', line_stripped, flags=re.IGNORECASE)
+                else:
+                    current_number = q_match.group(1)
+                    current_question = re.sub(r'^\s*\d+\.\s+', '', line_stripped)
+                
+                logger.info(f"[NEW Q] Q{current_number} started in {current_part}")
+            else:
+                # Continuation of current question
+                if current_question is not None:
+                    current_question += " " + line_stripped
         
-        # If no pattern matched
-        if not questions:
-            cleaned = PDFQuestionParser.clean_question(text.strip())
-            if cleaned:
-                questions = [{'number': '1', 'text': cleaned, 'part': 'Part A'}]
+        # Save last question
+        if current_question and current_number:
+            questions.append({
+                "number": current_number,
+                "text": current_question.strip(),
+                "part": current_part
+            })
+            logger.info(f"[SAVED] Q{current_number} → {current_part}")
         
-        logger.info(f"Extracted {len(questions)} questions from PDF")
+        logger.info(f"[TOTAL] Extracted {len(questions)} questions")
         return questions

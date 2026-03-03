@@ -2,28 +2,69 @@ from .retrieval_service import RetrievalService
 from .model_registry import model_registry
 from .domain_manager import DomainManager
 import numpy as np
+import torch
 import logging
+import re
+import unicodedata
 
 logger = logging.getLogger(__name__)
 
-CONFIDENCE_THRESHOLD = 0.15
+# Relative rank-based gating thresholds
+MARGIN_THRESHOLD = 0.05
+MIN_PROB_THRESHOLD = 0.01
+DOMINANCE_RATIO = 1.5
 
 
 class EvaluationService:
     """Complete evaluation pipeline"""
     
-    def __init__(self, base_path="data"):
-        self.retrieval = RetrievalService(base_path)
-        # Pass embedder from registry to domain manager
+    def __init__(self, base_path="data", mongo_storage=None):
+        self.retrieval = RetrievalService(base_path, mongo_storage=mongo_storage)
+        # Pass embedder and mongo_storage to domain manager
         embedder = model_registry.get_bi_encoder()
-        self.domain_manager = DomainManager(base_path, embedder=embedder)
+        self.domain_manager = DomainManager(base_path, embedder=embedder, mongo_storage=mongo_storage)
+    
+    @staticmethod
+    def clean_question_text(question: str) -> str:
+        """Unified preprocessing for both single and batch evaluation"""
+        raw_question = question
+        
+        # Normalize Unicode
+        question = unicodedata.normalize('NFKC', question)
+        
+        # Remove leading numbering: "3.", "16(a)", "Q.1", etc.
+        question = re.sub(r'^\s*(?:Q\.?\s*)?\d+\s*[\.)\(]?\s*[a-z]?[\)]?\s+', '', question, flags=re.IGNORECASE)
+        
+        # Remove standalone (a), (b), (c) markers at start
+        question = re.sub(r'^\s*\([a-z]\)\s+', '', question, flags=re.IGNORECASE)
+        
+        # Remove bullets
+        question = re.sub(r'^\s*[•●○■□▪▫]\s+', '', question)
+        
+        # Remove marks patterns
+        question = re.sub(r'\(\d+\s*[×x]\s*\d+\s*=\s*\d+\s*Marks?\)', '', question, flags=re.IGNORECASE)
+        question = re.sub(r'\d+\s*Marks?\b', '', question, flags=re.IGNORECASE)
+        
+        # Remove Part A/B/C markers (at start and end)
+        question = re.sub(r'^\s*Part\s+[A-C]\s*[:\-]?\s*', '', question, flags=re.IGNORECASE)
+        question = re.sub(r'\s+Part\s+[A-C]\s*$', '', question, flags=re.IGNORECASE)
+        
+        # Collapse multiple spaces/newlines into single space
+        question = re.sub(r'[\s\n\r]+', ' ', question)
+        
+        # Strip leading/trailing whitespace
+        question = question.strip()
+        
+        logger.info(f"RAW QUESTION: '{raw_question}'")
+        logger.info(f"CLEANED QUESTION: '{question}'")
+        return question
     
     def select_best_topic_global(self, question, syllabus):
-        """Select best topic using simple cross-encoder scoring (no softmax)"""
+        """Select best topic using enriched subtopics for better matching"""
         embedder = model_registry.get_bi_encoder()
         cross_encoder = model_registry.get_cross_encoder()
         
-        # Collect all topics
+        # Collect all topics with enriched text
         all_topics = []
         for unit in syllabus["units"]:
             for topic in unit["topics"]:
@@ -37,9 +78,17 @@ class EvaluationService:
         if not all_topics:
             return None, None, 0.0
         
+        # Build enriched topic_text for cross-encoder
+        for topic in all_topics:
+            enriched = topic["topic_data"].get("enriched_subtopics_from_books", [])
+            if enriched:
+                topic["topic_text"] = topic["topic_name"] + ". " + " ".join(enriched)
+            else:
+                topic["topic_text"] = topic["topic_name"]
+        
         # Bi-encoder: get top 10 candidates
         question_emb = embedder.encode([question], convert_to_numpy=True, show_progress_bar=False)
-        topic_texts = [t["topic_name"] for t in all_topics]
+        topic_texts = [t["topic_text"] for t in all_topics]
         topic_embs = embedder.encode(topic_texts, convert_to_numpy=True, show_progress_bar=False)
         
         question_norm = question_emb / np.linalg.norm(question_emb, axis=1, keepdims=True)
@@ -49,25 +98,57 @@ class EvaluationService:
         top_indices = np.argsort(similarities)[-10:][::-1]
         candidates = [all_topics[i] for i in top_indices]
         
-        # Cross-encoder: rerank (NO SOFTMAX)
-        pairs = [(question, c["topic_name"]) for c in candidates]
-        scores = cross_encoder.predict(pairs)
+        # Cross-encoder: rerank with relative rank-based gating
+        pairs = [(question, c["topic_text"]) for c in candidates]
         
-        best_idx = np.argmax(scores)
-        best_score = float(scores[best_idx])
+        cross_encoder.model.eval()
+        with torch.no_grad():
+            scores = cross_encoder.predict(pairs, convert_to_numpy=False, show_progress_bar=False)
+            raw_logits = torch.tensor(scores) if not isinstance(scores, torch.Tensor) else scores
+            sigmoid_probs = torch.sigmoid(raw_logits).cpu().numpy()
         
+        sorted_indices = np.argsort(sigmoid_probs)[::-1]
+        best_idx = sorted_indices[0]
+        best_prob = float(sigmoid_probs[best_idx])
+        second_best_prob = float(sigmoid_probs[sorted_indices[1]]) if len(sorted_indices) > 1 else 0.0
+        prob_margin = best_prob - second_best_prob
+        mean_prob = float(np.mean(sigmoid_probs))
+        dominance_ratio = best_prob / mean_prob if mean_prob > 0 else 0.0
+        
+        # Relative rank-based acceptance
+        if prob_margin >= MARGIN_THRESHOLD:
+            decision_reason = "margin"
+            accepted = True
+        elif dominance_ratio >= DOMINANCE_RATIO:
+            decision_reason = "dominance"
+            accepted = True
+        elif best_idx < 3:
+            decision_reason = "retrieval_support"
+            accepted = True
+        elif best_prob < MIN_PROB_THRESHOLD:
+            decision_reason = "rejected"
+            accepted = False
+        else:
+            decision_reason = "weak_accept"
+            accepted = True
+        
+        logger.info(f"Question: '{question}'")
         logger.info(f"Top 10 topics: {[c['topic_name'] for c in candidates]}")
-        logger.info(f"Cross-encoder scores: {scores.tolist()}")
-        logger.info(f"Best score: {best_score:.3f}")
+        logger.info(f"Raw logits: {raw_logits.cpu().numpy().tolist()}")
+        logger.info(f"Sigmoid probs: {sigmoid_probs.tolist()}")
+        logger.info(f"Best match: {candidates[best_idx]['topic_name']} (prob: {best_prob:.3f})")
+        logger.info(f"Second best prob: {second_best_prob:.3f}, Margin: {prob_margin:.3f}")
+        logger.info(f"Mean prob: {mean_prob:.3f}, Dominance ratio: {dominance_ratio:.2f}")
+        logger.info(f"Decision: {decision_reason} (accepted={accepted})")
         
-        if best_score < CONFIDENCE_THRESHOLD:
-            logger.warning(f"Low confidence ({best_score:.3f}) - marking as out of syllabus")
-            return None, None, best_score
+        if not accepted:
+            logger.warning(f"REJECTED: margin={prob_margin:.3f} < {MARGIN_THRESHOLD}, dominance={dominance_ratio:.2f} < {DOMINANCE_RATIO}, prob={best_prob:.3f} < {MIN_PROB_THRESHOLD}")
+            return None, None, best_prob
         
         best_topic = candidates[best_idx]
-        logger.info(f"Selected: {best_topic['topic_name']}")
+        logger.info(f"ACCEPTED: Selected topic '{best_topic['topic_name']}' via {decision_reason}")
         
-        return best_topic, best_topic["unit_number"], best_score
+        return best_topic, best_topic["unit_number"], best_prob
     
     def map_to_syllabus(self, user_id, domain_name, question, top_chunks):
         """Map question to syllabus topic using topic-first classification"""
@@ -79,8 +160,8 @@ class EvaluationService:
         # Global topic selection with cross-encoder
         best_topic, best_unit_num, confidence = self.select_best_topic_global(question, syllabus)
         
-        if not best_topic or confidence < CONFIDENCE_THRESHOLD:
-            logger.warning(f"Out of syllabus: confidence={confidence:.3f}")
+        if not best_topic:
+            logger.warning(f"OUT OF SYLLABUS: confidence={confidence:.3f}")
             return {
                 "unit": None,
                 "unit_title": None,
@@ -110,6 +191,10 @@ class EvaluationService:
     
     def evaluate_question(self, user_id, domain_name, question):
         """Complete evaluation pipeline"""
+        
+        # 0. Clean question text (unified preprocessing)
+        question = self.clean_question_text(question)
+        logger.info(f"Evaluating cleaned question: '{question}'")
         
         # 1. Retrieve relevant chunks
         chunks = self.retrieval.retrieve(user_id, domain_name, question, top_k=10)

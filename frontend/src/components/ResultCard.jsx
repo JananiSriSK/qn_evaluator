@@ -46,7 +46,7 @@ export default function ResultCard({ data }) {
             <div>
               <div style={{ fontSize: '12px', fontWeight: '500', color: '#6b7280', marginBottom: '8px' }}>UNIT</div>
               <div style={{ padding: '8px 12px', backgroundColor: '#dbeafe', borderRadius: '6px', fontSize: '14px', color: '#1e40af', fontWeight: '500' }}>
-                Unit {data.unit}
+                {data.unit_title ? `Unit ${data.unit}: ${data.unit_title}` : `Unit ${data.unit}`}
               </div>
             </div>
           )}
@@ -80,7 +80,7 @@ export default function ResultCard({ data }) {
       {/* Warning */}
       {data.warning && (
         <div style={{ marginTop: '20px', padding: '12px', backgroundColor: '#fef3c7', border: '1px solid #fbbf24', borderRadius: '6px', color: '#92400e', fontSize: '14px' }}>
-          ⚠️ {data.warning}
+          {data.warning}
         </div>
       )}
     </div>

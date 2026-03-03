@@ -43,7 +43,7 @@ export default function ElicitLayout({
             color: "#1a1a1a",
           }}
         >
-          Question Intelligence
+          Question Intelligence System
         </h1>
         <div style={{ display: "flex", alignItems: "center", gap: "16px" }}>
           <span style={{ fontSize: "14px", color: "#6b7280" }}>{userId}</span>

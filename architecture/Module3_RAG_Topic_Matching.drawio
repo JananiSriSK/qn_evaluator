@@ -1,0 +1,57 @@
+<mxfile host="app.diagrams.net" agent="Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/145.0.0.0 Safari/537.36" version="29.3.4">
+  <diagram name="Module 3 - RAG and Topic Matching" id="module3">
+    <mxGraphModel dx="786" dy="451" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="1169" pageHeight="827" math="0" shadow="0">
+      <root>
+        <mxCell id="0" />
+        <mxCell id="1" parent="0" />
+        <mxCell id="title" parent="1" style="text;html=1;strokeColor=none;fillColor=none;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=0;fontSize=18;fontStyle=1" value="MODULE 3: RAG RETRIEVAL AND TOPIC MATCHING" vertex="1">
+          <mxGeometry height="30" width="530" x="170" y="40" as="geometry" />
+        </mxCell>
+        <mxCell id="layer1_label" parent="1" style="text;html=1;strokeColor=#000000;fillColor=#ffffff;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=0;fontSize=14;fontStyle=1" value="&lt;font style=&quot;font-size: 12px&quot;&gt;STAGE 1: BI-ENCODER RETRIEVAL&lt;/font&gt;" vertex="1">
+          <mxGeometry height="50" width="100" x="70" y="110" as="geometry" />
+        </mxCell>
+        <mxCell id="question" parent="1" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#ffffff;strokeColor=#000000;fontSize=11;fontStyle=1" value="&lt;b&gt;Question&lt;/b&gt;" vertex="1">
+          <mxGeometry height="50" width="120" x="200" y="110" as="geometry" />
+        </mxCell>
+        <mxCell id="arrow1" edge="1" parent="1" source="question" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;exitX=1;exitY=0.5;exitDx=0;exitDy=0;entryX=0;entryY=0.5;entryDx=0;entryDy=0;strokeWidth=2;strokeColor=#000000;" target="biencoder">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="biencoder" parent="1" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#ffffff;strokeColor=#000000;fontSize=11;align=left;verticalAlign=top;" value="&lt;b&gt;Bi-Encoder&lt;/b&gt;&lt;br&gt;e5-small-v2&lt;br&gt;384-dim embedding" vertex="1">
+          <mxGeometry height="50" width="140" x="360" y="110" as="geometry" />
+        </mxCell>
+        <mxCell id="arrow2" edge="1" parent="1" source="biencoder" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;exitX=1;exitY=0.5;exitDx=0;exitDy=0;entryX=0;entryY=0.5;entryDx=0;entryDy=0;strokeWidth=2;strokeColor=#000000;" target="faiss">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="faiss" parent="1" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#ffffff;strokeColor=#000000;fontSize=11;align=left;verticalAlign=top;" value="&lt;b&gt;FAISS Search&lt;/b&gt;&lt;br&gt;Load from MongoDB&lt;br&gt;Top 10 chunks" vertex="1">
+          <mxGeometry height="50" width="140" x="540" y="110" as="geometry" />
+        </mxCell>
+        <mxCell id="arrow3" edge="1" parent="1" source="faiss" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;exitX=1;exitY=0.5;exitDx=0;exitDy=0;entryX=0;entryY=0.5;entryDx=0;entryDy=0;strokeWidth=2;strokeColor=#000000;" target="chunks">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="chunks" parent="1" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#ffffff;strokeColor=#000000;fontSize=11;align=left;verticalAlign=top;" value="&lt;b&gt;Top 10 Chunks&lt;/b&gt;&lt;br&gt;Relevant context" vertex="1">
+          <mxGeometry height="50" width="100" x="720" y="110" as="geometry" />
+        </mxCell>
+        <mxCell id="layer2_label" parent="1" style="text;html=1;strokeColor=#000000;fillColor=#ffffff;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=0;fontSize=14;fontStyle=1" value="&lt;font style=&quot;font-size: 12px&quot;&gt;STAGE 2: TOPIC MATCHING&lt;/font&gt;" vertex="1">
+          <mxGeometry height="50" width="100" x="70" y="230" as="geometry" />
+        </mxCell>
+        <mxCell id="enriched_topics" parent="1" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#ffffff;strokeColor=#000000;fontSize=11;align=left;verticalAlign=top;" value="&lt;b&gt;Enriched Topics&lt;/b&gt;&lt;br&gt;&lt;br&gt;topic_text =&lt;br&gt;topic_name +&lt;br&gt;enriched_subtopics" vertex="1">
+          <mxGeometry height="90" width="150" x="200" y="210" as="geometry" />
+        </mxCell>
+        <mxCell id="arrow4" edge="1" parent="1" source="enriched_topics" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;exitX=1;exitY=0.5;exitDx=0;exitDy=0;entryX=0;entryY=0.5;entryDx=0;entryDy=0;strokeWidth=2;strokeColor=#000000;" target="crossencoder">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="6" edge="1" parent="1" source="crossencoder" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;" value="">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint x="610" y="255" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="crossencoder" parent="1" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#ffffff;strokeColor=#000000;fontSize=11;align=left;verticalAlign=top;" value="&lt;b&gt;Cross-Encoder&lt;/b&gt;&lt;br&gt;ms-marco-MiniLM-L-6-v2&lt;br&gt;&lt;br&gt;• Score all topics&lt;br&gt;• Sigmoid conversion&lt;br&gt;• Rerank candidates" vertex="1">
+          <mxGeometry height="90" width="180" x="390" y="210" as="geometry" />
+        </mxCell>
+        <mxCell id="mapping" parent="1" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#ffffff;strokeColor=#000000;fontSize=11;align=left;verticalAlign=top;" value="&lt;b&gt;Topic to Unit to CO Mapping&lt;/b&gt;&lt;br&gt;&lt;br&gt;• Matched topic&lt;br&gt;• Unit (I-V) + unit_title&lt;br&gt;• Course Outcomes (CO1-CO5)&lt;br&gt;• Confidence score&lt;br&gt;• out_of_syllabus flag" vertex="1">
+          <mxGeometry height="110" width="220" x="610" y="200" as="geometry" />
+        </mxCell>
+      </root>
+    </mxGraphModel>
+  </diagram>
+</mxfile>

@@ -1,0 +1,160 @@
+<mxfile host="app.diagrams.net" agent="Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/145.0.0.0 Safari/537.36" version="29.6.0">
+  <diagram name="QP Evaluation Architecture" id="0">
+    <mxGraphModel dx="1898" dy="1701" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="850" pageHeight="1100" math="0" shadow="0">
+      <root>
+        <mxCell id="0" />
+        <mxCell id="1" parent="0" />
+        <mxCell id="18" edge="1" parent="1" source="7" style="edgeStyle=orthogonalEdgeStyle;endArrow=block;" target="10">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points">
+              <mxPoint x="520" y="105" />
+              <mxPoint x="520" y="360" />
+              <mxPoint x="340" y="360" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="submit_label" parent="1" style="text;html=1;strokeColor=none;fillColor=none;align=center;verticalAlign=middle;fontSize=12;" value="Submit" vertex="1">
+          <mxGeometry height="20" width="50" x="420" y="340" as="geometry" />
+        </mxCell>
+        <mxCell id="2" parent="1" style="rounded=0;whiteSpace=wrap;html=1;align=left;" value="" vertex="1">
+          <mxGeometry height="550" width="300" x="-40" as="geometry" />
+        </mxCell>
+        <mxCell id="3" parent="1" style="rounded=1;whiteSpace=wrap;html=1;" value="&lt;font style=&quot;font-size: 15px&quot;&gt;&lt;b&gt;React-based Question Input&lt;/b&gt;&lt;/font&gt;&lt;div&gt;&lt;font style=&quot;font-size: 13px&quot;&gt;&lt;br&gt;&lt;/font&gt;&lt;font style=&quot;font-size: 15px&quot;&gt;(Course selection &amp;amp; evaluation)&lt;/font&gt;&lt;/div&gt;" vertex="1">
+          <mxGeometry height="80" width="250" x="-10" y="328" as="geometry" />
+        </mxCell>
+        <mxCell id="4" parent="1" style="rounded=1;whiteSpace=wrap;html=1;" value="&lt;span style=&quot;font-size: 15px&quot;&gt;&lt;b&gt;Question Input &amp;amp; Preprocessing&lt;/b&gt;&lt;/span&gt;&lt;div&gt;&lt;/div&gt;&lt;div&gt;&lt;font style=&quot;font-size: 15px&quot;&gt;&lt;div&gt;- Unified text cleaning&lt;/div&gt;&lt;div&gt;- Remove numbering, Part markers&lt;/div&gt;&lt;/font&gt;&lt;/div&gt;" vertex="1">
+          <mxGeometry height="85" width="250" x="-12" y="440" as="geometry" />
+        </mxCell>
+        <mxCell id="_GFRNtaL6ZHN1_rXOyC8-34" edge="1" parent="1" source="5" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;exitX=0.5;exitY=1;exitDx=0;exitDy=0;entryX=0.5;entryY=0;entryDx=0;entryDy=0;" target="_GFRNtaL6ZHN1_rXOyC8-32">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="5" parent="1" style="rounded=1;whiteSpace=wrap;html=1;" value="&lt;font style=&quot;font-size: 15px&quot;&gt;Authentication &amp;amp; create domain&lt;/font&gt;" vertex="1">
+          <mxGeometry height="50" width="250" x="-10" y="60" as="geometry" />
+        </mxCell>
+        <mxCell id="6" parent="1" style="rounded=0;whiteSpace=wrap;html=1;strokeWidth=2;" value="" vertex="1">
+          <mxGeometry height="760" width="470" x="310" y="-40" as="geometry" />
+        </mxCell>
+        <mxCell id="7" parent="1" style="rounded=1;whiteSpace=wrap;html=1;" value="&lt;font style=&quot;font-size: 18px&quot;&gt;&lt;b&gt;Central Agent Orchestrator&lt;/b&gt;&lt;/font&gt;&lt;div&gt;&lt;font style=&quot;font-size: 13px&quot;&gt;&lt;b&gt;&lt;br&gt;&lt;/b&gt;&lt;/font&gt;&lt;font style=&quot;font-size: 15px&quot;&gt;(FastAPI + Request Routing)&lt;/font&gt;&lt;/div&gt;" vertex="1">
+          <mxGeometry height="70" width="360" x="357.5" y="70" as="geometry" />
+        </mxCell>
+        <mxCell id="32" edge="1" parent="1" source="8" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;exitX=0.5;exitY=1;exitDx=0;exitDy=0;entryX=0.5;entryY=0;entryDx=0;entryDy=0;" target="9">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="33" edge="1" parent="1" source="8" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;" target="9">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="8" parent="1" style="rounded=1;whiteSpace=wrap;html=1;" value="&lt;font style=&quot;font-size: 14px&quot;&gt;&lt;b&gt;Module 2 &amp;amp; 3:&amp;nbsp;&lt;/b&gt;&lt;/font&gt;&lt;b&gt;&lt;font size=&quot;3&quot;&gt;RAG Retrieval &amp;amp;&amp;nbsp;Topic Matching&lt;br&gt;&lt;/font&gt;&lt;br&gt;&lt;/b&gt;&lt;div&gt;&lt;div&gt;&lt;span style=&quot;font-size: 15px&quot;&gt;- FAISS retrieval (all-MiniLM-L6-v2)&lt;/span&gt;&lt;/div&gt;&lt;/div&gt;&lt;div&gt;&lt;div&gt;&lt;font style=&quot;font-size: 14px&quot;&gt;&amp;nbsp;- Bi-encoder candidate selection (all-MiniLM-L6-v2)&lt;/font&gt;&lt;/div&gt;&lt;div&gt;&lt;font size=&quot;3&quot;&gt;- Cross-encoder reranking (ms-marco-MiniLM-L-6-v2)&lt;/font&gt;&lt;/div&gt;&lt;div&gt;&lt;/div&gt;&lt;/div&gt;" vertex="1">
+          <mxGeometry height="140" width="392" x="352" y="190" as="geometry" />
+        </mxCell>
+        <mxCell id="31" edge="1" parent="1" source="9" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;" target="10" value="">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="9" parent="1" style="rounded=1;whiteSpace=wrap;html=1;" value="&lt;font style=&quot;font-size: 14px&quot;&gt;&lt;font&gt;&lt;b&gt;Module 4:&amp;nbsp;&lt;/b&gt;&lt;/font&gt;&lt;b&gt;Bloom Classification&lt;/b&gt;&lt;/font&gt;&lt;div&gt;&lt;font style=&quot;font-size: 14px&quot;&gt;&lt;b&gt;&lt;br&gt;&lt;/b&gt;&lt;/font&gt;&lt;/div&gt;&lt;div&gt;&lt;/div&gt;&lt;div&gt;&lt;span style=&quot;font-size: 15px&quot;&gt;- Fine-tuned&amp;nbsp;&amp;nbsp;&lt;/span&gt;&lt;span style=&quot;background-color: transparent; font-size: 15px;&quot;&gt;microsoft/deberta-v3-base as&amp;nbsp;&lt;/span&gt;&lt;span style=&quot;font-size: 15px; background-color: transparent; color: light-dark(rgb(0, 0, 0), rgb(255, 255, 255));&quot;&gt;Bloom classifier&lt;/span&gt;&lt;/div&gt;&lt;div&gt;&lt;span style=&quot;font-size: 15px&quot;&gt;- BT1-BT6 prediction&lt;/span&gt;&lt;/div&gt;" vertex="1">
+          <mxGeometry height="110" width="400" x="350" y="380" as="geometry" />
+        </mxCell>
+        <mxCell id="10" parent="1" style="rounded=1;whiteSpace=wrap;html=1;" value="&lt;font&gt;&lt;b style=&quot;font-size: 15px&quot;&gt;Module 5 :&amp;nbsp;&lt;/b&gt;&lt;span style=&quot;font-size: 15px&quot;&gt;&lt;b&gt;Scoring &amp;amp; Output&lt;/b&gt;&lt;/span&gt;&lt;/font&gt;&lt;div&gt;&lt;div&gt;&lt;span style=&quot;font-size: 15px&quot;&gt;- Difficulty score (Bloom-based calculation)&lt;/span&gt;&lt;/div&gt;&lt;div&gt;&lt;span style=&quot;font-size: 15px&quot;&gt;- Strength score (question quality heuristics)&lt;/span&gt;&lt;/div&gt;&lt;div&gt;&lt;span style=&quot;font-size: 15px&quot;&gt;- Structured JSON output&lt;/span&gt;&lt;/div&gt;&lt;/div&gt;" vertex="1">
+          <mxGeometry height="130" width="400" x="350" y="540" as="geometry" />
+        </mxCell>
+        <mxCell id="11" parent="1" style="rounded=0;whiteSpace=wrap;html=1;fontSize=15;" value="" vertex="1">
+          <mxGeometry height="480" width="360" x="865" y="130" as="geometry" />
+        </mxCell>
+        <mxCell id="12" parent="1" style="rounded=1;whiteSpace=wrap;html=1;" value="&lt;div&gt;&lt;b style=&quot;font-size: 14px ; background-color: transparent&quot;&gt;&lt;/b&gt;&lt;/div&gt;&lt;div style=&quot;text-align: left&quot;&gt;&lt;/div&gt;&lt;div&gt;&lt;font&gt;&lt;div style=&quot;text-align: left&quot;&gt;&lt;span style=&quot;font-size: 15px&quot;&gt;&lt;div&gt;- Matched Topic &amp;amp; Unit&lt;/div&gt;&lt;div&gt;- CO Mapping&lt;/div&gt;&lt;div&gt;- Bloom Level&lt;/div&gt;&lt;div&gt;- Difficulty Score&lt;/div&gt;&lt;div&gt;- Strength Score&lt;/div&gt;&lt;div&gt;- Out of Syllabus flag&lt;/div&gt;&lt;/span&gt;&lt;/div&gt;&lt;div style=&quot;text-align: left&quot;&gt;&lt;span style=&quot;font-size: 15px ; background-color: transparent&quot;&gt;- Evaluation Template&amp;nbsp;&lt;/span&gt;&lt;/div&gt;&lt;div style=&quot;text-align: left&quot;&gt;&lt;span style=&quot;font-size: 15px ; background-color: transparent&quot;&gt;&amp;nbsp; &amp;nbsp;for question papers&lt;/span&gt;&lt;/div&gt;&lt;br&gt;&lt;/font&gt;&lt;/div&gt;" vertex="1">
+          <mxGeometry height="280" width="280" x="900" y="240" as="geometry" />
+        </mxCell>
+        <mxCell id="15" edge="1" parent="1" source="_GFRNtaL6ZHN1_rXOyC8-38" style="edgeStyle=orthogonalEdgeStyle;endArrow=block;dashed=1;exitX=0;exitY=0.5;exitDx=0;exitDy=0;">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points">
+              <mxPoint x="-10" y="270" />
+              <mxPoint x="-80" y="270" />
+              <mxPoint x="-80" y="890" />
+              <mxPoint x="390" y="890" />
+            </Array>
+            <mxPoint x="10" y="181" as="sourcePoint" />
+            <mxPoint x="400" y="889" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="save_label" parent="1" style="text;html=1;strokeColor=none;fillColor=none;align=center;verticalAlign=middle;fontSize=13;strokeWidth=2;" value="&lt;font style=&quot;font-size: 15px&quot;&gt;Storage&lt;/font&gt;" vertex="1">
+          <mxGeometry height="20" width="140" x="200" y="895" as="geometry" />
+        </mxCell>
+        <mxCell id="16" edge="1" parent="1" source="7" style="edgeStyle=orthogonalEdgeStyle;endArrow=block;" target="8">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points">
+              <mxPoint x="540" y="180" />
+              <mxPoint x="538" y="180" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="19" edge="1" parent="1" source="8" style="edgeStyle=orthogonalEdgeStyle;endArrow=block;dashed=1;exitX=0;exitY=0.5;exitDx=0;exitDy=0;entryX=0;entryY=0.3;entryDx=0;entryDy=0;" target="38">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points">
+              <mxPoint x="352" y="270" />
+              <mxPoint x="340" y="270" />
+              <mxPoint x="340" y="620" />
+              <mxPoint x="260" y="620" />
+              <mxPoint x="260" y="861" />
+            </Array>
+            <mxPoint x="390" y="850" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="21" edge="1" parent="1" source="10" style="edgeStyle=orthogonalEdgeStyle;endArrow=block;" target="12">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points">
+              <mxPoint x="880" y="580" />
+              <mxPoint x="880" y="350" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="scoiEK9NhfIAx-3x0IhR-23" parent="1" style="text;html=1;whiteSpace=wrap;strokeColor=none;fillColor=none;align=center;verticalAlign=middle;rounded=0;fontStyle=1;fontSize=13;" value="&lt;font style=&quot;font-size: 17px;&quot;&gt;Frontend Layer&lt;/font&gt;" vertex="1">
+          <mxGeometry height="30" width="150" x="30" y="20" as="geometry" />
+        </mxCell>
+        <mxCell id="scoiEK9NhfIAx-3x0IhR-25" parent="1" style="text;html=1;whiteSpace=wrap;strokeColor=none;fillColor=none;align=center;verticalAlign=middle;rounded=0;" value="&lt;font style=&quot;font-size: 17px&quot;&gt;&lt;b&gt;Evaluation Output Template&lt;/b&gt;&lt;/font&gt;" vertex="1">
+          <mxGeometry height="30" width="240" x="920" y="160" as="geometry" />
+        </mxCell>
+        <mxCell id="scoiEK9NhfIAx-3x0IhR-27" parent="1" style="text;html=1;whiteSpace=wrap;strokeColor=none;fillColor=none;align=center;verticalAlign=middle;rounded=0;" value="&lt;b&gt;&lt;font style=&quot;font-size: 17px;&quot;&gt;Backend API &amp; Agent-Orchestrated Processing Layer&lt;/font&gt;&lt;/b&gt;" vertex="1">
+          <mxGeometry height="30" width="440" x="320" as="geometry" />
+        </mxCell>
+        <mxCell id="scoiEK9NhfIAx-3x0IhR-36" edge="1" parent="1" source="3" style="edgeStyle=orthogonalEdgeStyle;endArrow=block;" target="4">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="norm_to_agent" edge="1" parent="1" source="4" style="edgeStyle=orthogonalEdgeStyle;endArrow=block;exitX=1;exitY=0.5;exitDx=0;exitDy=0;">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points">
+              <mxPoint x="290" y="480" />
+              <mxPoint x="290" y="50" />
+              <mxPoint x="400" y="50" />
+            </Array>
+            <mxPoint x="250" y="259.94" as="sourcePoint" />
+            <mxPoint x="400.0588235294117" y="69.94" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="_GFRNtaL6ZHN1_rXOyC8-40" edge="1" parent="1" source="_GFRNtaL6ZHN1_rXOyC8-32" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;exitX=0.5;exitY=1;exitDx=0;exitDy=0;entryX=0.5;entryY=0;entryDx=0;entryDy=0;" target="_GFRNtaL6ZHN1_rXOyC8-38">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="_GFRNtaL6ZHN1_rXOyC8-32" parent="1" style="rounded=1;whiteSpace=wrap;html=1;" value="&lt;font style=&quot;font-size: 15px&quot;&gt;&lt;b&gt;Module 1: Course Knowledge Setup&lt;br&gt;&lt;/b&gt;(Syllabus, COs, Reference Books)&lt;/font&gt;" vertex="1">
+          <mxGeometry height="80" width="250" x="-10" y="130" as="geometry" />
+        </mxCell>
+        <mxCell id="_GFRNtaL6ZHN1_rXOyC8-38" parent="1" style="rounded=1;whiteSpace=wrap;html=1;" value="&lt;font style=&quot;font-size: 15px&quot;&gt;&lt;b&gt;Syllabus enrichment and embedding generation&lt;br&gt;&lt;/b&gt;( all-MiniLM-L6-v2, Ilama-3.3-70b-versatile)&lt;/font&gt;" vertex="1">
+          <mxGeometry height="75" width="250" x="-10" y="235" as="geometry" />
+        </mxCell>
+        <mxCell id="_GFRNtaL6ZHN1_rXOyC8-69" parent="1" style="text;html=1;whiteSpace=wrap;strokeColor=none;fillColor=none;align=center;verticalAlign=middle;rounded=0;fontColor=default;fontSize=14;" value="&lt;span&gt;&lt;b&gt;&lt;font color=&quot;#080808&quot; style=&quot;font-size: 18px&quot;&gt;&lt;font&gt;Question-Level Output&lt;/font&gt;&lt;br class=&quot;Apple-interchange-newline&quot;&gt;&lt;/font&gt;&lt;/b&gt;&lt;/span&gt;&lt;div&gt;&lt;br&gt;&lt;/div&gt;" vertex="1">
+          <mxGeometry height="30" width="220" x="930" y="260" as="geometry" />
+        </mxCell>
+        <mxCell id="28" parent="1" style="text;html=1;strokeColor=none;fillColor=none;align=center;verticalAlign=middle;fontSize=12;" value="&lt;font style=&quot;font-size: 15px;&quot;&gt;Retrieve&lt;/font&gt;" vertex="1">
+          <mxGeometry height="20" width="60" x="200" y="740" as="geometry" />
+        </mxCell>
+        <mxCell id="38" parent="1" style="shape=cylinder;whiteSpace=wrap;html=1;shadow=0;sketch=1;curveFitting=1;jiggle=2;" value="&lt;div&gt;&lt;div&gt;&lt;b&gt;&lt;font style=&quot;font-size: 14px&quot;&gt;&lt;br&gt;&lt;/font&gt;&lt;/b&gt;&lt;/div&gt;&lt;div&gt;&lt;b&gt;&lt;font style=&quot;font-size: 14px&quot;&gt;&lt;br&gt;&lt;/font&gt;&lt;/b&gt;&lt;/div&gt;&lt;div&gt;&lt;b&gt;&lt;font style=&quot;font-size: 14px&quot;&gt;&lt;br&gt;&lt;/font&gt;&lt;/b&gt;&lt;/div&gt;&lt;div&gt;&lt;/div&gt;&lt;/div&gt;&lt;div&gt;&lt;div&gt;&lt;span style=&quot;font-size: 14px&quot;&gt;&lt;b&gt;&lt;br&gt;&lt;/b&gt;&lt;/span&gt;&lt;/div&gt;&lt;div&gt;&lt;span style=&quot;font-size: 14px&quot;&gt;&lt;b&gt;MongoDB (localhost:27017)&lt;/b&gt;&lt;/span&gt;&lt;/div&gt;&lt;div&gt;&lt;span style=&quot;font-size: 14px&quot;&gt;- domains collection&lt;/span&gt;&lt;/div&gt;&lt;div&gt;&lt;span style=&quot;font-size: 14px&quot;&gt;- syllabus, books collection (+ GridFS )&lt;/span&gt;&lt;/div&gt;&lt;div&gt;&lt;span style=&quot;font-size: 14px&quot;&gt;- indexes collection (+ GridFS for FAISS binaries)&lt;/span&gt;&lt;/div&gt;&lt;div&gt;&lt;/div&gt;&lt;div&gt;&lt;span style=&quot;font-size: 14px&quot;&gt;- history collection&lt;/span&gt;&lt;/div&gt;&lt;div&gt;&lt;span style=&quot;font-size: 14px&quot;&gt;&lt;br&gt;&lt;/span&gt;&lt;/div&gt;&lt;div&gt;&lt;/div&gt;&lt;div&gt;&lt;span style=&quot;font-size: 14px&quot;&gt;&lt;b&gt;FAISS Index:&lt;/b&gt;&lt;/span&gt;&lt;/div&gt;&lt;div&gt;&lt;span style=&quot;font-size: 14px&quot;&gt;- Vector embeddings of book chunks&amp;nbsp;&lt;/span&gt;&lt;/div&gt;&lt;div&gt;&lt;span style=&quot;font-size: 14px&quot;&gt;- Stored in MongoDB GridFS via indexes collection&lt;/span&gt;&lt;/div&gt;&lt;/div&gt;&lt;div&gt;&lt;br&gt;&lt;/div&gt;" vertex="1">
+          <mxGeometry height="270" width="430" x="400" y="780" as="geometry" />
+        </mxCell>
+        <mxCell id="42" edge="1" parent="1" source="12" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;exitX=0.5;exitY=1;exitDx=0;exitDy=0;" target="38" value="">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points">
+              <mxPoint x="1046" y="520" />
+              <mxPoint x="1046" y="930" />
+            </Array>
+            <mxPoint x="1070" y="940" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+      </root>
+    </mxGraphModel>
+  </diagram>
+</mxfile>

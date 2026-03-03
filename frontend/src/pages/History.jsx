@@ -2,6 +2,7 @@ import { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { api } from '../services/api-v2';
 import ElicitLayout from '../components/ElicitLayout';
+import Modal from '../components/Modal';
 
 export default function History({ userId }) {
   const navigate = useNavigate();
@@ -10,6 +11,7 @@ export default function History({ userId }) {
   const [activeTab, setActiveTab] = useState('single');
   const [subjects, setSubjects] = useState([]);
   const [selectedSubject, setSelectedSubject] = useState('');
+  const [modal, setModal] = useState({ isOpen: false, title: '', message: '', type: 'info', onConfirm: null });
 
   useEffect(() => {
     if (!userId) {
@@ -45,33 +47,57 @@ export default function History({ userId }) {
   };
 
   const handleDeleteSingle = async (questionId) => {
-    if (!confirm('Delete this question from history?')) return;
-    try {
-      await api.deleteSingleQuestion(userId, questionId);
-      await loadHistory();
-    } catch (err) {
-      alert('Failed to delete: ' + err.message);
-    }
+    setModal({
+      isOpen: true,
+      title: 'Confirm Delete',
+      message: 'Delete this question from history?',
+      type: 'warning',
+      onConfirm: async () => {
+        try {
+          await api.deleteSingleQuestion(userId, questionId);
+          await loadHistory();
+          setModal({ isOpen: false });
+        } catch (err) {
+          setModal({ isOpen: true, title: 'Error', message: 'Failed to delete: ' + err.message, type: 'error' });
+        }
+      }
+    });
   };
 
   const handleDeletePdf = async (evalId) => {
-    if (!confirm('Delete this PDF evaluation from history?')) return;
-    try {
-      await api.deletePdfEvaluation(userId, evalId);
-      await loadHistory();
-    } catch (err) {
-      alert('Failed to delete: ' + err.message);
-    }
+    setModal({
+      isOpen: true,
+      title: 'Confirm Delete',
+      message: 'Delete this PDF evaluation from history?',
+      type: 'warning',
+      onConfirm: async () => {
+        try {
+          await api.deletePdfEvaluation(userId, evalId);
+          await loadHistory();
+          setModal({ isOpen: false });
+        } catch (err) {
+          setModal({ isOpen: true, title: 'Error', message: 'Failed to delete: ' + err.message, type: 'error' });
+        }
+      }
+    });
   };
 
   const handleClearAll = async () => {
-    if (!confirm('Clear all history? This cannot be undone.')) return;
-    try {
-      await api.clearAllHistory(userId);
-      await loadHistory();
-    } catch (err) {
-      alert('Failed to clear history: ' + err.message);
-    }
+    setModal({
+      isOpen: true,
+      title: 'Confirm Clear All',
+      message: 'Clear all history? This cannot be undone.',
+      type: 'warning',
+      onConfirm: async () => {
+        try {
+          await api.clearAllHistory(userId);
+          await loadHistory();
+          setModal({ isOpen: false });
+        } catch (err) {
+          setModal({ isOpen: true, title: 'Error', message: 'Failed to clear history: ' + err.message, type: 'error' });
+        }
+      }
+    });
   };
 
   if (loading) {
@@ -89,6 +115,14 @@ export default function History({ userId }) {
       onSubjectChange={setSelectedSubject}
       userId={userId}
     >
+      <ConfirmModal
+        isOpen={modal.isOpen}
+        onClose={() => setModal({ ...modal, isOpen: false })}
+        onConfirm={modal.onConfirm}
+        title={modal.title}
+        message={modal.message}
+        type={modal.type}
+      />
       <div style={{ maxWidth: '1200px', margin: '0 auto' }}>
         <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '24px' }}>
           <h1 style={{ fontSize: '28px', fontWeight: '600', color: '#1f2937', margin: 0 }}>
@@ -266,4 +300,92 @@ function getBloomColor(level) {
     BT4: '#f59e0b', BT5: '#ef4444', BT6: '#8b5cf6'
   };
   return colors[level] || '#6b7280';
+}
+
+function ConfirmModal({ isOpen, onClose, onConfirm, title, message, type = 'warning' }) {
+  if (!isOpen) return null;
+
+  const colors = {
+    warning: { bg: '#fff3cd', border: '#ffeaa7', text: '#856404' },
+    error: { bg: '#f8d7da', border: '#f5c6cb', text: '#721c24' }
+  };
+
+  const color = colors[type] || colors.warning;
+
+  return (
+    <div style={{
+      position: 'fixed',
+      top: 0,
+      left: 0,
+      right: 0,
+      bottom: 0,
+      backgroundColor: 'rgba(0,0,0,0.5)',
+      display: 'flex',
+      alignItems: 'center',
+      justifyContent: 'center',
+      zIndex: 9999
+    }} onClick={onClose}>
+      <div style={{
+        backgroundColor: 'white',
+        padding: '30px',
+        borderRadius: '8px',
+        maxWidth: '500px',
+        width: '90%',
+        boxShadow: '0 4px 6px rgba(0,0,0,0.1)'
+      }} onClick={(e) => e.stopPropagation()}>
+        <h3 style={{
+          margin: '0 0 15px 0',
+          color: color.text,
+          borderBottom: `2px solid ${color.border}`,
+          paddingBottom: '10px'
+        }}>
+          {title}
+        </h3>
+        <div style={{
+          padding: '15px',
+          backgroundColor: color.bg,
+          border: `1px solid ${color.border}`,
+          borderRadius: '4px',
+          color: color.text,
+          marginBottom: '20px'
+        }}>
+          {message}
+        </div>
+        <div style={{ display: 'flex', gap: '10px', justifyContent: 'flex-end' }}>
+          <button
+            onClick={onClose}
+            style={{
+              padding: '10px 20px',
+              backgroundColor: '#f3f4f6',
+              color: '#374151',
+              border: '1px solid #d1d5db',
+              borderRadius: '4px',
+              cursor: 'pointer',
+              fontSize: '14px',
+              fontWeight: '500'
+            }}
+          >
+            Cancel
+          </button>
+          {onConfirm && (
+            <button
+              onClick={onConfirm}
+              style={{
+                padding: '10px 20px',
+                backgroundColor: '#ef4444',
+                color: 'white',
+                border: 'none',
+                borderRadius: '4px',
+                cursor: 'pointer',
+                fontSize: '14px',
+                fontWeight: '500'
+              }}
+            >
+              Confirm
+            </button>
+          )}
+        </div>
+      </div>
+    </div>
+  );
 }

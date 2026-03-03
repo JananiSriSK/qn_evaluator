@@ -24,6 +24,11 @@ const globalStyles = `
   button:hover {
     opacity: 0.9;
   }
+  
+  @keyframes spin {
+    0% { transform: rotate(0deg); }
+    100% { transform: rotate(360deg); }
+  }
 `;
 
 // Inject global styles

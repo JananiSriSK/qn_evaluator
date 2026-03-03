@@ -47,7 +47,9 @@ function SingleResult({ data }) {
           {data.unit && (
             <div style={{ flex: 1 }}>
               <div style={{ fontWeight: 'bold', marginBottom: '5px', color: '#666' }}>Unit:</div>
-              <div style={{ padding: '10px', backgroundColor: '#d1ecf1', borderRadius: '4px', border: '1px solid #bee5eb' }}>{data.unit}</div>
+              <div style={{ padding: '10px', backgroundColor: '#d1ecf1', borderRadius: '4px', border: '1px solid #bee5eb' }}>
+                {data.unit_title ? `Unit ${data.unit}: ${data.unit_title}` : `Unit ${data.unit}`}
+              </div>
             </div>
           )}
           {data.topic && (
@@ -84,7 +86,7 @@ function SingleResult({ data }) {
       {/* Warning if no syllabus match */}
       {data.warning && (
         <div style={{ padding: '15px', backgroundColor: '#fff3cd', border: '1px solid #ffc107', borderRadius: '4px', marginBottom: '20px', color: '#856404' }}>
-          ⚠️ {data.warning}
+          {data.warning}
         </div>
       )}
     </div>

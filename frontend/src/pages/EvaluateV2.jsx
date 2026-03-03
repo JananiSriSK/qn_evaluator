@@ -19,6 +19,14 @@ export default function EvaluateV2() {
   const typingTimer = useRef(null);
   const navigate = useNavigate();
 
+  const handleModeChange = (newMode) => {
+    setMode(newMode);
+    setResult(null);
+    setQuestion('');
+    setPdfFile(null);
+    setPreviewData(null);
+  };
+
   useEffect(() => {
     const id = localStorage.getItem('user_id');
     if (!id) {
@@ -130,10 +138,10 @@ export default function EvaluateV2() {
 
       {/* Mode Toggle */}
       <div style={{ display: 'flex', gap: '12px', marginBottom: '20px' }}>
-        <button onClick={() => setMode('single')} style={{ padding: '10px 24px', backgroundColor: mode === 'single' ? '#3b82f6' : 'white', color: mode === 'single' ? 'white' : '#6b7280', border: '1px solid #d1d5db', borderRadius: '6px', fontSize: '14px', cursor: 'pointer', fontWeight: '500' }}>
+        <button onClick={() => handleModeChange('single')} style={{ padding: '10px 24px', backgroundColor: mode === 'single' ? '#3b82f6' : 'white', color: mode === 'single' ? 'white' : '#6b7280', border: '1px solid #d1d5db', borderRadius: '6px', fontSize: '14px', cursor: 'pointer', fontWeight: '500' }}>
           Single Question
         </button>
-        <button onClick={() => setMode('pdf')} style={{ padding: '10px 24px', backgroundColor: mode === 'pdf' ? '#3b82f6' : 'white', color: mode === 'pdf' ? 'white' : '#6b7280', border: '1px solid #d1d5db', borderRadius: '6px', fontSize: '14px', cursor: 'pointer', fontWeight: '500' }}>
+        <button onClick={() => handleModeChange('pdf')} style={{ padding: '10px 24px', backgroundColor: mode === 'pdf' ? '#3b82f6' : 'white', color: mode === 'pdf' ? 'white' : '#6b7280', border: '1px solid #d1d5db', borderRadius: '6px', fontSize: '14px', cursor: 'pointer', fontWeight: '500' }}>
           Upload PDF
         </button>
       </div>

@@ -6,10 +6,10 @@ from .domain_manager import DomainManager
 class RetrievalService:
     """FAISS-based retrieval service for domain-specific queries"""
     
-    def __init__(self, base_path="data"):
-        # Pass embedder from registry to domain manager
+    def __init__(self, base_path="data", mongo_storage=None):
+        # Pass embedder and mongo_storage to domain manager
         embedder = model_registry.get_bi_encoder()
-        self.domain_manager = DomainManager(base_path, embedder=embedder)
+        self.domain_manager = DomainManager(base_path, embedder=embedder, mongo_storage=mongo_storage)
     
     def retrieve_candidates(self, user_id, domain_name, query, top_k=20):
         """Retrieve candidate chunks using FAISS"""
