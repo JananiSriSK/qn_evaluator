@@ -49,25 +49,45 @@ class ModelRegistry:
         logger.info("✓ All models loaded successfully")
     
     def _load_bloom_model(self):
-        """Load Bloom model from local path"""
+        """Load Bloom model — from local path if exists, else download from HuggingFace Hub."""
         possible_paths = [
             Path("bloom/bloom_model_final/content/final_bloom_model"),
             Path("bloom/bloom_models/content/final_bloom_model")
         ]
-        
+
         model_path = None
         for path in possible_paths:
-            if path.exists():
+            if path.exists() and (path / "config.json").exists():
                 model_path = path
                 break
-        
+
+        # If not found locally, try downloading from HuggingFace Hub
         if model_path is None:
-            logger.warning(f"Bloom model not found. Tried: {possible_paths}")
+            hf_repo = os.getenv("BLOOM_MODEL_REPO", "")  # e.g. "JananiSriSK/bloom-deberta-java"
+            if hf_repo:
+                try:
+                    from huggingface_hub import snapshot_download
+                    logger.info(f"Bloom model not found locally. Downloading from HuggingFace: {hf_repo}")
+                    local_dir = Path("bloom/bloom_model_final/content/final_bloom_model")
+                    local_dir.mkdir(parents=True, exist_ok=True)
+                    snapshot_download(repo_id=hf_repo, local_dir=str(local_dir))
+                    model_path = local_dir
+                    logger.info("Bloom model downloaded successfully")
+                except Exception as e:
+                    logger.warning(f"HuggingFace download failed: {e}")
+
+        if model_path is None:
+            logger.warning("Bloom model not found. Bloom classification will use fallback (BT3, confidence=0.5).")
             return
-        
+
+        if not (model_path / "config.json").exists():
+            logger.warning(f"Bloom model files missing in {model_path}.")
+            return
+
         self._bloom_tokenizer = AutoTokenizer.from_pretrained(str(model_path))
         self._bloom_model = AutoModelForSequenceClassification.from_pretrained(str(model_path))
         self._bloom_model.eval()
+        logger.info(f"Bloom model loaded from {model_path}")
     
     def get_bi_encoder(self):
         """Get bi-encoder model"""

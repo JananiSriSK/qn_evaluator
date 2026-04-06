@@ -114,5 +114,25 @@ export const api = {
     const res = await fetch(`${API_BASE_URL}/history/${userId}/pdf/${evalId}`);
     if (!res.ok) throw new Error((await res.json()).error);
     return res.json();
+  },
+
+  runMetrics: async (userId, domainName, labeledData) => {
+    const res = await fetch(`${API_BASE_URL}/metrics/evaluate`, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ user_id: userId, domain_name: domainName, labeled_data: labeledData })
+    });
+    if (!res.ok) throw new Error((await res.json()).error);
+    return res.json();
+  },
+
+  generateAdaptive: async (userId, domainName, results) => {
+    const res = await fetch(`${API_BASE_URL}/adaptive/generate`, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ user_id: userId, domain_name: domainName, results })
+    });
+    if (!res.ok) throw new Error((await res.json()).error);
+    return res.json();
   }
 };

@@ -86,69 +86,65 @@ class EvaluationService:
             else:
                 topic["topic_text"] = topic["topic_name"]
         
-        # Bi-encoder: get top 10 candidates
+        # Bi-encoder: score all topics
         question_emb = embedder.encode([question], convert_to_numpy=True, show_progress_bar=False)
         topic_texts = [t["topic_text"] for t in all_topics]
         topic_embs = embedder.encode(topic_texts, convert_to_numpy=True, show_progress_bar=False)
         
         question_norm = question_emb / np.linalg.norm(question_emb, axis=1, keepdims=True)
         topic_norms = topic_embs / np.linalg.norm(topic_embs, axis=1, keepdims=True)
-        similarities = np.dot(question_norm, topic_norms.T)[0]
+        bi_scores = np.dot(question_norm, topic_norms.T)[0]  # cosine similarity for all topics
         
-        top_indices = np.argsort(similarities)[-10:][::-1]
+        # Cross-encoder: rerank top 10 candidates
+        top_indices = np.argsort(bi_scores)[-10:][::-1]
         candidates = [all_topics[i] for i in top_indices]
+        candidate_bi_scores = np.array([float(bi_scores[i]) for i in top_indices])
         
-        # Cross-encoder: rerank with relative rank-based gating
         pairs = [(question, c["topic_text"]) for c in candidates]
-        
         cross_encoder.model.eval()
         with torch.no_grad():
             scores = cross_encoder.predict(pairs, convert_to_numpy=False, show_progress_bar=False)
             raw_logits = torch.tensor(scores) if not isinstance(scores, torch.Tensor) else scores
             sigmoid_probs = torch.sigmoid(raw_logits).cpu().numpy()
         
-        sorted_indices = np.argsort(sigmoid_probs)[::-1]
-        best_idx = sorted_indices[0]
-        best_prob = float(sigmoid_probs[best_idx])
-        second_best_prob = float(sigmoid_probs[sorted_indices[1]]) if len(sorted_indices) > 1 else 0.0
-        prob_margin = best_prob - second_best_prob
-        mean_prob = float(np.mean(sigmoid_probs))
-        dominance_ratio = best_prob / mean_prob if mean_prob > 0 else 0.0
+        # Normalize both scores to [0,1] range then blend
+        bi_min, bi_max = candidate_bi_scores.min(), candidate_bi_scores.max()
+        bi_norm = (candidate_bi_scores - bi_min) / (bi_max - bi_min + 1e-9)
+        ce_min, ce_max = sigmoid_probs.min(), sigmoid_probs.max()
+        ce_norm = (sigmoid_probs - ce_min) / (ce_max - ce_min + 1e-9)
         
-        # Relative rank-based acceptance
-        if prob_margin >= MARGIN_THRESHOLD:
-            decision_reason = "margin"
-            accepted = True
-        elif dominance_ratio >= DOMINANCE_RATIO:
-            decision_reason = "dominance"
-            accepted = True
-        elif best_idx < 3:
-            decision_reason = "retrieval_support"
-            accepted = True
-        elif best_prob < MIN_PROB_THRESHOLD:
-            decision_reason = "rejected"
-            accepted = False
-        else:
-            decision_reason = "weak_accept"
-            accepted = True
+        # Weight: if cross-encoder has meaningful spread (> 0.1), use 50/50; else trust bi-encoder more
+        ce_spread = float(ce_max - ce_min)
+        ce_weight = 0.5 if ce_spread > 0.1 else 0.2
+        combined = ce_weight * ce_norm + (1 - ce_weight) * bi_norm
+        
+        sorted_indices = np.argsort(combined)[::-1]
+        best_idx = sorted_indices[0]
+        best_score = float(combined[best_idx])
+        second_score = float(combined[sorted_indices[1]]) if len(sorted_indices) > 1 else 0.0
+        score_margin = best_score - second_score
+        
+        # Use bi-encoder cosine similarity as the meaningful confidence metric
+        best_bi_score = float(candidate_bi_scores[best_idx])  # raw cosine similarity [0,1]
         
         logger.info(f"Question: '{question}'")
         logger.info(f"Top 10 topics: {[c['topic_name'] for c in candidates]}")
-        logger.info(f"Raw logits: {raw_logits.cpu().numpy().tolist()}")
-        logger.info(f"Sigmoid probs: {sigmoid_probs.tolist()}")
-        logger.info(f"Best match: {candidates[best_idx]['topic_name']} (prob: {best_prob:.3f})")
-        logger.info(f"Second best prob: {second_best_prob:.3f}, Margin: {prob_margin:.3f}")
-        logger.info(f"Mean prob: {mean_prob:.3f}, Dominance ratio: {dominance_ratio:.2f}")
-        logger.info(f"Decision: {decision_reason} (accepted={accepted})")
+        logger.info(f"Bi-encoder scores: {candidate_bi_scores.tolist()}")
+        logger.info(f"Sigmoid probs: {sigmoid_probs.tolist()}, spread={ce_spread:.3f}")
+        logger.info(f"Combined scores: {combined.tolist()}")
+        logger.info(f"Best match: {candidates[best_idx]['topic_name']} (bi={best_bi_score:.3f}, margin={score_margin:.3f})")
+        
+        # Accept if bi-encoder cosine similarity is reasonable (> 0.2) or margin is clear
+        accepted = best_bi_score >= 0.2 or score_margin >= 0.05
         
         if not accepted:
-            logger.warning(f"REJECTED: margin={prob_margin:.3f} < {MARGIN_THRESHOLD}, dominance={dominance_ratio:.2f} < {DOMINANCE_RATIO}, prob={best_prob:.3f} < {MIN_PROB_THRESHOLD}")
-            return None, None, best_prob
+            logger.warning(f"REJECTED: bi_score={best_bi_score:.3f} < 0.2, margin={score_margin:.3f} < 0.05")
+            return None, None, best_bi_score, score_margin
         
         best_topic = candidates[best_idx]
-        logger.info(f"ACCEPTED: Selected topic '{best_topic['topic_name']}' via {decision_reason}")
+        logger.info(f"ACCEPTED: '{best_topic['topic_name']}' (bi={best_bi_score:.3f})")
         
-        return best_topic, best_topic["unit_number"], best_prob
+        return best_topic, best_topic["unit_number"], best_bi_score, score_margin
     
     def map_to_syllabus(self, user_id, domain_name, question, top_chunks):
         """Map question to syllabus topic using topic-first classification"""
@@ -158,7 +154,7 @@ class EvaluationService:
             return None
         
         # Global topic selection with cross-encoder
-        best_topic, best_unit_num, confidence = self.select_best_topic_global(question, syllabus)
+        best_topic, best_unit_num, confidence, dominance_ratio = self.select_best_topic_global(question, syllabus)
         
         if not best_topic:
             logger.warning(f"OUT OF SYLLABUS: confidence={confidence:.3f}")
@@ -171,24 +167,113 @@ class EvaluationService:
                 "out_of_syllabus": True
             }
         
-        # Map COs based on unit number
-        unit_map = {"I": 1, "II": 2, "III": 3, "IV": 4, "V": 5, "VI": 6, "VII": 7, "VIII": 8}
-        unit_int = unit_map.get(best_unit_num, 1)
-        co_key = f"CO{unit_int}"
         cos = syllabus.get("course_outcomes", {})
-        course_outcomes = [co_key] if co_key in cos else []
-        
+        course_outcomes, co_confidence = self._match_cos(
+            question, best_topic, cos,
+            unit_number=best_topic["unit_number"],
+            syllabus=syllabus,
+        )
+
+        # topic_confidence: bi-encoder cosine similarity boosted slightly by margin
+        display_confidence = round(min(confidence + dominance_ratio * 0.3, 1.0), 3)
+
         return {
             "unit": best_topic["unit_number"],
             "unit_title": best_topic["unit_title"],
             "topic": best_topic["topic_name"],
+            "topic_confidence": display_confidence,
             "course_outcomes": course_outcomes,
+            "co_confidence": round(co_confidence, 3),
             "subtopics": best_topic["topic_data"].get("enriched_subtopics_from_books", [])[:5],
             "out_of_syllabus": False
         }
     
 
     
+    def _match_cos(self, question, best_topic, cos: dict, unit_number: str = None, syllabus: dict = None):
+        """Match question+topic to a CO using enriched descriptions and unit-constrained candidates.
+        Returns ([best_co_key], similarity_score)."""
+        if not cos:
+            return [], 0.0
+
+        embedder = model_registry.get_bi_encoder()
+
+        # ── Build query ───────────────────────────────────────────────────────
+        subtopics = best_topic["topic_data"].get("enriched_subtopics_from_books", [])
+        query = question + ". " + best_topic["topic_name"]
+        if subtopics:
+            query += ". " + " ".join(subtopics[:5])
+
+        # ── Build enriched CO descriptions from syllabus topics ───────────────
+        # For each CO, append the topic names of its mapped unit so the
+        # embedding space is grounded in concrete syllabus vocabulary.
+        unit_topics_map: dict = {}   # unit_number → list of topic names
+        if syllabus:
+            for u in syllabus.get("units", []):
+                unit_topics_map[u["unit_number"]] = [
+                    t["topic_name"] for t in u.get("topics", [])
+                ]
+
+        # Build positional CO→unit map from syllabus order
+        unit_list = [u["unit_number"] for u in (syllabus or {}).get("units", [])]
+        co_unit_map = {f"CO{i+1}": unit_list[i] for i in range(len(unit_list))}
+
+        co_keys = list(cos.keys())
+        co_texts = []
+        for k in co_keys:
+            desc   = cos[k]
+            mapped = co_unit_map.get(k, "")
+            topics = unit_topics_map.get(mapped, [])
+            # Append up to 8 topic keywords to the CO description
+            enriched = desc + (" " + " ".join(topics[:8]) if topics else "")
+            co_texts.append(enriched)
+
+        # ── Unit-constrained candidate filtering ──────────────────────────────
+        # Only consider COs whose mapped unit matches the predicted unit.
+        # If that yields no candidates (e.g. more COs than units), fall back
+        # to all COs.
+        if unit_number and co_unit_map:
+            candidate_indices = [
+                i for i, k in enumerate(co_keys)
+                if co_unit_map.get(k) == unit_number
+            ]
+        else:
+            candidate_indices = list(range(len(co_keys)))
+
+        if not candidate_indices:
+            candidate_indices = list(range(len(co_keys)))
+
+        # ── Semantic similarity within candidates ─────────────────────────────
+        q_emb  = embedder.encode([query],    convert_to_numpy=True, show_progress_bar=False)
+        c_embs = embedder.encode(co_texts,   convert_to_numpy=True, show_progress_bar=False)
+
+        q_norm = q_emb  / np.linalg.norm(q_emb,  axis=1, keepdims=True)
+        c_norm = c_embs / np.linalg.norm(c_embs, axis=1, keepdims=True)
+        all_sims = np.dot(q_norm, c_norm.T)[0]
+
+        # Restrict to candidate indices
+        cand_sims = [(i, float(all_sims[i])) for i in candidate_indices]
+        cand_sims.sort(key=lambda x: -x[1])
+
+        best_idx  = cand_sims[0][0]
+        best_sim  = cand_sims[0][1]
+        second_sim = cand_sims[1][1] if len(cand_sims) > 1 else 0.0
+        margin    = best_sim - second_sim
+
+        logger.info(f"CO matching — unit={unit_number}, candidates={[co_keys[i] for i in candidate_indices]}")
+        logger.info(f"CO sims: { {co_keys[i]: round(s,3) for i,s in cand_sims} }")
+        logger.info(f"Best CO: {co_keys[best_idx]} (sim={best_sim:.3f}, margin={margin:.3f})")
+
+        # ── Margin gating: if scores too close, trust unit mapping directly ───
+        if margin < 0.03 and unit_number and co_unit_map:
+            # Fall back to the CO that directly maps to this unit
+            fallback = next((k for k, v in co_unit_map.items() if v == unit_number), None)
+            if fallback and fallback in co_keys:
+                logger.info(f"CO margin too small ({margin:.3f}) — falling back to unit-mapped CO: {fallback}")
+                return [fallback], best_sim
+
+        return [co_keys[best_idx]], best_sim
+
     def evaluate_question(self, user_id, domain_name, question):
         """Complete evaluation pipeline"""
         
@@ -223,7 +308,9 @@ class EvaluationService:
                 "unit": syllabus_match.get("unit"),
                 "unit_title": syllabus_match.get("unit_title"),
                 "topic": syllabus_match.get("topic"),
+                "topic_confidence": syllabus_match.get("topic_confidence", 0),
                 "course_outcomes": syllabus_match.get("course_outcomes", []),
+                "co_confidence": syllabus_match.get("co_confidence", 0),
                 "subtopics": syllabus_match.get("subtopics", []),
                 "out_of_syllabus": syllabus_match.get("out_of_syllabus", False),
                 "relevant_chunks": [

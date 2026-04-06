@@ -111,11 +111,34 @@ Return ONLY the JSON array, nothing else."""
             
             result = response.choices[0].message.content.strip()
             result = result.replace('```json', '').replace('```', '').strip()
+            # Extract JSON array even if wrapped in extra text
+            import re
+            match = re.search(r'\[.*?\]', result, re.DOTALL)
+            if match:
+                result = match.group(0)
             subtopics = json.loads(result)
-            return subtopics[:7]
+            # Filter out any subtopics that look like raw book text (too long or contain page refs)
+            subtopics = [s for s in subtopics if len(s) < 60 and not re.search(r'\d{3,}|PART [IVX]+|Chapter \d+', s)]
+            return subtopics[:7] if subtopics else self._extract_fallback_subtopics(topic_name, book_chunks)
         except Exception as e:
             logger.warning(f"Groq generation failed: {e}, using fallback")
-            return [chunk['text'][:80].strip() for chunk in book_chunks[:5]]
+            return self._extract_fallback_subtopics(topic_name, book_chunks)
+
+    def _extract_fallback_subtopics(self, topic_name, book_chunks):
+        """Extract clean short phrases from chunks as fallback subtopics"""
+        import re
+        subtopics = set()
+        for chunk in book_chunks[:5]:
+            text = chunk['text']
+            # Extract capitalized short phrases (likely topic names)
+            phrases = re.findall(r'\b([A-Z][a-z]+(?: [A-Z][a-z]+){0,3})\b', text)
+            for p in phrases:
+                if 3 < len(p) < 40:
+                    subtopics.add(p)
+            if len(subtopics) >= 7:
+                break
+        result = list(subtopics)[:7]
+        return result if result else [topic_name]
     
     def _map_course_outcomes(self, unit_number):
         """Map unit to course outcomes"""

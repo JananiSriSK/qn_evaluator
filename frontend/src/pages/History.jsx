@@ -4,8 +4,9 @@ import { api } from '../services/api-v2';
 import ElicitLayout from '../components/ElicitLayout';
 import Modal from '../components/Modal';
 
-export default function History({ userId }) {
+export default function History() {
   const navigate = useNavigate();
+  const [userId, setUserId] = useState('');
   const [history, setHistory] = useState({ single_questions: [], pdf_evaluations: [] });
   const [loading, setLoading] = useState(true);
   const [activeTab, setActiveTab] = useState('single');
@@ -14,17 +15,19 @@ export default function History({ userId }) {
   const [modal, setModal] = useState({ isOpen: false, title: '', message: '', type: 'info', onConfirm: null });
 
   useEffect(() => {
-    if (!userId) {
+    const id = localStorage.getItem('user_id');
+    if (!id) {
       navigate('/login');
       return;
     }
-    loadSubjects();
-    loadHistory();
-  }, [userId]);
+    setUserId(id);
+    loadSubjects(id);
+    loadHistory(id);
+  }, [navigate]);
 
-  const loadSubjects = async () => {
+  const loadSubjects = async (id) => {
     try {
-      const data = await api.getDomains(userId);
+      const data = await api.getDomains(id);
       setSubjects(data.domains || []);
       if (data.domains && data.domains.length > 0) {
         setSelectedSubject(data.domains[0]);
@@ -34,10 +37,10 @@ export default function History({ userId }) {
     }
   };
 
-  const loadHistory = async () => {
+  const loadHistory = async (id) => {
     try {
       setLoading(true);
-      const data = await api.getHistory(userId);
+      const data = await api.getHistory(id);
       setHistory(data);
     } catch (err) {
       console.error('Failed to load history:', err);

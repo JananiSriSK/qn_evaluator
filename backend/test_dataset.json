@@ -1,0 +1,62 @@
+[
+  {
+    "question": "Define or List the key differences between the String class and the StringBuilder class in Java, including their usage and application in Java programming.",
+    "true_topic": "Overview of Java",
+    "true_bloom": "BT1",
+    "true_co": "CO1"
+  },
+  {
+    "question": "Explain how the String class in Java utilizes immutable objects to ensure thread safety and describe a scenario where using the StringBuilder class would be more efficient than concatenating strings using the \"+\" operator.",
+    "true_topic": "Java Fundamentals: Classes, Objects, Methods and Strings",
+    "true_bloom": "BT2",
+    "true_co": "CO1"
+  },
+  {
+    "question": "Implement a Java program using Swing to create a GUI application that accepts a string input from the user, checks if it matches a specific pattern using regular expressions, and then writes the matched strings to a file using FileWriter and reads it back using BufferedReader, displaying the contents in a JTextArea.",
+    "true_topic": "Strings, Characters and Regular Expressions",
+    "true_bloom": "BT3",
+    "true_co": "CO2"
+  },
+  {
+    "question": "Compare the functionality of AWT's Button class and Swing's JButton class in terms of their constructors, event handling mechanisms, and layout management capabilities, and analyze how the use of each affects the overall design and implementation of a GUI-based Java application that utilizes Java's built-in event delegation model and layout managers such as BorderLayout and GridLayout.",
+    "true_topic": "AWT & Swings",
+    "true_bloom": "BT4",
+    "true_co": "CO2"
+  },
+  {
+    "question": "Evaluate the role of JSON in developing AJAX enabled rich internet applications using Java, considering the use of classes such as JSONObject and JSONArray from the org.json package to parse and generate JSON data, and discuss how it enhances the overall user experience in a web application built with Java Servlets and JavaServer Pages.",
+    "true_topic": "AJAX Enabled Rich Internet Applications with JSON",
+    "true_bloom": "BT5",
+    "true_co": "CO3"
+  },
+  {
+    "question": "Design or Create a Java-based rich internet application using AJAX and JSON that sends emails using Java Mail API through SMTP and retrieves emails using POP3, and implement a feature to switch between SMTP and IMAP protocols dynamically using Java's javax.mail package and org.json library.",
+    "true_topic": "AJAX Enabled Rich Internet Applications with JSON",
+    "true_bloom": "BT6",
+    "true_co": "CO3"
+  },
+  {
+    "question": "Define the key methods in the Servlet interface that are involved in the Servlet lifecycle, including init, service, and destroy, and explain how they are used in a Generic Servlet to handle HTTP requests.",
+    "true_topic": "Servlet lifecycle",
+    "true_bloom": "BT1",
+    "true_co": "CO4"
+  },
+  {
+    "question": "Explain the role of HttpServlet in a Java-based web application, describing how it extends the GenericServlet class and overrides methods such as doGet and doPost to handle HTTP requests, and how it fits into the overall Servlet architecture and lifecycle.",
+    "true_topic": "Servlet Architecture",
+    "true_bloom": "BT2",
+    "true_co": "CO4"
+  },
+  {
+    "question": "Implement a simple CRUD operation using Hibernate framework in a JAVA application, where you have to create a class named 'Student' with attributes 'id', 'name', and 'grade', and use Annotations such as @Entity, @Table, @Id, and @Column to map the class with the database table, and then write the corresponding DAO and Service classes to perform the CRUD operations.",
+    "true_topic": "Using Annotations",
+    "true_bloom": "BT3",
+    "true_co": "CO6"
+  },
+  {
+    "question": "Compare the use of Hibernate's @Entity and @Table annotations in mapping Java classes to database tables, and analyze how the MVC framework's Model component utilizes these annotations to interact with the database in a Java-based web application.",
+    "true_topic": "MVC framework",
+    "true_bloom": "BT4",
+    "true_co": "CO6"
+  }
+]

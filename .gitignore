@@ -1,11 +1,19 @@
-# Large model files (don't push to GitHub)
-bloom/
-*.bin
+# Bloom model weights (large files — stored on HuggingFace Hub)
+# Config files ARE committed so folder structure is preserved
 *.safetensors
+*.bin
 *.onnx
 *.pt
 *.pth
 *.h5
+spm.model
+
+# Keep bloom config files (small, needed for structure reference)
+!bloom/**/config.json
+!bloom/**/tokenizer.json
+!bloom/**/tokenizer_config.json
+!bloom/**/special_tokens_map.json
+!bloom/**/added_tokens.json
 
 # Data directories (generated locally)
 backend/data/

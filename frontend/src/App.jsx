@@ -5,6 +5,7 @@ import EvaluateV2 from './pages/EvaluateV2';
 import History from './pages/History';
 import PdfResults from './pages/PdfResults';
 import ManageSubjects from './pages/ManageSubjects';
+import Metrics from './pages/Metrics';
 
 function App() {
   return (
@@ -13,9 +14,10 @@ function App() {
         <Route path="/login" element={<Login />} />
         <Route path="/dashboard" element={<Dashboard />} />
         <Route path="/evaluate" element={<EvaluateV2 />} />
-        <Route path="/history" element={<History userId={localStorage.getItem('user_id')} />} />
+        <Route path="/history" element={<History />} />
         <Route path="/manage" element={<ManageSubjects />} />
         <Route path="/results/:evalId" element={<PdfResults />} />
+        <Route path="/metrics" element={<Metrics />} />
         <Route path="/" element={<Navigate to="/evaluate" replace />} />
       </Routes>
     </BrowserRouter>

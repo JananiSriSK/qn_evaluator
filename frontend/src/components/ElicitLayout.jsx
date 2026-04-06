@@ -194,6 +194,26 @@ export default function ElicitLayout({
             >
               Manage Subjects
             </button>
+            <button
+              onClick={() => navigate("/metrics")}
+              style={{
+                padding: "10px 16px",
+                textAlign: "left",
+                backgroundColor:
+                  currentPath === "/metrics" ? "#f0f9ff" : "transparent",
+                border:
+                  currentPath === "/metrics"
+                    ? "1px solid #3b82f6"
+                    : "1px solid transparent",
+                borderRadius: "6px",
+                fontSize: "14px",
+                cursor: "pointer",
+                color: currentPath === "/metrics" ? "#1e40af" : "#6b7280",
+                fontWeight: currentPath === "/metrics" ? "500" : "400",
+              }}
+            >
+              Metrics
+            </button>
             {/* <button style={{ padding: '10px 16px', textAlign: 'left', backgroundColor: 'transparent', border: '1px solid transparent', borderRadius: '6px', fontSize: '14px', cursor: 'not-allowed', color: '#9ca3af' }}>
               Saved Papers
             </button> */}
