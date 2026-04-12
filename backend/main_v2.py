@@ -527,6 +527,199 @@ async def replace_question(request: ReplaceQuestionRequest):
     except Exception as e:
         raise HTTPException(status_code=500, detail={"error": str(e)})
 
+# ── Paper Generation ─────────────────────────────────────────────────────────
+
+class PartConfig(BaseModel):
+    part: str
+    marks_per_question: int
+    question_count: int
+
+class SlotSpec(BaseModel):
+    q_no: int
+    part: str
+    marks: int
+    unit: str
+    unit_title: str
+    topic: str
+    bloom: str
+    co: Optional[str] = None
+
+class SlotPartConfig(BaseModel):
+    part: str
+    marks_per_question: int
+    slots: list[SlotSpec]
+
+class BuildSlotsRequest(BaseModel):
+    user_id: str
+    domain_name: str
+    parts: list[PartConfig]
+
+class GeneratePaperRequest(BaseModel):
+    user_id: str
+    domain_name: str
+    parts: list[SlotPartConfig]
+
+class RegenerateQuestionRequest(BaseModel):
+    user_id: str
+    domain_name: str
+    slot: SlotSpec
+
+@app.post("/generate/slots")
+async def build_slots(request: BuildSlotsRequest):
+    try:
+        from services.paper_generator_service import PaperGeneratorService
+        from services.domain_manager import DomainManager
+        dm = DomainManager("data", embedder=model_registry.get_bi_encoder(), mongo_storage=mongo_storage)
+        syllabus = dm.load_syllabus(request.user_id, request.domain_name)
+        if not syllabus:
+            raise HTTPException(status_code=404, detail={"error": "Syllabus not found"})
+        svc = PaperGeneratorService()
+        return svc.build_slots(syllabus, [p.model_dump() for p in request.parts])
+    except HTTPException:
+        raise
+    except Exception as e:
+        raise HTTPException(status_code=500, detail={"error": str(e)})
+
+@app.post("/generate/paper")
+async def generate_paper(request: GeneratePaperRequest):
+    try:
+        from services.paper_generator_service import PaperGeneratorService
+        from services.domain_manager import DomainManager
+        dm = DomainManager("data", embedder=model_registry.get_bi_encoder(), mongo_storage=mongo_storage)
+        syllabus = dm.load_syllabus(request.user_id, request.domain_name)
+        if not syllabus:
+            raise HTTPException(status_code=404, detail={"error": "Syllabus not found"})
+        svc = PaperGeneratorService()
+        return svc.generate_paper(syllabus, [p.model_dump() for p in request.parts])
+    except HTTPException:
+        raise
+    except Exception as e:
+        raise HTTPException(status_code=500, detail={"error": str(e)})
+
+@app.post("/generate/question")
+async def regenerate_single_question(request: RegenerateQuestionRequest):
+    try:
+        from services.paper_generator_service import PaperGeneratorService
+        from services.domain_manager import DomainManager
+        dm = DomainManager("data", embedder=model_registry.get_bi_encoder(), mongo_storage=mongo_storage)
+        syllabus = dm.load_syllabus(request.user_id, request.domain_name)
+        if not syllabus:
+            raise HTTPException(status_code=404, detail={"error": "Syllabus not found"})
+        svc = PaperGeneratorService()
+        question = svc.regenerate_question(syllabus, request.slot.model_dump())
+        return {"question": question}
+    except HTTPException:
+        raise
+    except Exception as e:
+        raise HTTPException(status_code=500, detail={"error": str(e)})
+
+class ExportPaperRequest(BaseModel):
+    paper: dict
+    format: str
+    user_id: Optional[str] = None
+    domain_name: Optional[str] = None
+    meta: Optional[dict] = None
+
+@app.post("/generate/export")
+async def export_paper(request: ExportPaperRequest):
+    try:
+        from services.paper_generator_service import PaperGeneratorService
+        from services.domain_manager import DomainManager
+        svc = PaperGeneratorService()
+        fmt = request.format.lower()
+        meta = dict(request.meta or {})
+
+        # Auto-populate COs from syllabus if not provided
+        if not meta.get("cos") and request.user_id and request.domain_name:
+            try:
+                dm = DomainManager("data", embedder=model_registry.get_bi_encoder(), mongo_storage=mongo_storage)
+                syllabus = dm.load_syllabus(request.user_id, request.domain_name)
+                if syllabus:
+                    cos_dict = syllabus.get("course_outcomes", {})
+                    meta["cos"] = [{"id": k, "text": v} for k, v in sorted(cos_dict.items())]
+                    meta["co_map"] = {}  # identity — CO column prints the key as-is
+                    if not meta.get("course_title"):
+                        meta["course_title"] = syllabus.get("course_name", "")
+            except Exception:
+                pass
+
+        name = (meta.get("exam_name") or request.paper.get('course_name', 'paper')).replace(' ', '_')
+        if fmt == "pdf":
+            data = svc.export_pdf(request.paper, meta)
+            media_type = "application/pdf"
+            filename = f"{name}.pdf"
+        elif fmt == "docx":
+            data = svc.export_docx(request.paper, meta)
+            media_type = "application/vnd.openxmlformats-officedocument.wordprocessingml.document"
+            filename = f"{name}.docx"
+        else:
+            raise HTTPException(status_code=400, detail={"error": "format must be pdf or docx"})
+        return Response(content=data, media_type=media_type,
+                        headers={"Content-Disposition": f"attachment; filename={filename}"})
+    except HTTPException:
+        raise
+    except Exception as e:
+        raise HTTPException(status_code=500, detail={"error": str(e)})
+
+# ── Paper History ─────────────────────────────────────────────────────────────
+
+class SavePaperRequest(BaseModel):
+    user_id: str
+    domain_name: str
+    paper: dict
+    meta: dict  # exam_name, date, duration, co_map
+
+@app.post("/generate/save")
+async def save_paper(request: SavePaperRequest):
+    try:
+        from datetime import datetime
+        doc = {
+            "user_id": request.user_id,
+            "domain_name": request.domain_name,
+            "paper": request.paper,
+            "meta": request.meta,
+            "timestamp": datetime.utcnow().isoformat(),
+            "exam_name": request.meta.get("exam_name", "Untitled"),
+        }
+        result = mongo_storage.db["generated_papers"].insert_one(doc)
+        return {"id": str(result.inserted_id), "message": "Paper saved"}
+    except Exception as e:
+        raise HTTPException(status_code=500, detail={"error": str(e)})
+
+@app.get("/generate/history/{user_id}")
+async def get_paper_history(user_id: str):
+    try:
+        from bson import ObjectId
+        docs = list(mongo_storage.db["generated_papers"].find({"user_id": user_id}, {"paper": 0}).sort("timestamp", -1))
+        for d in docs:
+            d["id"] = str(d.pop("_id"))
+        return {"papers": docs}
+    except Exception as e:
+        raise HTTPException(status_code=500, detail={"error": str(e)})
+
+@app.get("/generate/history/{user_id}/{paper_id}")
+async def get_saved_paper(user_id: str, paper_id: str):
+    try:
+        from bson import ObjectId
+        doc = mongo_storage.db["generated_papers"].find_one({"_id": ObjectId(paper_id), "user_id": user_id})
+        if not doc:
+            raise HTTPException(status_code=404, detail={"error": "Paper not found"})
+        doc["id"] = str(doc.pop("_id"))
+        return doc
+    except HTTPException:
+        raise
+    except Exception as e:
+        raise HTTPException(status_code=500, detail={"error": str(e)})
+
+@app.delete("/generate/history/{user_id}/{paper_id}")
+async def delete_saved_paper(user_id: str, paper_id: str):
+    try:
+        from bson import ObjectId
+        mongo_storage.db["generated_papers"].delete_one({"_id": ObjectId(paper_id), "user_id": user_id})
+        return {"message": "Deleted"}
+    except Exception as e:
+        raise HTTPException(status_code=500, detail={"error": str(e)})
+
 # ── Storage/Backup ─────────────────────────────────────────────────────────────
 
 @app.post("/storage/backup/{user_id}")

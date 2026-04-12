@@ -6,6 +6,7 @@ import History from './pages/History';
 import PdfResults from './pages/PdfResults';
 import ManageSubjects from './pages/ManageSubjects';
 import Metrics from './pages/Metrics';
+import GeneratePaper from './pages/GeneratePaper';
 
 function App() {
   return (
@@ -18,6 +19,7 @@ function App() {
         <Route path="/manage" element={<ManageSubjects />} />
         <Route path="/results/:evalId" element={<PdfResults />} />
         <Route path="/metrics" element={<Metrics />} />
+        <Route path="/generate" element={<GeneratePaper />} />
         <Route path="/" element={<Navigate to="/evaluate" replace />} />
       </Routes>
     </BrowserRouter>

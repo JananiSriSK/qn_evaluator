@@ -214,6 +214,26 @@ export default function ElicitLayout({
             >
               Metrics
             </button>
+            <button
+              onClick={() => navigate("/generate")}
+              style={{
+                padding: "10px 16px",
+                textAlign: "left",
+                backgroundColor:
+                  currentPath === "/generate" ? "#faf5ff" : "transparent",
+                border:
+                  currentPath === "/generate"
+                    ? "1px solid #8b5cf6"
+                    : "1px solid transparent",
+                borderRadius: "6px",
+                fontSize: "14px",
+                cursor: "pointer",
+                color: currentPath === "/generate" ? "#6d28d9" : "#6b7280",
+                fontWeight: currentPath === "/generate" ? "500" : "400",
+              }}
+            >
+              Generate Paper
+            </button>
             {/* <button style={{ padding: '10px 16px', textAlign: 'left', backgroundColor: 'transparent', border: '1px solid transparent', borderRadius: '6px', fontSize: '14px', cursor: 'not-allowed', color: '#9ca3af' }}>
               Saved Papers
             </button> */}
