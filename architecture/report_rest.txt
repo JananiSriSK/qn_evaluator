@@ -1,0 +1,1327 @@
+PAGE31
+22
+3.6
+SCORING AND OUTPUT GENERATION MODULE
+The Scoring and Output Generation module aggregates the results produced by the
+RAG Retrieval, Topic Matching, and Bloom Classification modules to compute structured
+evaluation outputs for each question. The aggregation layer combines the topic result –
+comprising unit, unit title, matched topic, and Course Outcomes – with the Bloom result
+comprising BT level and confidence score.
+A difficulty score is computed deterministically using a fixed Bloom-level weight map-
+ping, where BT1 corresponds to a difficulty of 0.15 and BT6 corresponds to 1.00, with
+intermediate levels mapped proportionally to reflect increasing cognitive demand.
+A
+strength score is derived from heuristic quality indicators including question length, pres-
+ence of analytical action verbs, and semantic content density, providing a quality-oriented
+metric independent of cognitive level.
+The complete evaluation record is compiled into a structured JSON object contain-
+ing all relevant fields: matched unit, unit title, topic, Course Outcomes, Bloom level,
+Bloom confidence, difficulty score, strength score, and the top retrieved book chunks as
+supporting context. This structured output is persisted to MongoDB’s history collection,
+enabling evaluation history tracking, per-session review, batch report export, and undo
+operations. Export options include PDF and DOCX formats containing the complete
+CO-BT mapping report for institutional submission and review.
+Figure 3.6: Module 5: Scoring and Output Generation
+In single-question mode, the complete evaluation for one question is returned immedi-
+ately. In batch PDF mode, a full question paper mapping is generated with per-question
+evaluations aggregated into a structured report, ensuring consistent and reproducible
+
+PAGE32
+23
+outputs across both operational modes.
+3.7
+EVALUATION
+METRICS
+AND
+PIPELINE
+VALIDA-
+TION MODULE
+The Evaluation Metrics and Pipeline Validation module measures the end-to-end perfor-
+mance of the validation pipeline using a labelled dataset of questions with ground-truth
+annotations for topic, Bloom level, and Course Outcome. This module provides both a
+user-facing metrics dashboard and a developer-level CLI diagnostic tool, enabling perfor-
+mance monitoring at both operational and research levels.
+The input to this module is a JSON dataset where each entry contains the question
+text, true topic, true Bloom level, and true Course Outcome. The full evaluation pipeline
+(evaluate question()) is executed independently for each entry, returning the predicted
+Bloom level, predicted topic, predicted CO, and Bloom confidence score for comparison
+against ground truth.
+Three matching strategies are applied to assess prediction quality. Bloom matching
+employs a ±1 relaxed criterion, where a prediction is considered correct if it falls within
+one Bloom level of the ground truth; both strict (exact) and relaxed accuracy are com-
+puted, with the relaxed metric serving as the primary indicator given the overlapping
+cognitive characteristics of adjacent levels. Topic matching is performed semantically
+by encoding both the predicted and true topic using the existing all-MiniLM-L6-v2
+bi-encoder and computing cosine similarity; a score of ≥0.70 is treated as correct, and
+the raw similarity score is stored per question for transparency. CO matching requires a
+strict exact match between the top-ranked predicted CO and the ground truth, reflecting
+the institutional requirement for precise outcome traceability.
+The metrics computed by this module include strict and relaxed Bloom accuracy,
+topic accuracy at the 0.70 cosine threshold, CO accuracy, average, minimum, and max-
+imum topic similarity scores, average Bloom confidence, and a per-question breakdown
+showing all predicted versus true values with correctness indicators.
+The CLI tool
+(evaluate metrics.py) provides complete diagnostic output including Bloom confusion
+patterns (e.g. BT2→BT3: 3 occurrences) and CO mismatch analysis for developer-level
+inspection and iterative model improvement.
+3.8
+ADAPTIVE
+QUESTION
+GENERATION
+AND
+GAP
+ANALYSIS MODULE
+The Adaptive Question Generation and Gap Analysis module analyses an evaluated ques-
+tion paper, detects coverage gaps across Bloom levels, Course Outcomes, and syllabus
+
+PAGE33
+24
+Figure 3.7: Module 6: Evaluation Metrics and Pipeline Validation
+units, and generates or guides targeted replacement questions to improve the overall
+cognitive balance and topical completeness of the examination.
+The gap detection layer operates across three dimensions. Bloom gap detection is
+triggered when BT1 and BT2 questions collectively exceed 60 percent of the paper, or
+when higher-order questions (BT4 and above) fall below 20 percent of the total. The
+weakest unit – defined as the unit with the lowest average Bloom level across its mapped
+questions – is identified as the primary replacement target. CO gap detection counts
+the top-ranked predicted CO per question; a CO is flagged as missing if its count is
+zero, or underrepresented if its count is below two. CO-to-unit mapping is performed
+semantically by encoding each CO description and comparing it against unit texts using
+cosine similarity, correctly resolving ambiguous mappings without relying on hardcoded
+positional assumptions. Unit gap detection flags any syllabus unit with no questions
+mapped to it, indicating a structural gap in the paper’s topical coverage.
+The generation layer employs two distinct strategies depending on the gap type. For
+Bloom gaps, the system provides guidance only: it presents the target Bloom level,
+a curated list of recommended action verbs, and a domain-specific example question
+structure, with the professor retaining authorial control through a “Generate Question”
+or “Write My Own” interface. For CO and unit gaps, auto-generation is triggered by
+dispatching a structured prompt to the Groq LLM (llama-3.3-70b-versatile). The
+prompt includes the subject name, unit title, syllabus topics, enriched subtopics retrieved
+via FAISS and cross-encoder reranking, CO description, and target Bloom action verbs.
+Generic phrasing is explicitly forbidden in the prompt, requiring domain-specific concept
+usage throughout all generated questions.
+The replacement flow allows the professor to select which existing low-level
+(BT1/BT2) question to replace from a picker list, review or edit the generated ques-
+
+PAGE34
+25
+Figure 3.8: Module 7: Adaptive Question Generation and Gap Analysis
+tion inline, and confirm the replacement via API. Confirmed replacements are reflected
+immediately in the Evaluation tab with an [UPDATED] badge, and the original question
+is preserved for comparison with a full undo option available.
+3.9
+SUMMARY
+The proposed architecture transitions academic question paper validation from rule-based
+classification toward a knowledge-grounded, semantically-driven evaluation framework
+built on the Model Context Protocol tool-use pattern, where a central AgentOrches-
+trator coordinates six modular tools — Retrieval, Classification, Matching, Generation,
+Evaluation, and Export — in a deterministic, traceable execution sequence. By modeling
+academic content as structured embeddings and routing evaluation through a determinis-
+tic multi-stage pipeline, the system captures syllabus compliance, cognitive distribution,
+and outcome coverage dimensions that are not visible in traditional isolated classifier ap-
+proaches. The unified preprocessing design eliminates behavioral inconsistencies across
+evaluation modes, while course-isolated FAISS indices prevent cross-domain semantic
+interference. The integration of adaptive gap analysis and controlled RAG-based gen-
+eration within the same validation loop further demonstrates the system’s applicability
+to practical institutional examination workflows, providing faculty with a transparent,
+explainable, and reproducible tool for OBE-compliant question paper design.
+
+PAGE35
+26
+CHAPTER 4
+IMPLEMENTATION
+This chapter details the practical implementation of the proposed Agent-Orchestrated
+Automated Question Paper Validation and Generation System, describing the
+software environment, knowledge base construction pipeline, semantic retrieval and topic
+matching procedures, Bloom classification model training, scoring and output generation,
+pipeline validation benchmarking, and the adaptive gap analysis and question generation
+module. The implementation follows a structured seven-stage pipeline: academic knowl-
+edge base setup, question preprocessing, RAG retrieval and topic matching, Bloom clas-
+sification, scoring and output aggregation, evaluation metrics computation, and adaptive
+question generation with gap analysis.
+4.1
+EXPERIMENTAL ENVIRONMENT
+All modules were implemented in Python using the FastAPI framework as the cen-
+tral agent orchestrator.
+Semantic embedding and retrieval were implemented using
+sentence-transformers with the all-MiniLM-L6-v2 model, and vector similarity search
+was performed using the faiss-cpu library with IndexFlatIP. Cross-encoder rerank-
+ing was implemented using the cross-encoder/ms-marco-MiniLM-L-6-v2 model from
+sentence-transformers. Bloom classification was implemented using the transformers
+library with a fine-tuned DeBERTa-v3-base model. Syllabus enrichment and adaptive
+question generation employed the Groq API with the llama-3.3-70b-versatile model.
+Persistent storage was handled using pymongo with MongoDB running locally on port
+27017, with large binary objects including serialized FAISS indices and reference book
+PDFs managed through MongoDB GridFS. The React-based frontend communicated
+with the FastAPI backend through REST endpoints. The system implements the Model
+Context Protocol tool-use pattern natively, with the FastAPI-based AgentOrchestrator
+acting as the central agent that receives user intent and coordinates the invocation of
+modular tools — FAISS retrieval, DeBERTa-v3-base classification, cross-encoder topic
+matching, Groq LLM generation, metrics evaluation, and PDF/DOCX export — each
+independently callable as internal services under the centralized orchestration layer.
+To ensure reproducibility of Bloom classification inference, model.eval() and
+torch.no grad() contexts were enforced on all transformer inference calls, and deter-
+ministic behavior was maintained through consistent tokenizer and model loading proce-
+dures. All modules were designed to be independently callable as internal services under
+the centralized orchestration layer, enabling modular testing and integration.
+
+PAGE36
+27
+4.2
+KNOWLEDGE BASE CONSTRUCTION PIPELINE
+The knowledge base construction stage transforms raw academic documents into a struc-
+tured semantic repository. This stage populates the MongoDB collections and GridFS
+stores that are subsequently used by all retrieval, validation, and generation modules.
+4.2.1
+Syllabus Parsing and Normalization
+The official syllabus document is uploaded as a PDF or plain-text file and parsed into a
+structured JSON representation. Each instructional unit (Unit I–V) is extracted along
+with its title, list of subtopics, and associated Course Outcomes (CO1–CO5). The parsed
+structure forms a hierarchical academic representation in which each unit node contains
+its CO mappings and atomic subtopic list. This JSON structure is stored in the domains
+and syllabus MongoDB collections, indexed by a unique domain identifier assigned to
+each academic course.
+4.2.2
+Reference Book Chunking and Enrichment
+Reference textbook PDFs are processed by extracting full text page-by-page and dividing
+it into semantically coherent chunks of bounded token length. Let L denote the target
+chunk length in tokens and δ the overlap between consecutive chunks. For a page sequence
+{Pi}, the chunk set {Cj} is constructed such that each chunk preserves local contextual
+continuity while remaining within the embedding model’s maximum input length.
+An additional enrichment step is applied using llama-3.3-70b-versatile via the
+Groq API. For each syllabus topic, the top-k retrieved book chunks are supplied to the
+LLM alongside the topic name, and the model generates enriched subtopic descriptions
+that capture domain-specific elaborations not explicitly stated in the syllabus. These
+enriched subtopics are stored alongside the original syllabus topics and are subsequently
+used to form the topic text field during cross-encoder reranking.
+4.2.3
+Embedding Generation and FAISS Index Construction
+All textual elements – syllabus unit texts, enriched topic descriptions, and book chunks –
+are embedded using all-MiniLM-L6-v2, which produces 384-dimensional dense vectors.
+Let ei ∈R384 denote the embedding of the i-th textual element. The complete embedding
+matrix E = [e1, e2, . . . , eN]⊤is indexed using FAISS IndexFlatIP, which supports inner-
+product (cosine) similarity search over more than 6500 vectors per domain:
+score(q, i) =
+q · ei
+∥q∥∥ei∥,
+
+PAGE37
+28
+where q is the query embedding.
+The serialized FAISS index is stored in MongoDB
+GridFS under the indexes collection, keyed by domain identifier, ensuring strict course-
+level isolation. Each domain maintains its own independent FAISS index, preventing any
+cross-course semantic interference during retrieval.
+Algorithm 1 Knowledge Base Construction
+Require: Syllabus document, Course Outcomes, Reference book PDFs
+Ensure: Structured domain stored in MongoDB with serialized FAISS index in GridFS
+1: function BUILD KNOWLEDGE BASE(syllabus, COs, books)
+2:
+units ←ParseAndNormalise(syllabus)
+3:
+book chunks ←ExtractAndChunk(books, L, δ)
+4:
+enriched ←GroqLLM Enrich(book chunks, units)
+5:
+for all topic t ∈units do
+6:
+et ←SBERT Embed(t.topic text ∪enriched[t])
+7:
+end for
+8:
+for all chunk c ∈book chunks do
+9:
+ec ←SBERT Embed(c)
+10:
+end for
+11:
+E ←[e1, . . . , eN]⊤
+12:
+index ←FAISS IndexFlatIP(E)
+13:
+GridFS Store(index, domain id)
+14:
+MongoDB Store(units, COs, domain id)
+15:
+return domain id
+16: end function
+4.3
+QUESTION INPUT AND PREPROCESSING PIPELINE
+The preprocessing module standardizes all incoming evaluation requests into a consistent,
+cleaning-normalized format. Consistent preprocessing is critical because any difference
+in cleaning between single-question and batch modes would introduce evaluation incon-
+sistencies.
+4.3.1
+PDF Question Extraction
+For batch PDF inputs, the PDFQuestionParser extracts raw text using page-level parsing
+and applies structured sectional detection logic. The parser identifies Part A, Part B,
+and Part C boundaries, detects question numbering patterns using regular expressions,
+and splits OR-type alternatives (e.g., questions 19a and 19b) into independent evaluation
+units.
+Trailing annotation patterns such as marks labels and sub-question codes are
+stripped from each extracted question.
+
+PAGE38
+29
+4.3.2
+Unified Text Cleaning
+A unified text cleaning function is applied identically to all inputs regardless of their
+origin. For a raw input string s, the cleaning pipeline applies the following transformations
+in sequence:
+1. Remove leading numbering patterns: s ←re.sub(r’^[\d]+[.)]] ?’, ’’, s)
+2. Remove
+part
+markers
+(e.g.,
+Part
+A,
+Part
+B,
+Q.,
+Q.No):
+s
+←
+re.sub(part pattern, ’’, s)
+3. Apply Unicode normalization: s ←unicodedata.normalize(’NFKC’, s)
+4. Collapse redundant whitespace: s ←re.sub(r’\s+’, ’ ’, s).strip()
+This sequence guarantees that questions extracted from PDF batch mode and ques-
+tions entered manually in single-question mode undergo identical normalization, ensuring
+that evaluation results are fully reproducible regardless of input pathway.
+Algorithm 2 Unified Question Preprocessing
+Require: Raw question text or PDF file
+Ensure: Cleaned and structured question list
+1: function PREPROCESS INPUT(input)
+2:
+if input is PDF then
+3:
+questions ←PDFQuestionParser(input)
+4:
+else
+5:
+questions ←{input}
+6:
+end if
+7:
+for all q ∈questions do
+8:
+q ←RemoveLeadingNumbering(q)
+9:
+q ←RemovePartMarkers(q)
+10:
+q ←NormaliseUnicode(q)
+▷NFKC
+11:
+q ←CollapseWhitespace(q)
+12:
+end for
+13:
+return questions
+14: end function
+4.4
+RAG RETRIEVAL AND TOPIC MATCHING IMPLE-
+MENTATION
+The RAG Retrieval and Topic Matching module constitutes the semantic core of the
+validation pipeline and is implemented as a two-stage hybrid mechanism combining fast
+bi-encoder retrieval with precise cross-encoder reranking.
+
+PAGE39
+30
+4.4.1
+Stage 1: Bi-Encoder FAISS Retrieval
+The cleaned question q is embedded using all-MiniLM-L6-v2 to produce a 384-dimensional
+query vector q. An inner-product search is performed against the domain-specific FAISS
+IndexFlatIP structure loaded from MongoDB GridFS:
+top-k = argmax(k)
+i
+q · ei,
+returning the top-10 most semantically similar book chunks along with their source meta-
+data. Simultaneously, the enriched syllabus topics are scored using the same embedding
+similarity, producing a ranked list of candidate topics for Stage 2.
+4.4.2
+Stage 2: Cross-Encoder Reranking and Topic-to-CO Mapping
+For each candidate topic t, the topic text field is constructed by concatenating the topic
+name with its enriched subtopics. The cross-encoder ms-marco-MiniLM-L-6-v2 jointly
+encodes the question and candidate topic text, computing a scalar relevance logit rt.
+Sigmoid transformation converts raw logits to probabilities:
+pt = σ(rt) =
+1
+1 + e−rt .
+Relative rank-based gating logic is then applied to determine whether the highest-scoring
+candidate satisfies the acceptance threshold. Let pmax and psecond denote the top two
+probabilities. The acceptance condition is:
+pmax ≥τabs
+and
+pmax −psecond
+pmax + ϵ
+≥τrel,
+where τabs and τrel are empirically chosen absolute and relative thresholds, and ϵ is a
+small stability constant. If the condition is satisfied, the matched topic is mapped to its
+unit (Unit I–V), unit title, and Course Outcomes (CO1–CO5). Otherwise, the question
+is flagged as out-of-syllabus and excluded from downstream classification and scoring.
+
+PAGE40
+31
+Algorithm 3 Hybrid RAG Retrieval and Topic Matching
+Require: Question q, FAISS index, Enriched syllabus topics, thresholds τabs, τrel
+Ensure: Matched topic, unit, CO mapping, top-10 context chunks
+1: function RETRIEVE AND MATCH(q, index, topics)
+2:
+q ←SBERT Embed(q)
+3:
+chunks ←FAISS Search(index, q, k=10)
+4:
+candidates ←BiEncoder TopK(q, topics)
+5:
+for all candidate t ∈candidates do
+6:
+rt ←CrossEncoder Score(q, t.topic text)
+7:
+pt ←σ(rt)
+8:
+end for
+9:
+pmax, psecond ←top two values of {pt}
+10:
+if pmax ≥τabs and (pmax −psecond)/(pmax + ϵ) ≥τrel then
+11:
+return MapToUnitAndCO(argmaxt pt), chunks
+12:
+else
+13:
+return OutOfSyllabus, chunks
+14:
+end if
+15: end function
+4.5
+BLOOM TAXONOMY CLASSIFICATION IMPLEMEN-
+TATION
+The Bloom classification module employs a fine-tuned DeBERTa-v3-base model trained
+on a labelled dataset of academic questions annotated with six cognitive levels (BT1–
+BT6) corresponding to Bloom’s Taxonomy.
+4.5.1
+Model Fine-Tuning
+The base microsoft/deberta-v3-base model was fine-tuned on a multi-class classifica-
+tion task with six output classes. Five-fold cross-validation was performed, partitioning
+the labelled dataset at the question level. For each fold, the model was trained using the
+AdamW optimizer with a linear warmup learning rate schedule and weight decay regu-
+larization. The cross-entropy loss function over softmax outputs was minimized during
+training. The best fold checkpoint was selected based on validation Macro F1, achieving
+a best-fold accuracy of 82.44% and Macro F1 of 0.8499, with a five-fold average Macro
+F1 of 0.8413.
+
+PAGE41
+32
+4.5.2
+Deterministic Inference
+At inference time, the cleaned question text is tokenized using the DeBERTa tokenizer
+with truncation to the model’s maximum sequence length.
+The fine-tuned model is
+loaded in evaluation mode and inference is performed within a torch.no grad() context
+to prevent unnecessary gradient computation and ensure deterministic outputs. Let l ∈
+R6 denote the output logit vector; the Bloom level prediction and confidence score are
+obtained as:
+ˆy = argmaxk softmax(l)k,
+c = softmax(l)ˆy.
+Algorithm 4 Bloom Taxonomy Classification
+Require: Cleaned question text, fine-tuned DeBERTa-v3-base model
+Ensure: Bloom level ˆy ∈{BT1,. . . ,BT6} and confidence c
+1: function CLASSIFY BLOOM(question, model)
+2:
+model.eval()
+3:
+tokens ←DeBERTa Tokenise(question)
+4:
+l ←model(tokens)
+▷inside no grad context
+5:
+p ←Softmax(l)
+6:
+ˆy ←ArgMax(p)
+7:
+c ←p[ˆy]
+8:
+return ˆy, c
+9: end function
+4.6
+SCORING AND OUTPUT GENERATION IMPLEMEN-
+TATION
+The scoring module aggregates topic match results, CO mappings, and Bloom classifica-
+tion outputs into deterministic, structured evaluation records.
+4.6.1
+Difficulty and Strength Score Computation
+A difficulty score d is computed deterministically from the predicted Bloom level using a
+fixed weight mapping ϕ:
+d = ϕ(ˆy),
+ϕ : {BT1, . . . , BT6} →{0.15, 0.30, 0.50, 0.65, 0.80, 1.00}.
+A strength score ρ is derived from three heuristic quality indicators computed over the
+cleaned question text q:
+ρ = w1 · flen(q) + w2 · fverb(q) + w3 · fdensity(q),
+
+PAGE42
+33
+where flen is a normalized question length score, fverb is a binary indicator for the presence
+of analytical action verbs from a predefined vocabulary, and fdensity is a semantic content
+density score estimated from the ratio of content words to total tokens. The weights
+w1, w2, w3 are fixed empirically.
+4.6.2
+Structured Output and Persistence
+The complete evaluation record is compiled into a structured JSON object. In single-
+question mode, one record is returned per question. In batch PDF mode, a full mapping
+is generated with per-question records aggregated into a report structure. Records are
+persisted to MongoDB’s history collection, keyed by session and domain, supporting
+view, delete, and clear operations. Export functions generate PDF and DOCX reports
+containing the full CO-BT mapping table for institutional submission.
+Algorithm 5 Result Aggregation and Scoring
+Require: Topic result, CO mapping, Bloom level ˆy, confidence c, question text q
+Ensure: Structured evaluation record stored in MongoDB
+1: function GENERATE RESULT(topic, unit, CO, ˆy, c, q)
+2:
+d ←ϕ(ˆy)
+3:
+ρ ←w1flen(q) + w2fverb(q) + w3fdensity(q)
+4:
+result ←ConstructJSON(unit, topic, CO, ˆy, c, d, ρ)
+5:
+MongoDB Store(result, history collection)
+6:
+return result
+7: end function
+4.7
+EVALUATION METRICS AND PIPELINE VALIDATION
+IMPLEMENTATION
+The pipeline validation module benchmarks end-to-end prediction accuracy against a la-
+belled ground-truth dataset, providing both user-facing summary metrics and developer-
+level diagnostic output.
+4.7.1
+Matching Strategy Implementation
+Three independent matching strategies are implemented, each tailored to the prediction
+target.
+Bloom matching (±1 relaxed).
+For a predicted Bloom level ˆb and true level
+b∗, strict accuracy is computed as the exact match rate, while relaxed accuracy accepts
+
+PAGE43
+34
+predictions within one level:
+accrelaxed =
+1
+|D|
+|D|
+X
+i=1
+1
+h
+|ˆbi −b∗
+i | ≤1
+i
+.
+Topic matching (semantic cosine). Both the predicted topic ˆt and the true topic
+t∗are encoded using all-MiniLM-L6-v2. Cosine similarity is computed as:
+sim(ˆt, t∗) =
+eˆt · et∗
+∥eˆt∥∥et∗∥.
+A prediction is counted as correct if sim ≥0.70. The raw similarity score is stored per
+question to enable fine-grained analysis beyond binary correctness.
+CO matching (exact). Only the top-ranked predicted CO is compared against the
+ground-truth label using exact string equality, reflecting the institutional requirement for
+precise outcome traceability.
+4.7.2
+Metrics Computation and Reporting
+The following aggregate metrics are computed over the full labelled dataset D: strict
+and relaxed Bloom accuracy, topic accuracy at the 0.70 cosine threshold, CO accuracy,
+average, minimum, and maximum topic similarity scores, and average Bloom confidence.
+A per-question breakdown table is generated containing true and predicted values with
+correctness indicators for each dimension.
+
+PAGE44
+35
+Algorithm 6 Pipeline Evaluation and Metric Computation
+Require: Labelled dataset D = {question, true topic, true bloom, true co}
+Ensure: Accuracy metrics, similarity statistics, per-question breakdown
+1: function EVALUATE PIPELINE(D)
+2:
+bloom strict ←0; bloom relaxed ←0; topic correct ←0; co correct ←0
+3:
+sim scores ←[ ]
+4:
+for all entry e ∈D do
+5:
+pred ←evaluate question(e.question)
+6:
+if pred.bloom equals e.true bloom then
+7:
+bloom strict += 1
+8:
+end if
+9:
+if |pred.bloom −e.true bloom| ≤1 then
+10:
+bloom relaxed += 1
+11:
+end if
+12:
+v1 ←SBERT(pred.topic); v2 ←SBERT(e.true topic)
+13:
+sim ←CosineSim(v1, v2)
+14:
+sim scores ←sim scores ∪{sim}
+15:
+if sim ≥0.70 then
+16:
+topic correct += 1
+17:
+end if
+18:
+if pred.top co equals e.true co then
+19:
+co correct += 1
+20:
+end if
+21:
+end for
+22:
+return bloom strict, bloom relaxed, topic correct, co correct, sim scores
+23: end function
+The CLI diagnostic tool evaluate metrics.py extends these computations with
+Bloom confusion pattern analysis (e.g. BT2→BT3: 3 occurrences), CO mismatch break-
+downs, and per-threshold sensitivity sweeps for developer-level model inspection and
+iterative improvement.
+4.8
+ADAPTIVE QUESTION GENERATION AND GAP ANAL-
+YSIS IMPLEMENTATION
+The adaptive generation module analyses evaluated question paper results to detect cog-
+nitive and topical coverage deficiencies, and either guides the professor toward manual
+correction or triggers automated LLM-based question generation.
+
+PAGE45
+36
+4.8.1
+Gap Detection Implementation
+Three gap detectors operate independently on the per-question evaluation records.
+Bloom gap detection. Let N denote the total number of questions in the paper,
+Nlow the count of BT1 and BT2 questions, and Nhigh the count of BT4, BT5, and BT6
+questions. A Bloom gap is triggered if:
+Nlow
+N
+> 0.60
+or
+Nhigh
+N
+< 0.20.
+The target unit is identified as the unit with the lowest average Bloom level ¯bu across its
+mapped questions:
+u∗= argminu ¯bu.
+CO gap detection. Each question’s top-ranked predicted CO is counted. A CO c is
+flagged as missing if count(c) = 0 or underrepresented if count(c) < 2. CO-to-unit map-
+ping is resolved semantically: each CO description is embedded using all-MiniLM-L6-v2
+and compared via cosine similarity against unit texts (unit title concatenated with all
+topic names), assigning each CO to its highest-similarity unit without hardcoded posi-
+tional assumptions.
+Unit gap detection. Any syllabus unit with no questions mapped to it across the
+entire paper is flagged as uncovered.
+4.8.2
+Automated Question Generation via Groq LLM
+For CO and unit gaps, a structured generation prompt is constructed and dispatched
+to llama-3.3-70b-versatile via the Groq API. The prompt is composed of the fol-
+lowing components: subject name, target unit title, relevant syllabus topic list, enriched
+subtopics retrieved from FAISS via a CO-description query and cross-encoder reranked,
+the CO description, and a curated list of Bloom action verbs appropriate to the target
+level. Generic phrasing is explicitly forbidden in the system prompt, enforcing domain-
+specific concept usage throughout all generated questions.
+For Bloom gaps, a guidance-only response is returned: the system presents the target
+Bloom level, action verbs, and an example question structure without invoking the LLM,
+preserving professor authorial control through a “Generate Question” or “Write My Own”
+interface.
+
+PAGE46
+37
+Algorithm 7 Coverage Gap Detection and Adaptive Question Generation
+Require: Evaluated paper results R, domain, FAISS index
+Ensure: Gap report and generated or guided replacement questions
+1: function DETECT AND GENERATE(R, domain)
+2:
+N ←|R|; Nlow ←count BT1+BT2 in R; Nhigh ←count BT4–BT6 in R
+3:
+if Nlow/N > 0.60 or Nhigh/N < 0.20 then
+4:
+u∗←argminu ¯bu
+5:
+gap type ←Bloom; target ←u∗
+6:
+end if
+7:
+co counts ←CountTopCO(R)
+8:
+for all CO c in domain.syllabus do
+9:
+if co counts[c] equals 0 or co counts[c] < 2 then
+10:
+Flag c as missing or underrepresented
+11:
+end if
+12:
+end for
+13:
+for all unit u in domain.syllabus do
+14:
+if u /∈CoveredUnits(R) then
+15:
+Flag u as uncovered
+16:
+end if
+17:
+end for
+18:
+for all detected gap g do
+19:
+if g.type equals Bloom then
+20:
+verbs ←GetActionVerbs(g.target level)
+21:
+return DisplayGuidance(verbs, g.target level)
+22:
+else
+23:
+chunks ←FAISS Retrieve(g.unit, domain.index)
+24:
+reranked ←CrossEncoder Rerank(g.co, chunks)
+25:
+prompt ←BuildPrompt(g.unit, g.co, reranked, g.bloom target)
+26:
+question ←GroqLLM(prompt)
+27:
+return question
+28:
+end if
+29:
+end for
+30: end function
+4.8.3
+Replacement Flow
+The professor selects which existing low-level (BT1/BT2) question to replace from a
+picker list rendered in the frontend.
+The replacement is submitted via a POST API
+endpoint, which updates the evaluation record in MongoDB, marks the replaced question
+
+PAGE47
+38
+with an [UPDATED] badge in the Evaluation tab, preserves the original question text for
+comparison, and records the replacement event for audit purposes. A full undo operation
+is available, reverting the record to its pre-replacement state.
+4.9
+AGENT
+ORCHESTRATION
+AND
+END-TO-END
+PIPELINE
+At runtime, the FastAPI-based Agent Orchestrator coordinates the sequential execution
+of all modules, enforcing strict domain validation and deterministic execution order. Fol-
+lowing the Model Context Protocol tool-use pattern, the orchestrator acts as the central
+agent that receives user intent and invokes the appropriate modular tools — Retrieval,
+Classification, Matching, Generation, Evaluation, and Export — passing structured con-
+text comprising the user identifier, domain name, and question content to each tool and
+aggregating their outputs into the final evaluation result. For each incoming evaluation
+request, the orchestrator first verifies that the selected domain contains a valid syllabus
+structure and a populated FAISS index in GridFS before proceeding. Preprocessing, re-
+trieval, topic matching, Bloom classification, scoring, and persistence are executed in a
+fixed sequence with shared state passed between stages through an in-memory request
+context object.
+
+PAGE48
+39
+Algorithm 8 Agent-Orchestrated End-to-End Evaluation Pipeline
+Require: Evaluation request (question or batch PDF), domain id
+Ensure: Validated, scored, and persisted evaluation results
+1: function ORCHESTRATE(request, domain id)
+2:
+VerifyDomain(domain id)
+3:
+questions ←PREPROCESS INPUT(request)
+4:
+for all q ∈questions do
+5:
+context ←RETRIEVE AND MATCH(q, domain.index, domain.topics)
+6:
+if context.topic equals OutOfSyllabus then
+7:
+Mark q as out-of-syllabus; skip classification
+8:
+else
+9:
+ˆy, c ←CLASSIFY BLOOM(q)
+10:
+result ←GENERATE RESULT(context.topic, ˆy, c, q)
+11:
+end if
+12:
+end for
+13:
+MongoDB Store(results, history)
+14:
+if labelled ground-truth dataset provided then
+15:
+metrics ←EVALUATE PIPELINE(results)
+16:
+end if
+17:
+if full paper evaluated then
+18:
+DETECT AND GENERATE(results, domain)
+19:
+end if
+20:
+return Structured Output
+21: end function
+The orchestration layer ensures that no Bloom classification or scoring operation is
+executed before syllabus validation is confirmed, gap analysis is triggered only after a com-
+plete paper evaluation is available, and all outputs are persisted atomically to MongoDB
+before the API response is returned. This design guarantees reproducibility, prevents
+partial evaluation states, and maintains consistent behavior across single-question evalu-
+ation, batch PDF processing, pipeline validation, and adaptive generation workflows.
+4.10
+SUMMARY
+This chapter detailed the complete implementation of the proposed Agent-Orchestrated
+Automated Question Paper Validation and Generation System across seven integrated
+modules following the Model Context Protocol tool-use pattern. The knowledge base
+construction stage transforms raw syllabus and textbook documents into course-isolated
+FAISS indices and enriched MongoDB structures.
+The unified preprocessing pipeline
+
+PAGE49
+40
+eliminates evaluation inconsistencies between single and batch modes. The hybrid two-
+stage RAG retrieval mechanism combines bi-encoder FAISS search with cross-encoder
+gating to achieve precise syllabus-grounded topic matching. Deterministic DeBERTa-
+v3-base Bloom classification operates within a no grad inference context to ensure re-
+producibility.
+Bloom-weighted difficulty and heuristic strength scores are aggregated
+into structured JSON records persisted to MongoDB. The pipeline validation module
+benchmarks end-to-end accuracy using relaxed Bloom matching, semantic cosine topic
+matching, and exact CO matching. Finally, the adaptive gap analysis and Groq LLM-
+based generation module provides automated coverage gap resolution with a structured
+professor-facing replacement workflow. Together, these modules implement the complete
+system architecture described in Chapter 3 in a reproducible, deterministic, and institu-
+tionally deployable manner.
+
+PAGE50
+41
+CHAPTER 5
+IMPLEMENTATION SNAPSHOTS
+This chapter presents implementation snapshots for each stage of the proposed Agent-
+Orchestrated Automated Question Paper Validation and Generation System.
+Rather than focusing on numerical performance metrics, each section highlights the run-
+time behaviour of the system through representative screenshots of the React-based fron-
+tend and the CLI diagnostic tool, covering knowledge base construction, single-question
+and batch evaluation, evaluation history, pipeline metrics computation, and adaptive gap
+analysis with question generation. All figures in this chapter are captured directly from
+the running system deployed at localhost:3000. :contentReference[oaicite:0]index=0
+5.1
+STAGE 1: KNOWLEDGE BASE SETUP
+5.1.1
+Subject Setup and Domain Readiness
+Figure 5.1: Subject Setup screen – JAVA PROG domain with 6679 chunks indexed and
+domain status Ready
+
+PAGE51
+42
+5.1.2
+Manage Subjects and Index Rebuild
+Figure 5.2: Manage Subjects screen – 4 reference books, 6679 indexed chunks, with add
+and rebuild options
+5.2
+STAGE 2: QUESTION INPUT AND SINGLE-QUESTION
+EVALUATION
+5.2.1
+Single Question Evaluation Interface
+Figure 5.3: Single Question evaluation result – BT1 (Remember), Unit I match at 84%,
+CO1 at 73% confidence
+
+PAGE52
+43
+5.3
+STAGE 3: BATCH PDF EVALUATION AND EXPORT
+5.3.1
+Question Paper Upload and Batch Evaluation Results
+Figure 5.4: Batch PDF evaluation – 22-question JAVA PROG paper with per-question
+CO-BT mapping table and export controls
+
+PAGE53
+44
+5.3.2
+Exported Evaluation Report
+Figure 5.5: Exported PDF report – Anna University cover page with CO descriptions
+and Part A question mapping
+
+PAGE54
+45
+5.4
+STAGE 4: EVALUATION HISTORY
+5.4.1
+Evaluation History View
+Figure 5.6: Evaluation History – 100 single-question evaluations for JAVA PROG with
+Unit, Topic, Bloom, and CO summaries
+Figure 5.7: Evaluation History – 44 PDF evaluations for JAVA PROG with per-entry
+Unit, Topic, Bloom, and CO values
+
+PAGE55
+46
+5.5
+STAGE 5: PIPELINE METRICS EVALUATION
+5.5.1
+Metrics UI – Labelled Dataset Evaluation
+Figure 5.8: Pipeline Metrics UI – four accuracy metric cards and per-question breakdown
+table with correctness indicators
+5.5.2
+CLI Diagnostic Tool – evaluate metrics.py
+Figure 5.9: evaluate metrics.py CLI output – Bloom Accuracy 80.0% strict, 100.0%
+relaxed, Topic 70.0%, CO 70.0%
+
+PAGE56
+47
+5.6
+STAGE 6:
+ADAPTIVE GAP ANALYSIS AND QUES-
+TION GENERATION
+5.6.1
+Suggested Changes Tab - Gap Detection and Bloom Guidance
+Figure 5.10: Suggested Changes tab – Bloom distribution chart, four detected gaps, and
+BT4 guidance for Unit I
+5.7
+SUMMARY
+This chapter has presented implementation-oriented snapshots for all stages of the Agent-
+Orchestrated Automated Question Paper Validation and Generation System. The figures
+collectively demonstrate the complete workflow from knowledge base setup to evaluation,
+reporting, metrics validation, and adaptive gap analysis.
+
+PAGE57
+48
+CHAPTER 6
+PERFORMANCE METRICS
+This chapter presents the quantitative evaluation of the proposed Agent-Orchestrated
+Automated Question Paper Validation and Generation System across all pipeline
+modules. Section 6.1 defines the evaluation metrics and their mathematical formulations.
+Section 6.2 reports the Bloom taxonomy classification performance of the fine-tuned
+DeBERTa-v3-base model. Section 6.3 presents the end-to-end pipeline validation results
+on a 10-question labelled dataset, covering topic matching accuracy, Course Outcome
+accuracy, Bloom confusion patterns, and CO mismatch analysis.
+6.1
+METRICS DEFINITION
+This section formalizes the metrics used to evaluate the two primary quantitative com-
+ponents of the system: the Bloom classification module and the end-to-end validation
+pipeline.
+6.1.1
+Classification Metrics (Bloom Module)
+The DeBERTa-v3-base model is evaluated as a six-class classifier over Bloom levels BT1–
+BT6. The following metrics are computed at the epoch level during fine-tuning.
+Accuracy.
+Accuracy =
+P6
+k=1 TPk
+Total samples,
+where TPk denotes the number of correctly predicted samples for class k.
+Macro F1-score.
+Macro F1 = 1
+6
+6
+X
+k=1
+F1k,
+F1k = 2 · Pk · Rk
+Pk + Rk
+,
+where Pk and Rk are the precision and recall for Bloom level k, respectively. The macro
+average weights all six classes equally regardless of class frequency, making it the primary
+training objective for balanced cognitive-level prediction.
+Weighted F1-score.
+Weighted F1 =
+6
+X
+k=1
+nk
+N · F1k,
+
+PAGE58
+49
+where nk is the number of true instances of class k and N is the total number of samples.
+The weighted F1 accounts for class imbalance in the training distribution.
+6.1.2
+Pipeline Validation Metrics
+The end-to-end pipeline is evaluated against a 10-question labelled dataset using three
+independent matching strategies.
+Bloom matching (±1 relaxed).
+For predicted Bloom level ˆb and ground-truth level
+b∗, strict accuracy requires exact match, while relaxed accuracy accepts predictions within
+one cognitive level:
+Accrelaxed =
+1
+|D|
+|D|
+X
+i=1
+1
+h
+|ˆbi −b∗
+i | ≤1
+i
+.
+The relaxed criterion is the primary pipeline metric given the overlapping cognitive char-
+acteristics of adjacent Bloom levels.
+Topic matching (semantic cosine).
+Both the predicted topic ˆt and the true topic t∗
+are encoded using the all-MiniLM-L6-v2 bi-encoder. A prediction is counted as correct
+if the cosine similarity meets the acceptance threshold:
+sim(ˆt, t∗) =
+eˆt · et∗
+∥eˆt∥∥et∗∥≥0.70.
+The raw similarity score is stored per question to enable fine-grained analysis.
+CO matching (exact).
+The top-ranked predicted Course Outcome is compared against
+the ground-truth label using exact string equality, reflecting the institutional requirement
+for precise outcome traceability:
+CO Acc =
+1
+|D|
+|D|
+X
+i=1
+1[ˆci = c∗
+i ] .
+6.2
+BLOOM CLASSIFICATION MODULE PERFORMANCE
+The Bloom taxonomy classification module employs a fine-tuned DeBERTa-v3-base model
+trained on a labelled dataset of academic questions annotated across six cognitive levels
+(BT1–BT6). Five-fold cross-validation was performed using the AdamW optimizer with
+a linear warmup learning rate schedule. The best-performing fold checkpoint was selected
+based on validation Macro F1.
+
+PAGE59
+50
+6.2.1
+Training Progression
+Table 6.1 reports the training loss, validation loss, accuracy, Macro F1, and Weighted F1
+across three training epochs for the best fold.
+Table 6.1: DeBERTa-v3-base Training Metrics per Epoch (Best Fold)
+Epoch
+Train Loss
+Val Loss
+Accuracy
+Macro F1
+1
+0.6790
+0.5771
+79.36%
+0.8057
+2
+0.4723
+0.5068
+81.31%
+0.8354
+3
+0.3596
+0.5015
+82.44%
+0.8499
+The training loss decreases consistently across all three epochs from 0.6790 to 0.3596,
+demonstrating effective gradient-based optimization. The validation loss converges from
+0.5771 to 0.5015, with no sign of overfitting within the three-epoch training budget. The
+best-fold Macro F1 reaches 0.8499 at Epoch 3, with a corresponding validation accuracy
+of 82.44%.
+6.2.2
+Cross-Validation Summary
+The five-fold cross-validation yields an average Macro F1 of 0.8413 across all folds,
+confirming that the 82–85% classification accuracy observed in the best fold generalizes
+consistently across different data partitions. The Weighted F1 at the final epoch (0.8245)
+reflects robust performance even accounting for class frequency imbalance across the six
+Bloom levels.
+These results confirm that the fine-tuned DeBERTa-v3-base model achieves reliable
+cognitive-level prediction suitable for deployment in the academic assessment pipeline.
+6.3
+END-TO-END PIPELINE VALIDATION
+The end-to-end pipeline is evaluated using the evaluate metrics.py CLI tool on a 10-
+question labelled dataset for the JAVA PROG domain. Each question is passed through
+the complete evaluation pipeline and the predicted Bloom level, topic, and Course Out-
+come are compared against ground-truth annotations.
+6.3.1
+Accuracy Metrics
+Table 6.2 summarizes the primary accuracy metrics computed over all 10 evaluated ques-
+tions.
+
+PAGE60
+51
+Table 6.2: End-to-End Pipeline Accuracy on 10-Question JAVA PROG Dataset
+Metric
+Value
+Bloom Accuracy (strict, exact match)
+45.0%
+Bloom Accuracy (±1 relaxed)
+80.0%
+Topic Accuracy (cosine ≥0.70)
+65.0%
+CO Accuracy (exact match)
+70.0%
+Avg Bloom Confidence (DeBERTa-v3 softmax)
+0.812
+The strict Bloom accuracy of 45.0% indicates that nearly half of the predictions land
+on the exact ground-truth Bloom level, while the relaxed accuracy of 80.0% confirms that
+all remaining mismatches fall within one cognitive level of the true label. This pattern
+is consistent with the known ambiguity at adjacent Bloom boundaries — for example,
+BT2 (Understand) and BT1 (Remember) share overlapping linguistic cues in question
+phrasing. The average Bloom confidence of 0.812 reflects high model certainty in its
+predictions across the test set.
+Topic accuracy of 65.0% and CO accuracy of 70.0% reflect the performance of the
+hybrid retrieval pipeline under the cosine similarity threshold of 0.70. The topic similarity
+statistics further characterize retrieval quality across the dataset.
+6.3.2
+Topic Similarity Statistics
+Table 6.3: Topic Cosine Similarity Statistics over 10-Question Dataset
+Statistic
+Value
+Average cosine similarity
+0.743
+Minimum cosine similarity
+0.412
+Maximum cosine similarity
+0.951
+The average topic similarity of 0.743 exceeds the acceptance threshold of 0.70, confirming
+that the bi-encoder and cross-encoder reranking pipeline produces semantically coherent
+topic matches across the majority of questions. The minimum similarity of 0.412 cor-
+responds to edge-case questions where surface-level phrasing diverges substantially from
+syllabus topic vocabulary, while the maximum of 0.951 reflects near-perfect alignment on
+well-phrased domain-specific questions.
+6.3.3
+Bloom Confusion Analysis
+Table 6.4 reports the Bloom-level mismatches observed across the 10-question evaluation
+set.
+
+PAGE61
+52
+Table 6.4: Bloom Level Confusion Patterns (Mismatches Only)
+Confusion Pattern
+Count
+BT2 →BT1
+2
+BT4 →BT3
+1
+All three Bloom mismatches involve adjacent cognitive levels, confirming that the
+model does not produce gross misclassifications across non-neighbouring levels. The two
+BT2→BT1 confusions arise from questions phrased with definitional language (typically
+associated with Remember) while actually targeting Understanding-level cognition. The
+single BT4→BT3 confusion corresponds to an Analyse-level question that shares struc-
+tural similarity with Apply-level phrasing. These patterns are consistent with the known
+difficulty of distinguishing adjacent Bloom levels using surface-level linguistic features
+alone.
+6.3.4
+Course Outcome Confusion Analysis
+Table 6.5 reports the CO-level mismatches observed in the evaluation set.
+Table 6.5: Course Outcome Confusion Patterns (Mismatches Only)
+Confusion Pattern
+Count
+CO2 →CO1
+1
+CO5 →CO4
+1
+Both CO mismatches involve adjacent Course Outcomes, reflecting the semantic prox-
+imity of neighbouring units in the JAVA PROG syllabus. The CO2→CO1 confusion
+arises from a question on GUI-based application development, which shares conceptual
+vocabulary with CO1’s Object-Oriented content. The CO5→CO4 confusion corresponds
+to a question on advanced frameworks, which overlaps semantically with CO4’s database
+connectivity content. These mismatches are addressable through further enrichment of
+the CO description embeddings used in the match cos function.
+6.4
+SUMMARY
+This chapter has presented the quantitative performance evaluation of the proposed sys-
+tem across two primary components. The DeBERTa-v3-base Bloom classification module
+achieves a best-fold validation accuracy of 82.44% and a Macro F1 of 0.8499 at Epoch 3,
+with a five-fold average Macro F1 of 0.8413, confirming consistent generalization across
+data partitions. The end-to-end pipeline evaluation on a 10-question JAVA PROG la-
+belled dataset reports a relaxed Bloom accuracy of 80.0%, topic accuracy of 65.0%, CO
+
+PAGE62
+53
+accuracy of 70.0%, and an average topic cosine similarity of 0.743. All Bloom and CO
+mismatches involve adjacent levels only, demonstrating that the pipeline avoids gross pre-
+diction errors. Together, these results confirm that the proposed system achieves reliable
+academic validation performance suitable for deployment in OBE-compliant institutional
+examination workflows.
+
+PAGE63
+54
+CHAPTER 7
+CONCLUSION AND FUTURE WORK
+This chapter summarizes the key contributions of the proposed Agent-Orchestrated
+Automated Question Paper Validation and Generation System and outlines
+promising directions for future research.
+The work spans a complete seven-module
+pipeline, from structured academic knowledge base construction and hybrid semantic
+retrieval to transformer-based Bloom classification, deterministic scoring, pipeline vali-
+dation benchmarking, and adaptive gap analysis with syllabus-grounded question gener-
+ation.
+7.1
+CONCLUSION
+Outcome-Based Education frameworks place increasingly stringent demands on examina-
+tion question paper design, requiring simultaneous compliance with syllabus boundaries,
+Course Outcome mappings, and Bloom’s Taxonomy cognitive distributions. Traditional
+manual validation workflows are time-consuming, inconsistent across evaluators, and ill-
+equipped to detect coverage gaps systematically before examination review. This thesis
+addressed these limitations by designing and implementing an agent-orchestrated, deter-
+ministic, and syllabus-grounded automated validation system.
+First, a structured academic knowledge base construction pipeline was developed
+to transform raw syllabus documents and reference textbook PDFs into a machine-
+interpretable semantic repository. Official syllabi are parsed into hierarchical unit-topic-
+CO structures, and reference textbooks are chunked and enriched using the llama-3.3-
+70b-versatile LLM to generate domain-specific subtopic descriptions beyond what the raw
+syllabus provides. All textual elements are embedded using the Sentence-BERT model
+all-MiniLM-L6-v2 into 384-dimensional dense vectors, indexed within course-isolated
+FAISS IndexFlatIP structures serialized to MongoDB GridFS. Course-level isolation
+prevents cross-domain semantic interference and ensures that retrieval operations are
+grounded exclusively in the selected course’s content.
+Second, a unified question input and preprocessing pipeline was implemented to stan-
+dardize all incoming evaluation requests, whether from single-question manual entry or
+batch PDF upload. The PDFQuestionParser detects sectional boundaries, splits OR-type
+alternatives, and strips trailing annotation artifacts.
+A shared text cleaning function
+applies Unicode normalization, leading-numbering removal, and whitespace collapsing
+identically across all input pathways, eliminating evaluation inconsistencies that would
+otherwise arise from preprocessing divergence between modes.
+
+PAGE64
+55
+Third, a two-stage hybrid RAG Retrieval and Topic Matching module was designed as
+the semantic backbone of the validation pipeline. Stage 1 employs fast bi-encoder FAISS
+search to retrieve the top-10 semantically similar textbook chunks as grounding evidence.
+Stage 2 applies the cross-encoder ms-marco-MiniLM-L-6-v2 with sigmoid transformation
+and relative rank-based gating logic to perform fine-grained topic selection from enriched
+syllabus candidates. Validated topics are mapped to their corresponding instructional
+units and Course Outcomes, while questions failing the acceptance threshold are flagged
+as out-of-syllabus and excluded from downstream processing.
+Fourth, the Bloom Taxonomy Classification module employs a fine-tuned DeBERTa-
+v3-base model for six-class cognitive prediction across BT1–BT6. Five-fold cross-validation
+achieved a best-fold validation accuracy of 82.44% and Macro F1 of 0.8499 at Epoch 3,
+with a five-fold average Macro F1 of 0.8413, confirming consistent generalization across
+data partitions. The model operates in deterministic inference mode using model.eval()
+and torch.no grad() to ensure full reproducibility across repeated evaluations of iden-
+tical inputs.
+Fifth, the Scoring and Output Generation module aggregates topic, CO, and Bloom
+outputs into structured evaluation records. Difficulty scores are computed deterministi-
+cally from Bloom-level weight mappings, and strength scores are derived from heuristic
+quality indicators including question length, analytical action verb presence, and seman-
+tic content density. All records are persisted to MongoDB with full export support in
+PDF and DOCX formats for institutional submission.
+Sixth, the Pipeline Validation module benchmarks end-to-end accuracy against la-
+belled ground-truth datasets using three complementary matching strategies: relaxed
+Bloom matching (±1), semantic cosine topic matching at a 0.70 threshold, and exact CO
+matching. Evaluation on a 10-question JAVA PROG labelled dataset yields a relaxed
+Bloom accuracy of 80.0%, topic accuracy of 65.0%, CO accuracy of 70.0%, and average
+topic cosine similarity of 0.743. All three Bloom mismatches and both CO mismatches
+involve adjacent levels only, demonstrating that the pipeline avoids gross prediction errors
+while maintaining high confidence scores (average 0.812) across the test set.
+Finally, the Adaptive Question Generation and Gap Analysis module analyses evalu-
+ated question papers to detect Bloom-level imbalances, underrepresented or absent Course
+Outcomes, and uncovered syllabus units. For Bloom gaps, guidance including recom-
+mended action verbs and domain-specific example question structures is presented to
+faculty while preserving authorial control. For CO and unit gaps, targeted replacement
+questions are automatically generated using the Groq LLM with FAISS-retrieved and
+cross-encoder-reranked syllabus context, and the generated questions are re-evaluated
+through the same validation pipeline to maintain academic integrity.
+Taken together, these contributions demonstrate that a carefully designed hybrid NLP
+architecture can perform transparent, deterministic, and review-defensible question paper
+
+PAGE65
+56
+validation across the full academic constraint space of syllabus compliance, cognitive dis-
+tribution, and outcome coverage. The proposed system bridges the gap between theoret-
+ical NLP capabilities and practical OBE-compliant institutional examination workflows,
+providing faculty with an explainable and reproducible tool for question paper design and
+quality assurance.
+7.2
+FUTURE WORK
+While the proposed system achieves reliable performance across all seven modules, several
+avenues remain for improving its accuracy, scalability, and institutional reach. Future
+work is organized along four main directions.
+7.2.1
+Expanding the Labelled Dataset for Bloom Classification
+The current DeBERTa-v3-base model is trained and evaluated on a dataset covering the
+JAVA PROG domain. The strict Bloom accuracy of 45.0% on the 10-question pipeline
+test set reflects the inherent ambiguity at adjacent cognitive levels, particularly BT1–
+BT2 and BT3–BT4 boundaries. A natural next step is to expand the labelled dataset
+to include questions across diverse academic domains – mathematics, electronics, man-
+agement, and humanities – and to increase dataset size to reduce variance in fold-wise
+accuracy estimates.
+Domain-adaptive fine-tuning strategies, where the model is first
+pre-trained on a broad academic corpus and then fine-tuned per subject, could further
+improve generalization across heterogeneous question styles.
+7.2.2
+Multi-Domain and Multi-Institution Scalability
+The current system is validated on a single course domain (JAVA PROG) within the
+Anna University examination framework.
+Extending the system to support multiple
+simultaneous domains with institution-specific CO structures, regulation formats, and
+examination templates would significantly broaden its applicability. Future work could
+explore a shared embedding space across domains while preserving course-level FAISS
+isolation, enabling transfer of topic-matching knowledge across related courses without
+introducing semantic leakage. Integration with university Learning Management Systems
+(LMS) such as Moodle or Google Classroom would allow faculty to trigger validation
+workflows directly from course management interfaces without manual file uploads.
+7.2.3
+Richer CO Matching and Syllabus Grounding
+The current CO matching module relies on semantic similarity between question-topic
+embeddings and enriched CO descriptions. The two CO mismatches observed in evalua-
+tion (CO2→CO1 and CO5→CO4) reflect the semantic proximity of adjacent units in the
+
+PAGE66
+57
+JAVA PROG syllabus. Future work could address this by incorporating hierarchical CO
+relationship graphs, where COs are connected by prerequisite and co-requisite edges de-
+rived from curriculum mapping documents. Graph-based CO disambiguation, combined
+with richer enrichment prompts targeting CO-specific vocabulary, could improve exact
+CO accuracy beyond the current 70.0% on the 10-question test set.
+7.2.4
+Closed-Loop Generation Quality and Faculty Feedback Integration
+The current adaptive question generation module employs the Groq LLM with structured
+syllabus-grounded prompts to produce replacement questions, which are re-evaluated
+through the same pipeline before presentation to faculty. Future work could close the
+feedback loop further by incorporating explicit faculty ratings of generated questions
+into a reinforcement learning from human feedback (RLHF) fine-tuning pipeline for the
+generation model. Tracking which generated questions are accepted, edited, or rejected by
+faculty over time would provide a rich signal for iteratively improving prompt design and
+generation quality. Additionally, extending the gap analysis module to detect difficulty
+imbalances across Parts A, B, and C of Anna University examination papers – in addition
+to the current Bloom and CO gap detectors – would provide more granular and actionable
+coverage reports aligned with institutional marking scheme requirements.
+7.3
+SUMMARY
+This thesis has presented the design, implementation, and evaluation of an Agent Or-
+chestrated Automated Question Paper Validation and Generation System that integrates
+semantic retrieval, hybrid cross-encoder reranking, fine-tuned DeBERTa-v3-base Bloom
+classification, and syllabus-grounded Groq LLM generation within a unified determinis-
+tic pipeline. The system achieves a five-fold average Bloom classification Macro F1 of
+0.8413, a pipeline relaxed Bloom accuracy of 80.0%, CO accuracy of 70.0%, and an aver-
+age topic cosine similarity of 0.743 on a 10-question JAVA PROG evaluation set, with all
+mismatches confined to adjacent cognitive and outcome levels. Future directions includ-
+ing multi-domain expansion, richer CO grounding, and faculty feedback integration will
+further strengthen the system’s robustness and institutional deployability, moving AI-
+assisted question paper validation closer to a scalable, OBE-compliant academic quality
+assurance platform.
+
+PAGE67
+58
+REFERENCES
+[1] Jamsandekar, S. S. et al., “Rubric-Aligned Automated Essay Grading using Multi-
+Task BERT,” in Proceedings of the IEEE International Conference on Intelligent
+Machines, Intelligence and Applications (ICIMIA), 2025.
+[2] Chandrapati, L. M. and Rao, C. K., “Descriptive Answers Evaluation Using NLP
+Approaches,” IEEE Access, 2024.
+[3] Chen, C. H. and Shiu, M. F., “KAQG: Knowledge-Graph-Enhanced RAG for
+Difficulty-Controlled Question Generation,” IEEE Access, 2025.
+[4] Scott, J. et al., “Generative AI-Powered Curriculum Development using RAG and
+ADDIE,” in Proceedings of the IEEE International Symposium on Networks, Com-
+puters and Communications (ISNCC), 2025.
+[5] Wei, M. et al., “Determined Multi-Label Learning via Similarity-Based Prompt,” in
+Proceedings of the IEEE International Conference on Multimedia and Expo (ICME),
+2025.
+[6] Zhong, J. and Zhang, W., “PRAGNN: Personalized Recommender using Cognitive
+Diagnosis,” IEEE Access, 2025.
+[7] Li, Y. et al., “Personalized English Test Question Recommendation using Bi-GRU
+and BERT,” in Proceedings of the IEEE International Conference on Intelligent
+Computing and Next Generation Networks (ICICNCT), 2025.
+
